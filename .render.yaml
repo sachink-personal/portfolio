@@ -1,0 +1,40 @@
+# Render Deployment Configuration
+# Reference: https://render.com/docs/yaml
+
+services:
+  # Web service for Streamlit dashboard
+  - type: web
+    name: portfolio-web
+    plan: free
+    region: oregon  # Change to your preferred region (oregon, frankfurt, sydney)
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.port=$PORT --server.enableCORS=false
+    envVars:
+      - key: PORT
+        value: "8501"
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: STREAMLIT_SERVER_HEADLESS
+        value: "true"
+    env:  # Environment variables from render.yaml section below
+    
+    healthCheck:
+      path: /_stcore/health
+      interval: 30
+      timeout: 10
+
+# Environment variables (set these in Render dashboard or here)
+env:
+  - key: GOOGLE_SHEET_ID
+    sync: false
+  - key: EMAIL_SENDER
+    sync: false
+  - key: EMAIL_PASSWORD
+    sync: false
+  - key: SCREEN_MODE
+    value: tickertape
+
+# Cron jobs (configured separately in Render dashboard)
+# Daily at 2 AM UTC = 8 AM IST
+# Weekly at 3 AM UTC on Saturday = ~8:30 AM IST
+# Monthly at 3 AM UTC on 1st Saturday = ~8:30 AM IST

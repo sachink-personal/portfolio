@@ -1,0 +1,7864 @@
+{
+  "version": 2,
+  "date": "2026-01-14T18:23:58.057Z",
+  "assets": [
+    {
+      "name": "ALPHA",
+      "type": "STOCK",
+      "units": 190,
+      "avgPrice": 48.90947315789474,
+      "currentPrice": 47.61,
+      "familyMember": "Savani",
+      "isin": "INF174KA1IA5",
+      "symbol": "ALPHA.NS",
+      "dateAdded": "2026-01-10T09:24:42.247Z",
+      "value": 9045.9,
+      "lastUpdated": "2026-01-14T09:59:58.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 1
+    },
+    {
+      "name": "HDFCSML250",
+      "type": "STOCK",
+      "units": 83,
+      "avgPrice": 170.5303628433735,
+      "currentPrice": 163.97,
+      "familyMember": "Savani",
+      "isin": "INF179KC1FB2",
+      "symbol": "HDFCSML250.NS",
+      "dateAdded": "2026-01-10T09:24:42.254Z",
+      "value": 13609.51,
+      "lastUpdated": "2026-01-14T09:59:58.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 2
+    },
+    {
+      "name": "GOLDBEES",
+      "type": "STOCK",
+      "units": 118,
+      "avgPrice": 83.965,
+      "currentPrice": 118.01,
+      "familyMember": "Savani",
+      "isin": "INF204KB17I5",
+      "symbol": "GOLDBEES.NS",
+      "dateAdded": "2026-01-10T09:24:42.263Z",
+      "value": 13925.18,
+      "lastUpdated": "2026-01-14T10:00:01.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 3
+    },
+    {
+      "name": "MAFANG",
+      "type": "STOCK",
+      "units": 186,
+      "avgPrice": 135.44107176344087,
+      "currentPrice": 168.51,
+      "familyMember": "Savani",
+      "isin": "INF769K01HF4",
+      "symbol": "MAFANG.NS",
+      "dateAdded": "2026-01-10T09:24:42.275Z",
+      "value": 31342.859999999997,
+      "lastUpdated": "2026-01-14T10:00:03.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 4
+    },
+    {
+      "name": "NIFTYBEES",
+      "type": "STOCK",
+      "units": 150,
+      "avgPrice": 273.1876668533333,
+      "currentPrice": 290.66,
+      "familyMember": "Savani",
+      "isin": "INF204KB14I2",
+      "symbol": "NIFTYBEES.NS",
+      "dateAdded": "2026-01-10T09:24:42.282Z",
+      "value": 43599.00000000001,
+      "lastUpdated": "2026-01-14T10:00:03.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 5
+    },
+    {
+      "name": "MOM30IETF",
+      "type": "STOCK",
+      "units": 631,
+      "avgPrice": 31.909999304278923,
+      "currentPrice": 31.41,
+      "familyMember": "Savani",
+      "isin": "INF109KC17C7",
+      "symbol": "MOM30IETF.NS",
+      "dateAdded": "2026-01-10T09:24:42.291Z",
+      "value": 19819.71,
+      "lastUpdated": "2026-01-14T09:59:58.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 6
+    },
+    {
+      "name": "NEXT50IETF",
+      "type": "STOCK",
+      "units": 75,
+      "avgPrice": 61.790001,
+      "currentPrice": 72.26,
+      "familyMember": "Savani",
+      "isin": "INF109KC1NS5",
+      "symbol": "NEXT50IETF.NS",
+      "dateAdded": "2026-01-10T09:24:42.298Z",
+      "value": 5419.5,
+      "lastUpdated": "2026-01-14T10:00:03.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 7
+    },
+    {
+      "name": "FMCGIETF",
+      "type": "STOCK",
+      "units": 360,
+      "avgPrice": 61.171111083333344,
+      "currentPrice": 55.77,
+      "familyMember": "Savani",
+      "isin": "INF109KC19V3",
+      "symbol": "FMCGIETF.NS",
+      "dateAdded": "2026-01-10T09:24:42.303Z",
+      "value": 20077.2,
+      "lastUpdated": "2026-01-14T10:00:03.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 8
+    },
+    {
+      "name": "MOMENTUM50",
+      "type": "STOCK",
+      "units": 95,
+      "avgPrice": 51.98,
+      "currentPrice": 51.39,
+      "familyMember": "Savani",
+      "isin": "INF247L01DK8",
+      "symbol": "MOMENTUM50.NS",
+      "dateAdded": "2026-01-10T09:24:42.310Z",
+      "value": 4882.05,
+      "lastUpdated": "2026-01-14T09:59:35.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 9
+    },
+    {
+      "name": "MASPTOP50",
+      "type": "STOCK",
+      "units": 90,
+      "avgPrice": 55.29999899999999,
+      "currentPrice": 72.45,
+      "familyMember": "Savani",
+      "isin": "INF769K01HP3",
+      "symbol": "MASPTOP50.NS",
+      "dateAdded": "2026-01-10T09:24:42.320Z",
+      "value": 6520.5,
+      "lastUpdated": "2026-01-14T09:56:18.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 10
+    },
+    {
+      "name": "MONQ50",
+      "type": "STOCK",
+      "units": 66,
+      "avgPrice": 74.65000200000001,
+      "currentPrice": 99.75,
+      "familyMember": "Savani",
+      "isin": "INF247L01AU3",
+      "symbol": "MONQ50.NS",
+      "dateAdded": "2026-01-10T09:24:42.325Z",
+      "value": 6583.5,
+      "lastUpdated": "2026-01-14T09:59:58.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 11
+    },
+    {
+      "name": "LICNETFGSC",
+      "type": "STOCK",
+      "units": 175,
+      "avgPrice": 28.57,
+      "currentPrice": 28.97,
+      "familyMember": "Savani",
+      "isin": "INF767K01MV5",
+      "symbol": "LICNETFGSC.NS",
+      "dateAdded": "2026-01-10T09:24:42.330Z",
+      "value": 5069.75,
+      "lastUpdated": "2026-01-14T09:59:26.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 12
+    },
+    {
+      "name": "PSUBNKBEES",
+      "type": "STOCK",
+      "units": 326,
+      "avgPrice": 76.50398933742332,
+      "currentPrice": 99.63,
+      "familyMember": "Savani",
+      "isin": "INF204KB16I7",
+      "symbol": "PSUBNKBEES.NS",
+      "dateAdded": "2026-01-10T09:24:42.339Z",
+      "value": 32479.379999999997,
+      "lastUpdated": "2026-01-14T10:00:03.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 13
+    },
+    {
+      "name": "CONSUMIETF",
+      "type": "STOCK",
+      "units": 40,
+      "avgPrice": 121.48599999999999,
+      "currentPrice": 123.99,
+      "familyMember": "Savani",
+      "isin": "INF109KC1V42",
+      "symbol": "CONSUMIETF.NS",
+      "dateAdded": "2026-01-10T09:24:42.343Z",
+      "value": 4959.599999999999,
+      "lastUpdated": "2026-01-14T09:57:59.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 14
+    },
+    {
+      "name": "CONS",
+      "type": "STOCK",
+      "units": 40,
+      "avgPrice": 121,
+      "currentPrice": 123,
+      "familyMember": "Savani",
+      "isin": "INF174KA1JE5",
+      "symbol": "CONS.NS",
+      "dateAdded": "2026-01-10T09:24:42.354Z",
+      "value": 4920,
+      "lastUpdated": "2026-01-14T09:59:35.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 15
+    },
+    {
+      "name": "INFRABEES",
+      "type": "STOCK",
+      "units": 5,
+      "avgPrice": 973.98999,
+      "currentPrice": 956.56,
+      "familyMember": "Savani",
+      "isin": "INF732E01268",
+      "symbol": "INFRABEES.NS",
+      "dateAdded": "2026-01-10T09:24:42.358Z",
+      "value": 4782.799999999999,
+      "lastUpdated": "2026-01-14T09:59:50.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 16
+    },
+    {
+      "name": "BFSI",
+      "type": "STOCK",
+      "units": 353,
+      "avgPrice": 28.009830524079316,
+      "currentPrice": 28.43,
+      "familyMember": "Savani",
+      "isin": "INF769K01HI8",
+      "symbol": "BFSI.NS",
+      "dateAdded": "2026-01-10T09:24:42.363Z",
+      "value": 10035.789999999999,
+      "lastUpdated": "2026-01-14T09:59:58.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 17
+    },
+    {
+      "name": "MOHEALTH",
+      "type": "STOCK",
+      "units": 112,
+      "avgPrice": 44.65000200000001,
+      "currentPrice": 43.97,
+      "familyMember": "Savani",
+      "isin": "INF247L01BB1",
+      "symbol": "MOHEALTH.NS",
+      "dateAdded": "2026-01-10T09:24:42.365Z",
+      "value": 4924.639999999999,
+      "lastUpdated": "2026-01-14T09:59:08.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 18
+    },
+    {
+      "name": "METALIETF",
+      "type": "STOCK",
+      "units": 0,
+      "avgPrice": 0,
+      "currentPrice": 11.72,
+      "familyMember": "Savani",
+      "isin": "INF109KC19W1",
+      "symbol": "METALIETF.NS",
+      "dateAdded": "2026-01-10T09:24:42.371Z",
+      "value": 0,
+      "lastUpdated": "2026-01-14T10:00:03.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 19
+    },
+    {
+      "name": "EVINDIA",
+      "type": "STOCK",
+      "units": 0,
+      "avgPrice": 0,
+      "currentPrice": 30.81,
+      "familyMember": "Savani",
+      "isin": "INF769K01LQ3",
+      "symbol": "EVINDIA.NS",
+      "dateAdded": "2026-01-10T09:24:42.382Z",
+      "value": 0,
+      "lastUpdated": "2026-01-14T09:59:42.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 20
+    },
+    {
+      "name": "MOGSEC",
+      "type": "STOCK",
+      "units": 81,
+      "avgPrice": 62.269999999999996,
+      "currentPrice": 62.99,
+      "familyMember": "Savani",
+      "isin": "INF247L01AK4",
+      "symbol": "MOGSEC.NS",
+      "dateAdded": "2026-01-10T09:24:42.385Z",
+      "value": 5102.1900000000005,
+      "lastUpdated": "2026-01-14T09:30:07.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 21
+    },
+    {
+      "name": "APLAPOLLO",
+      "type": "STOCK",
+      "units": 20,
+      "avgPrice": 1719.599976,
+      "currentPrice": 1934.7,
+      "familyMember": "Savani",
+      "isin": "INE702C01027",
+      "symbol": "APLAPOLLO.NS",
+      "dateAdded": "2026-01-10T09:24:42.396Z",
+      "value": 38694,
+      "lastUpdated": "2026-01-14T10:00:00.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 22
+    },
+    {
+      "name": "HINDALCO",
+      "type": "STOCK",
+      "units": 24,
+      "avgPrice": 809.2999880000001,
+      "currentPrice": 955.35,
+      "familyMember": "Savani",
+      "isin": "INE038A01020",
+      "symbol": "HINDALCO.NS",
+      "dateAdded": "2026-01-10T09:24:42.398Z",
+      "value": 22928.4,
+      "lastUpdated": "2026-01-14T10:00:04.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 23
+    },
+    {
+      "name": "BSE",
+      "type": "STOCK",
+      "units": 10,
+      "avgPrice": 2689.3800294000002,
+      "currentPrice": 2836.8,
+      "familyMember": "Savani",
+      "isin": "INE118H01025",
+      "symbol": "BSE.NS",
+      "dateAdded": "2026-01-10T09:24:42.401Z",
+      "value": 28368,
+      "lastUpdated": "2026-01-14T10:00:00.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 24
+    },
+    {
+      "name": "JINDALSTEL",
+      "type": "STOCK",
+      "units": 25,
+      "avgPrice": 993,
+      "currentPrice": 1040.7,
+      "familyMember": "Savani",
+      "isin": "INE749A01030",
+      "symbol": "JINDALSTEL.NS",
+      "dateAdded": "2026-01-10T09:24:42.408Z",
+      "value": 26017.5,
+      "lastUpdated": "2026-01-14T09:59:57.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 25
+    },
+    {
+      "name": "MIDCAPETF",
+      "type": "STOCK",
+      "units": 473,
+      "avgPrice": 21.19556025369979,
+      "currentPrice": 22.39,
+      "familyMember": "Savani",
+      "isin": "INF769K01IC9",
+      "symbol": "MIDCAPETF.NS",
+      "dateAdded": "2026-01-10T09:25:19.794Z",
+      "value": 10590.470000000001,
+      "lastUpdated": "2026-01-14T09:59:58.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 26
+    },
+    {
+      "name": "HNGSNGBEES",
+      "type": "STOCK",
+      "units": 31,
+      "avgPrice": 324.84193858064515,
+      "currentPrice": 539.77,
+      "familyMember": "Savani",
+      "isin": "INF204KB19I1",
+      "symbol": "HNGSNGBEES.NS",
+      "dateAdded": "2026-01-10T09:25:19.801Z",
+      "value": 16732.87,
+      "lastUpdated": "2026-01-14T09:59:49.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 27
+    },
+    {
+      "name": "SILVERBEES",
+      "type": "STOCK",
+      "units": 178,
+      "avgPrice": 87.17224486516855,
+      "currentPrice": 262.81,
+      "familyMember": "Savani",
+      "isin": "INF204KC1402",
+      "symbol": "SILVERBEES.NS",
+      "dateAdded": "2026-01-10T09:25:19.821Z",
+      "value": 46780.18,
+      "lastUpdated": "2026-01-14T10:00:00.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 28
+    },
+    {
+      "name": "MAHKTECH",
+      "type": "STOCK",
+      "units": 275,
+      "avgPrice": 18.35,
+      "currentPrice": 27.22,
+      "familyMember": "Savani",
+      "isin": "INF769K01HS7",
+      "symbol": "MAHKTECH.NS",
+      "dateAdded": "2026-01-10T09:25:19.826Z",
+      "value": 7485.5,
+      "lastUpdated": "2026-01-14T09:59:26.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 29
+    },
+    {
+      "name": "OILIETF",
+      "type": "STOCK",
+      "units": 900,
+      "avgPrice": 10.997777777777777,
+      "currentPrice": 11.88,
+      "familyMember": "Savani",
+      "isin": "INF109KC18W3",
+      "symbol": "OILIETF.NS",
+      "dateAdded": "2026-01-10T09:25:19.841Z",
+      "value": 10692,
+      "lastUpdated": "2026-01-14T10:00:03.000Z",
+      "refreshStatus": "success",
+      "broker": "Zerodha",
+      "id": 30
+    },
+    {
+      "name": "MOTILAL OSWAL MIDCAP FUND - DIRECT GROWTH",
+      "type": "MF",
+      "units": 866.1727121291159,
+      "avgPrice": 117.7539012153688,
+      "currentPrice": 112.3857,
+      "familyMember": "Savani",
+      "isin": "INF247L01445",
+      "symbol": "",
+      "dateAdded": "2026-01-10T09:33:39.585Z",
+      "value": 97345.42657352918,
+      "schemeCode": "127042",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "interestRate": "",
+      "purchaseDate": "18-12-2025",
+      "isSIP": true,
+      "triggers": [],
+      "sipFrequency": "Weekly",
+      "sipDayOfWeek": "Thursday",
+      "sipAmount": 4000,
+      "broker": "Zerodha",
+      "id": 31
+    },
+    {
+      "name": "KOTAK MANUFACTURE IN INDIA FUND DIRECT PLAN GROWTH",
+      "type": "MF",
+      "units": 9079.412047389946,
+      "avgPrice": 19.273427772374824,
+      "currentPrice": 20.785,
+      "familyMember": "Savani",
+      "isin": "INF174KA1IF4",
+      "symbol": "",
+      "dateAdded": "2026-01-10T09:34:03.490Z",
+      "value": 188715.57940500003,
+      "schemeCode": 149841,
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "interestRate": "",
+      "isSIP": true,
+      "sipFrequency": "Weekly",
+      "sipDate": 5,
+      "sipAmount": 2500,
+      "triggers": [],
+      "sipDayOfWeek": "Tuesday",
+      "broker": "Zerodha",
+      "id": 32
+    },
+    {
+      "name": "MAHINDRA MANULIFE MULTI CAP FUND - DIRECT - GROWTH",
+      "type": "MF",
+      "units": 3678.563,
+      "avgPrice": 39.41565718178538,
+      "currentPrice": 41.8801,
+      "familyMember": "Savani",
+      "isin": "INF174V01341",
+      "symbol": "",
+      "dateAdded": "2026-01-10T09:34:34.373Z",
+      "value": 154058.5862963,
+      "schemeCode": 141226,
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "interestRate": "",
+      "isSIP": true,
+      "sipFrequency": "Monthly",
+      "sipDate": 20,
+      "sipAmount": 2500,
+      "triggers": [],
+      "broker": "Zerodha",
+      "id": 33
+    },
+    {
+      "name": "PARAG PARIKH FLEXI CAP FUND - DIRECT PLAN GROWTH",
+      "type": "MF",
+      "units": 919.209277716199,
+      "avgPrice": 93.58296108458005,
+      "currentPrice": 94.1783,
+      "familyMember": "Savani",
+      "isin": "INF879O01027",
+      "symbol": "",
+      "dateAdded": "2026-01-10T09:35:01.418Z",
+      "value": 86569.5671195395,
+      "schemeCode": "122639",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "interestRate": "",
+      "isSIP": true,
+      "sipFrequency": "Weekly",
+      "sipDayOfWeek": "Tuesday",
+      "sipAmount": 3500,
+      "purchaseDate": "30-12-2025",
+      "triggers": [],
+      "broker": "Zerodha",
+      "id": 34
+    },
+    {
+      "name": "ICICI PRUDENTIAL ENERGY OPPORTUNITIES FUND - DIRECT PLAN - GROWTH",
+      "type": "MF",
+      "units": 14497.014,
+      "avgPrice": 9.829138584676816,
+      "currentPrice": 10.42,
+      "familyMember": "Savani",
+      "isin": "INF109KC12W6",
+      "symbol": "",
+      "dateAdded": "2026-01-10T09:35:15.894Z",
+      "value": 151058.88588,
+      "schemeCode": "152728",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "interestRate": "",
+      "isSIP": true,
+      "sipFrequency": "Monthly",
+      "sipDate": 25,
+      "sipAmount": 2500,
+      "triggers": [],
+      "broker": "Zerodha",
+      "id": 35
+    },
+    {
+      "name": "ICICI Prudential Equity & Debt Fund - GROWTH",
+      "type": "MF",
+      "units": 439.49800000000005,
+      "avgPrice": 366.3064545686214,
+      "currentPrice": 407.83,
+      "familyMember": "Savani",
+      "isin": "INF109K01480",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:47:20.129Z",
+      "value": 179240.46934,
+      "schemeCode": "100356",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "id": 36
+    },
+    {
+      "name": "Quant Aggressive Hybrid Fund - GROWTH",
+      "type": "MF",
+      "units": 67.51400000000001,
+      "avgPrice": 414.7024479367242,
+      "currentPrice": 426.0033,
+      "familyMember": "Savani",
+      "isin": "101070�",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:47:20.223Z",
+      "value": 28761.186796200007,
+      "schemeCode": "101070",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "id": 37
+    },
+    {
+      "name": "SBI Equity Hybrid Fund - GROWTH",
+      "type": "MF",
+      "units": 40.971000000000004,
+      "avgPrice": 122.03850699275097,
+      "currentPrice": 307.317,
+      "familyMember": "Savani",
+      "isin": "INF200K01107",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:47:31.638Z",
+      "value": 12591.084807000001,
+      "schemeCode": "102885",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "id": 38
+    },
+    {
+      "name": "HDFC Flexi Cap Fund - GROWTH",
+      "type": "MF",
+      "units": 158.73799999999997,
+      "avgPrice": 1814.2363286673647,
+      "currentPrice": 2072.764,
+      "familyMember": "Savani",
+      "isin": "INF179K01608",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:47:31.643Z",
+      "value": 329026.41183199995,
+      "schemeCode": "101762",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "id": 39
+    },
+    {
+      "name": "Parag Parikh Flexi Cap Fund - Regular - GROWTH",
+      "type": "MF",
+      "units": 1659.67,
+      "avgPrice": 83.74786689522615,
+      "currentPrice": 86.1466,
+      "familyMember": "Savani",
+      "isin": "INF879O01019",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:47:43.423Z",
+      "value": 142974.92762200002,
+      "schemeCode": "122640",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "id": 40
+    },
+    {
+      "name": "Quant Flexi Cap Fund - Regular - GROWTH",
+      "type": "MF",
+      "units": 1278.2789999999998,
+      "avgPrice": 90.35108705532987,
+      "currentPrice": 96.1415,
+      "familyMember": "Savani",
+      "isin": "INF966L01457",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:47:43.474Z",
+      "value": 122895.66047849997,
+      "schemeCode": "109830",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "id": 41
+    },
+    {
+      "name": "Canara Robeco Large and Mid Cap Fund - Regular - GROWTH",
+      "type": "MF",
+      "units": 127.80099999999999,
+      "avgPrice": 78.24626990399136,
+      "currentPrice": 248.43,
+      "familyMember": "Savani",
+      "isin": "INF760K01167",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:47:43.536Z",
+      "value": 31749.60243,
+      "schemeCode": "102920",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "id": 42
+    },
+    {
+      "name": "ICICI Prudential Large & Mid Cap Fund - Regular - GROWTH",
+      "type": "MF",
+      "units": 52.81700000000001,
+      "avgPrice": 757.272629077759,
+      "currentPrice": 1038.76,
+      "familyMember": "Savani",
+      "isin": "INF109K01431",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:47:52.562Z",
+      "value": 54864.18692000001,
+      "refreshStatus": "success",
+      "schemeCode": "100349",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "lastUpdated": "13-01-2026",
+      "broker": "OFA",
+      "id": 43
+    },
+    {
+      "name": "Kotak Large & Midcap Fund - Regular - GROWTH",
+      "type": "MF",
+      "units": 228.993,
+      "avgPrice": 336.234639617805,
+      "currentPrice": 351.163,
+      "familyMember": "Savani",
+      "isin": "INF174K01187",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:47:52.604Z",
+      "value": 80413.868859,
+      "schemeCode": "103234",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "id": 44
+    },
+    {
+      "name": "Mirae Asset Large & Midcap Fund - Regular - GROWTH",
+      "type": "MF",
+      "units": 441.6739999999999,
+      "avgPrice": 144.8965219596354,
+      "currentPrice": 154.862,
+      "familyMember": "Savani",
+      "isin": "INF769K01101",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:47:52.649Z",
+      "value": 68398.51898799998,
+      "schemeCode": "112932",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "id": 45
+    },
+    {
+      "name": "ICICI Prudential Large Cap Fund - Regular - GROWTH",
+      "type": "MF",
+      "units": 1913.879,
+      "avgPrice": 107.8908625675918,
+      "currentPrice": 113.59,
+      "familyMember": "Savani",
+      "isin": "INF109K01BL4",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:47:52.716Z",
+      "value": 217397.51561,
+      "refreshStatus": "success",
+      "schemeCode": "108466",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "lastUpdated": "13-01-2026",
+      "broker": "OFA",
+      "id": 46
+    },
+    {
+      "name": "Mirae Asset Large Cap Fund - Regular - GROWTH",
+      "type": "MF",
+      "units": 715.413,
+      "avgPrice": 82.46762628020458,
+      "currentPrice": 116.045,
+      "familyMember": "Savani",
+      "isin": "INF769K01010",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:47:52.774Z",
+      "value": 83020.101585,
+      "schemeCode": "107578",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "id": 47
+    },
+    {
+      "name": "Nippon India Large Cap Fund - Regular - GROWTH",
+      "type": "MF",
+      "units": 1425.0389999999998,
+      "avgPrice": 89.46765329931323,
+      "currentPrice": 92.2907,
+      "familyMember": "Savani",
+      "isin": "INF204K01562",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:47:52.787Z",
+      "value": 131517.8468373,
+      "schemeCode": "106235",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "id": 48
+    },
+    {
+      "name": "SBI Large Cap Fund - Regular - GROWTH",
+      "type": "MF",
+      "units": 1197.4650000000001,
+      "avgPrice": 80.16505852780665,
+      "currentPrice": 95.7703,
+      "familyMember": "Savani",
+      "isin": "INF200K01180",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:48:02.035Z",
+      "value": 114681.58228950002,
+      "schemeCode": "103504",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "id": 49
+    },
+    {
+      "name": "DSP Midcap Fund - Regular - GROWTH",
+      "type": "MF",
+      "units": 106.72,
+      "avgPrice": 46.85534464017991,
+      "currentPrice": 148.057,
+      "familyMember": "Savani",
+      "isin": "INF740K01128",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:48:02.072Z",
+      "value": 15800.643039999999,
+      "schemeCode": "104481",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "broker": "OFA",
+      "id": 50
+    },
+    {
+      "name": "Edelweiss Mid Cap Fund - Regular - GROWTH",
+      "type": "MF",
+      "units": 2218.8950000000004,
+      "avgPrice": 88.55383154227663,
+      "currentPrice": 102.313,
+      "familyMember": "Savani",
+      "isin": "INF843K01013",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:48:02.074Z",
+      "value": 227021.80413500004,
+      "schemeCode": "140225",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "id": 51
+    },
+    {
+      "name": "Kotak Midcap Fund - Regular Plan - Growth",
+      "type": "MF",
+      "units": 950.276,
+      "avgPrice": 109.43775388413468,
+      "currentPrice": 134.285,
+      "familyMember": "Savani",
+      "isin": "INF174K01DS9",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:48:02.132Z",
+      "value": 127607.81266,
+      "schemeCode": "104908",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "broker": "OFA",
+      "id": 52
+    },
+    {
+      "name": "Nippon India Growth Mid Cap Fund - Regular - Growth",
+      "type": "MF",
+      "units": 27.285,
+      "avgPrice": 4068.0013399303652,
+      "currentPrice": 4182.0985,
+      "familyMember": "Savani",
+      "isin": "INF204K01323",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:48:02.180Z",
+      "value": 114108.55757250001,
+      "schemeCode": "100377",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "broker": "OFA",
+      "id": 53
+    },
+    {
+      "name": "Invesco India Multicap Fund - Regular - GROWTH",
+      "type": "MF",
+      "units": 130.506,
+      "avgPrice": 38.312603635081906,
+      "currentPrice": 124.83,
+      "familyMember": "Savani",
+      "isin": "INF205K01DN2",
+      "symbol": "",
+      "dateAdded": "2026-01-11T10:48:02.193Z",
+      "value": 16291.063979999999,
+      "schemeCode": "107353",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "broker": "OFA",
+      "interestRate": "",
+      "isSIP": false,
+      "triggers": [],
+      "id": 54
+    },
+    {
+      "name": "Bajaj Auto Ltd",
+      "type": "STOCK",
+      "isin": "",
+      "schemeCode": "152638",
+      "interestRate": "",
+      "units": 3,
+      "avgPrice": 8856.46,
+      "broker": "MotilalOswal",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 9579.5,
+      "value": 28738.5,
+      "triggers": [],
+      "dateAdded": "2026-01-11T13:04:04.706Z",
+      "lastUpdated": "2026-01-14T09:59:59.000Z",
+      "refreshStatus": "success",
+      "symbol": "BAJAJ-AUTO.NS",
+      "id": 55
+    },
+    {
+      "name": "Bancoindia",
+      "type": "STOCK",
+      "symbol": "BANCOINDIA.NS",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 28,
+      "avgPrice": 684.93,
+      "purchaseDate": "28-11-2025",
+      "broker": "MotilalOswal",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 640.85,
+      "value": 17943.8,
+      "triggers": [],
+      "dateAdded": "2026-01-11T13:08:24.244Z",
+      "lastUpdated": "2026-01-14T10:00:01.000Z",
+      "refreshStatus": "success",
+      "id": 56
+    },
+    {
+      "name": "DRReddy",
+      "type": "STOCK",
+      "symbol": "DRREDDY.NS",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 10,
+      "avgPrice": 1284.36,
+      "purchaseDate": "18-12-2025",
+      "broker": "MotilalOswal",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 1186.5,
+      "value": 11865,
+      "triggers": [],
+      "dateAdded": "2026-01-11T13:10:34.024Z",
+      "lastUpdated": "2026-01-14T09:59:58.000Z",
+      "refreshStatus": "success",
+      "id": 57
+    },
+    {
+      "name": "Hindalco",
+      "type": "STOCK",
+      "symbol": "HINDALCO.NS",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 42,
+      "avgPrice": 813.39,
+      "purchaseDate": "28-11-2025",
+      "broker": "MotilalOswal",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 955.35,
+      "value": 40124.700000000004,
+      "triggers": [],
+      "dateAdded": "2026-01-11T13:12:23.913Z",
+      "lastUpdated": "2026-01-14T10:00:04.000Z",
+      "refreshStatus": "success",
+      "id": 58
+    },
+    {
+      "name": "Manappuram",
+      "type": "STOCK",
+      "symbol": "Manappuram.ns",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 57,
+      "avgPrice": 184.63,
+      "purchaseDate": "17-01-2020",
+      "broker": "MotilalOswal",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 309,
+      "value": 17613,
+      "triggers": [],
+      "dateAdded": "2026-01-11T13:15:02.152Z",
+      "lastUpdated": "2026-01-14T10:00:00.000Z",
+      "refreshStatus": "success",
+      "id": 59
+    },
+    {
+      "name": "Natcopharm",
+      "type": "STOCK",
+      "symbol": "Natcopharm.ns",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 30,
+      "avgPrice": 886.75,
+      "purchaseDate": "28-11-2025",
+      "broker": "MotilalOswal",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 891.95,
+      "value": 26758.5,
+      "triggers": [],
+      "dateAdded": "2026-01-11T13:17:47.605Z",
+      "lastUpdated": "2026-01-14T10:00:00.000Z",
+      "refreshStatus": "success",
+      "id": 60
+    },
+    {
+      "name": "Petronet",
+      "type": "STOCK",
+      "symbol": "Petronet.ns",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 36,
+      "avgPrice": 261.11555555555555,
+      "purchaseDate": "09-03-2020",
+      "broker": "MotilalOswal",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 286.25,
+      "value": 10305,
+      "triggers": [],
+      "dateAdded": "2026-01-11T13:19:57.682Z",
+      "lastUpdated": "2026-01-14T10:00:02.000Z",
+      "refreshStatus": "success",
+      "id": 61
+    },
+    {
+      "name": "SIS",
+      "type": "STOCK",
+      "symbol": "SIS.NS",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 20,
+      "avgPrice": 522.0260000000001,
+      "purchaseDate": "04-03-2020",
+      "broker": "MotilalOswal",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 332.7,
+      "value": 6654,
+      "triggers": [],
+      "dateAdded": "2026-01-11T13:24:17.744Z",
+      "lastUpdated": "2026-01-14T10:00:02.000Z",
+      "refreshStatus": "success",
+      "id": 62
+    },
+    {
+      "name": "Torntpower",
+      "type": "STOCK",
+      "symbol": "TORNTPOWER.NS",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 16,
+      "avgPrice": 304.44,
+      "broker": "MotilalOswal",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 1345.1,
+      "value": 21521.6,
+      "triggers": [],
+      "dateAdded": "2026-01-11T13:27:18.250Z",
+      "refreshStatus": "success",
+      "lastUpdated": "2026-01-14T09:59:46.000Z",
+      "id": 63
+    },
+    {
+      "name": "JioBlackRock Flexi Cap Fund - Direct - Growth",
+      "type": "MF",
+      "isin": "",
+      "schemeCode": 153859,
+      "interestRate": "",
+      "units": 9999.5,
+      "avgPrice": 10,
+      "purchaseDate": "05-10-2025",
+      "broker": "Jio",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 10.08,
+      "value": 100794.96,
+      "triggers": [],
+      "dateAdded": "2026-01-11T13:41:00.428Z",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "id": 64
+    },
+    {
+      "name": "13540400054944",
+      "type": "FD",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "6.75",
+      "maturityDate": "22-06-2026",
+      "units": 200000,
+      "avgPrice": 1,
+      "purchaseDate": "22-06-2025",
+      "broker": "Yes",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 1.0386191768856041,
+      "value": 207723.83537712082,
+      "triggers": [],
+      "dateAdded": "2026-01-11T14:06:14.328Z",
+      "symbol": "",
+      "id": 65,
+      "lastUpdated": "2026-01-14T18:19:38.420Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "13540400054954",
+      "type": "FD",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "6.75",
+      "maturityDate": "22-06-2026",
+      "units": 200000,
+      "avgPrice": 1,
+      "purchaseDate": "22-06-2025",
+      "broker": "Yes",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 1.0386191791084454,
+      "value": 207723.83582168908,
+      "triggers": [],
+      "dateAdded": "2026-01-11T14:13:16.373Z",
+      "id": 66,
+      "lastUpdated": "2026-01-14T18:19:39.430Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "13540400055517",
+      "type": "FD",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "6.65",
+      "maturityDate": "09-08-2026",
+      "units": 100000,
+      "avgPrice": 1,
+      "purchaseDate": "09-08-2025",
+      "broker": "Yes",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 1.0290828701279107,
+      "value": 102908.28701279107,
+      "triggers": [],
+      "dateAdded": "2026-01-11T14:14:26.327Z",
+      "symbol": "",
+      "id": 67,
+      "lastUpdated": "2026-01-14T18:19:40.440Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "1836892",
+      "type": "FD",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "7.8",
+      "maturityDate": "27-07-2026",
+      "units": 200000,
+      "avgPrice": 1,
+      "purchaseDate": "27-01-2025",
+      "broker": "BajajFinance",
+      "familyMember": "Savani",
+      "isSIP": false,
+      "currentPrice": 1.0774621608922998,
+      "value": 215492.43217845997,
+      "triggers": [],
+      "dateAdded": "2026-01-11T14:29:40.243Z",
+      "id": 68,
+      "lastUpdated": "2026-01-14T18:19:41.450Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "1742509",
+      "type": "FD",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "8.1",
+      "maturityDate": "04-06-2027",
+      "units": 100000,
+      "avgPrice": 1,
+      "purchaseDate": "04-09-2024",
+      "broker": "BajajFinance",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 1.1154793391033357,
+      "value": 111547.93391033358,
+      "triggers": [],
+      "dateAdded": "2026-01-11T14:32:54.921Z",
+      "id": 69,
+      "lastUpdated": "2026-01-14T18:19:42.453Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "1742483",
+      "type": "FD",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "8.1",
+      "maturityDate": "04-06-2027",
+      "units": 100000,
+      "avgPrice": 1,
+      "purchaseDate": "04-09-2024",
+      "broker": "BajajFinance",
+      "familyMember": "Savani",
+      "isSIP": false,
+      "currentPrice": 1.1154793419662175,
+      "value": 111547.93419662175,
+      "triggers": [],
+      "dateAdded": "2026-01-11T14:41:11.744Z",
+      "id": 70,
+      "lastUpdated": "2026-01-14T18:19:43.463Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "44619443536",
+      "type": "FD",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "5.65",
+      "maturityDate": "06-05-2026",
+      "units": 225000,
+      "avgPrice": 1,
+      "purchaseDate": "06-11-2025",
+      "broker": "SBI",
+      "familyMember": "Savani",
+      "isSIP": false,
+      "currentPrice": 1.010773766034507,
+      "value": 227424.09735776408,
+      "triggers": [],
+      "dateAdded": "2026-01-11T14:47:40.495Z",
+      "symbol": "",
+      "id": 71,
+      "lastUpdated": "2026-01-14T18:19:44.467Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "44616522386",
+      "type": "FD",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "5.65",
+      "maturityDate": "05-05-2026",
+      "units": 200000,
+      "avgPrice": 1,
+      "purchaseDate": "05-11-2025",
+      "broker": "SBI",
+      "familyMember": "Savani",
+      "isSIP": false,
+      "currentPrice": 1.010929040945129,
+      "value": 202185.80818902582,
+      "triggers": [],
+      "dateAdded": "2026-01-11T14:53:09.898Z",
+      "symbol": "",
+      "id": 72,
+      "lastUpdated": "2026-01-14T18:19:45.472Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "44616397910",
+      "type": "FD",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "5.65",
+      "maturityDate": "05-05-2026",
+      "units": 200000,
+      "avgPrice": 1,
+      "purchaseDate": "05-11-2025",
+      "broker": "SBI",
+      "familyMember": "Savani",
+      "isSIP": false,
+      "currentPrice": 1.0109290427567879,
+      "value": 202185.80855135756,
+      "triggers": [],
+      "dateAdded": "2026-01-11T14:54:34.229Z",
+      "id": 73,
+      "lastUpdated": "2026-01-14T18:19:46.480Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "8125200061320",
+      "type": "FD",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "7.0",
+      "maturityDate": "12-07-2026",
+      "units": 108001,
+      "avgPrice": 1,
+      "purchaseDate": "12-07-2025",
+      "broker": "DCB",
+      "familyMember": "Savani",
+      "isSIP": false,
+      "currentPrice": 1.0361206604410913,
+      "value": 111902.0674482983,
+      "triggers": [],
+      "dateAdded": "2026-01-11T14:58:57.215Z",
+      "symbol": "",
+      "id": 74,
+      "lastUpdated": "2026-01-14T18:19:47.492Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "8125200061311",
+      "type": "FD",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "7.0",
+      "maturityDate": "12-07-2026",
+      "units": 108001,
+      "avgPrice": 1,
+      "purchaseDate": "12-07-2025",
+      "broker": "DCB",
+      "familyMember": "Savani",
+      "isSIP": false,
+      "currentPrice": 1.036120662733171,
+      "value": 111902.0676958452,
+      "triggers": [],
+      "dateAdded": "2026-01-11T15:00:37.809Z",
+      "id": 75,
+      "lastUpdated": "2026-01-14T18:19:48.498Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "ICICI",
+      "type": "SAVINGS",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 1000000,
+      "avgPrice": 1,
+      "purchaseDate": "11-01-2026",
+      "broker": "ICICI",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 1.0003591579070397,
+      "value": 1000359.1579070396,
+      "triggers": [],
+      "dateAdded": "2026-01-11T15:09:22.223Z",
+      "symbol": "",
+      "id": 76,
+      "lastUpdated": "2026-01-14T18:19:49.507Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "SBI",
+      "type": "SAVINGS",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 45000,
+      "avgPrice": 1,
+      "purchaseDate": "11-01-2026",
+      "broker": "SBI",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 1.0003591590271603,
+      "value": 45016.16215622221,
+      "triggers": [],
+      "dateAdded": "2026-01-11T15:11:55.127Z",
+      "id": 77,
+      "lastUpdated": "2026-01-14T18:19:50.521Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "13526400000421",
+      "type": "SAVINGS",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 510000,
+      "avgPrice": 1,
+      "purchaseDate": "11-01-2026",
+      "broker": "Yes",
+      "familyMember": "Savani",
+      "isSIP": false,
+      "currentPrice": 1.0003591601461765,
+      "value": 510183.17167455005,
+      "triggers": [],
+      "dateAdded": "2026-01-11T15:12:31.342Z",
+      "symbol": "",
+      "id": 78,
+      "lastUpdated": "2026-01-14T18:19:51.534Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "8112500002158",
+      "type": "SAVINGS",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 81000,
+      "avgPrice": 1,
+      "purchaseDate": "11-01-2026",
+      "broker": "DCB",
+      "familyMember": "Savani",
+      "isSIP": false,
+      "currentPrice": 1.0003591612674019,
+      "value": 81029.09206265955,
+      "triggers": [],
+      "dateAdded": "2026-01-11T15:13:44.867Z",
+      "symbol": "",
+      "id": 79,
+      "lastUpdated": "2026-01-14T18:19:52.549Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "40154540113",
+      "type": "SAVINGS",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 41000,
+      "avgPrice": 1,
+      "purchaseDate": "11-01-2026",
+      "broker": "SBI",
+      "familyMember": "Savani",
+      "isSIP": false,
+      "currentPrice": 1.000359162376476,
+      "value": 41014.72565743552,
+      "triggers": [],
+      "dateAdded": "2026-01-11T15:15:30.299Z",
+      "symbol": "",
+      "id": 80,
+      "lastUpdated": "2026-01-14T18:19:53.553Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "Cash",
+      "type": "CASH",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 1200000,
+      "avgPrice": 1,
+      "purchaseDate": "11-01-2026",
+      "broker": "Cash",
+      "familyMember": "Savani",
+      "isSIP": false,
+      "currentPrice": 1,
+      "value": 1200000,
+      "triggers": [],
+      "dateAdded": "2026-01-11T15:22:11.977Z",
+      "symbol": "",
+      "id": 81,
+      "lastUpdated": "2026-01-14T18:19:54.571Z",
+      "refreshStatus": "success"
+    },
+    {
+      "name": "test",
+      "type": "GOLD",
+      "isin": "",
+      "schemeCode": "",
+      "interestRate": "",
+      "units": 10,
+      "avgPrice": 12000,
+      "purchaseDate": "04-11-2025",
+      "broker": "Cash",
+      "familyMember": "Savani",
+      "isSIP": false,
+      "currentPrice": 13932,
+      "value": 139320,
+      "triggers": [],
+      "dateAdded": "2026-01-11T16:30:21.217Z",
+      "lastUpdated": "2026-01-14T18:19:55.765Z",
+      "refreshStatus": "success",
+      "id": 82
+    },
+    {
+      "name": "SBI ELSS Tax Saver Fund - Regular Plan - Growth",
+      "type": "MF",
+      "isin": "INF200K01495",
+      "schemeCode": 105628,
+      "interestRate": "",
+      "units": 13.386,
+      "avgPrice": 373.5004,
+      "purchaseDate": "11-03-2024",
+      "broker": "Yes",
+      "familyMember": "Sachin",
+      "isSIP": false,
+      "currentPrice": 445.0972,
+      "value": 5958.0711192,
+      "triggers": [],
+      "dateAdded": "2026-01-11T16:50:52.842Z",
+      "lastUpdated": "13-01-2026",
+      "refreshStatus": "success",
+      "id": 83
+    }
+  ],
+  "transactions": [
+    {
+      "date": "22-01-2025",
+      "type": "BUY",
+      "units": 100,
+      "price": 47.189999,
+      "assetId": 1,
+      "id": 1
+    },
+    {
+      "date": "28-01-2025",
+      "type": "BUY",
+      "units": 33,
+      "price": 152.440002,
+      "assetId": 2,
+      "id": 2
+    },
+    {
+      "date": "17-02-2025",
+      "type": "BUY",
+      "units": 7,
+      "price": 71.440002,
+      "assetId": 3,
+      "id": 3
+    },
+    {
+      "date": "17-02-2025",
+      "type": "BUY",
+      "units": 65,
+      "price": 71.440002,
+      "assetId": 3,
+      "id": 4
+    },
+    {
+      "date": "03-03-2025",
+      "type": "BUY",
+      "units": 40,
+      "price": 130.619995,
+      "assetId": 4,
+      "id": 5
+    },
+    {
+      "date": "03-03-2025",
+      "type": "BUY",
+      "units": 20,
+      "price": 248.25,
+      "assetId": 5,
+      "id": 6
+    },
+    {
+      "date": "07-03-2025",
+      "type": "BUY",
+      "units": 40,
+      "price": 127.769997,
+      "assetId": 4,
+      "id": 7
+    },
+    {
+      "date": "10-03-2025",
+      "type": "BUY",
+      "units": 185,
+      "price": 27.6,
+      "assetId": 6,
+      "id": 8
+    },
+    {
+      "date": "10-03-2025",
+      "type": "BUY",
+      "units": 40,
+      "price": 123.290001,
+      "assetId": 4,
+      "id": 9
+    },
+    {
+      "date": "12-03-2025",
+      "type": "BUY",
+      "units": 75,
+      "price": 61.790001,
+      "assetId": 7,
+      "id": 10
+    },
+    {
+      "date": "22-05-2025",
+      "type": "BUY",
+      "units": 85,
+      "price": 58.84,
+      "assetId": 8,
+      "id": 11
+    },
+    {
+      "date": "23-05-2025",
+      "type": "BUY",
+      "units": 95,
+      "price": 51.98,
+      "assetId": 9,
+      "id": 12
+    },
+    {
+      "date": "28-05-2025",
+      "type": "SELL",
+      "units": 8,
+      "price": 79.870003,
+      "assetId": 3,
+      "id": 13
+    },
+    {
+      "date": "28-05-2025",
+      "type": "BUY",
+      "units": 2,
+      "price": 277.529999,
+      "assetId": 5,
+      "id": 14
+    },
+    {
+      "date": "28-05-2025",
+      "type": "BUY",
+      "units": 90,
+      "price": 55.299999,
+      "assetId": 10,
+      "id": 15
+    },
+    {
+      "date": "29-05-2025",
+      "type": "BUY",
+      "units": 22,
+      "price": 74.650002,
+      "assetId": 11,
+      "id": 16
+    },
+    {
+      "date": "29-05-2025",
+      "type": "BUY",
+      "units": 44,
+      "price": 74.650002,
+      "assetId": 11,
+      "id": 17
+    },
+    {
+      "date": "29-05-2025",
+      "type": "BUY",
+      "units": 1,
+      "price": 28.57,
+      "assetId": 12,
+      "id": 18
+    },
+    {
+      "date": "29-05-2025",
+      "type": "BUY",
+      "units": 174,
+      "price": 28.57,
+      "assetId": 12,
+      "id": 19
+    },
+    {
+      "date": "29-05-2025",
+      "type": "BUY",
+      "units": 36,
+      "price": 137.789993,
+      "assetId": 4,
+      "id": 20
+    },
+    {
+      "date": "06-06-2025",
+      "type": "BUY",
+      "units": 64,
+      "price": 79.25,
+      "assetId": 13,
+      "id": 21
+    },
+    {
+      "date": "26-06-2025",
+      "type": "BUY",
+      "units": 1,
+      "price": 121.480003,
+      "assetId": 14,
+      "id": 22
+    },
+    {
+      "date": "26-06-2025",
+      "type": "BUY",
+      "units": 15,
+      "price": 121.480003,
+      "assetId": 14,
+      "id": 23
+    },
+    {
+      "date": "26-06-2025",
+      "type": "BUY",
+      "units": 24,
+      "price": 121.489998,
+      "assetId": 14,
+      "id": 24
+    },
+    {
+      "date": "27-06-2025",
+      "type": "BUY",
+      "units": 151,
+      "price": 32.560001,
+      "assetId": 6,
+      "id": 25
+    },
+    {
+      "date": "27-06-2025",
+      "type": "BUY",
+      "units": 40,
+      "price": 121,
+      "assetId": 15,
+      "id": 26
+    },
+    {
+      "date": "27-06-2025",
+      "type": "BUY",
+      "units": 5,
+      "price": 973.98999,
+      "assetId": 16,
+      "id": 27
+    },
+    {
+      "date": "27-06-2025",
+      "type": "SELL",
+      "units": 188,
+      "price": 80,
+      "assetId": 3,
+      "id": 28
+    },
+    {
+      "date": "27-06-2025",
+      "type": "BUY",
+      "units": 175,
+      "price": 28.030001,
+      "assetId": 17,
+      "id": 29
+    },
+    {
+      "date": "30-06-2025",
+      "type": "BUY",
+      "units": 112,
+      "price": 44.650002,
+      "assetId": 18,
+      "id": 30
+    },
+    {
+      "date": "01-07-2025",
+      "type": "BUY",
+      "units": 178,
+      "price": 27.99,
+      "assetId": 17,
+      "id": 31
+    },
+    {
+      "date": "02-07-2025",
+      "type": "BUY",
+      "units": 517,
+      "price": 9.73,
+      "assetId": 19,
+      "id": 32
+    },
+    {
+      "date": "07-07-2025",
+      "type": "BUY",
+      "units": 62,
+      "price": 79.650002,
+      "assetId": 13,
+      "id": 33
+    },
+    {
+      "date": "14-07-2025",
+      "type": "SELL",
+      "units": 100,
+      "price": 9.44,
+      "assetId": 19,
+      "id": 34
+    },
+    {
+      "date": "14-07-2025",
+      "type": "SELL",
+      "units": 417,
+      "price": 9.42,
+      "assetId": 19,
+      "id": 35
+    },
+    {
+      "date": "14-07-2025",
+      "type": "SELL",
+      "units": 600,
+      "price": 29.15,
+      "assetId": 20,
+      "id": 36
+    },
+    {
+      "date": "14-07-2025",
+      "type": "BUY",
+      "units": 81,
+      "price": 62.27,
+      "assetId": 21,
+      "id": 37
+    },
+    {
+      "date": "07-08-2025",
+      "type": "BUY",
+      "units": 59,
+      "price": 83.959999,
+      "assetId": 3,
+      "id": 38
+    },
+    {
+      "date": "07-08-2025",
+      "type": "BUY",
+      "units": 59,
+      "price": 83.970001,
+      "assetId": 3,
+      "id": 39
+    },
+    {
+      "date": "10-09-2025",
+      "type": "BUY",
+      "units": 30,
+      "price": 165.479996,
+      "assetId": 4,
+      "id": 40
+    },
+    {
+      "date": "10-09-2025",
+      "type": "BUY",
+      "units": 18,
+      "price": 281.980011,
+      "assetId": 5,
+      "id": 41
+    },
+    {
+      "date": "28-11-2025",
+      "type": "BUY",
+      "units": 20,
+      "price": 1719.599976,
+      "assetId": 22,
+      "id": 42
+    },
+    {
+      "date": "28-11-2025",
+      "type": "BUY",
+      "units": 24,
+      "price": 809.299988,
+      "assetId": 23,
+      "id": 43
+    },
+    {
+      "date": "18-12-2025",
+      "type": "BUY",
+      "units": 2,
+      "price": 2689.399902,
+      "assetId": 24,
+      "id": 44
+    },
+    {
+      "date": "18-12-2025",
+      "type": "BUY",
+      "units": 3,
+      "price": 2689,
+      "assetId": 24,
+      "id": 45
+    },
+    {
+      "date": "18-12-2025",
+      "type": "BUY",
+      "units": 5,
+      "price": 2689.600098,
+      "assetId": 24,
+      "id": 46
+    },
+    {
+      "date": "18-12-2025",
+      "type": "BUY",
+      "units": 25,
+      "price": 993,
+      "assetId": 25,
+      "id": 47
+    },
+    {
+      "date": "10-09-2024",
+      "type": "BUY",
+      "units": 22,
+      "price": 278.350006,
+      "assetId": 5,
+      "id": 48
+    },
+    {
+      "date": "10-09-2024",
+      "type": "BUY",
+      "units": 44,
+      "price": 60.490002,
+      "assetId": 3,
+      "id": 49
+    },
+    {
+      "date": "17-09-2024",
+      "type": "BUY",
+      "units": 35,
+      "price": 33.919998,
+      "assetId": 20,
+      "id": 50
+    },
+    {
+      "date": "17-09-2024",
+      "type": "BUY",
+      "units": 168,
+      "price": 33.919998,
+      "assetId": 20,
+      "id": 51
+    },
+    {
+      "date": "17-09-2024",
+      "type": "BUY",
+      "units": 23,
+      "price": 33.919998,
+      "assetId": 20,
+      "id": 52
+    },
+    {
+      "date": "17-09-2024",
+      "type": "BUY",
+      "units": 3,
+      "price": 33.919998,
+      "assetId": 20,
+      "id": 53
+    },
+    {
+      "date": "17-09-2024",
+      "type": "BUY",
+      "units": 154,
+      "price": 33.919998,
+      "assetId": 20,
+      "id": 54
+    },
+    {
+      "date": "17-09-2024",
+      "type": "BUY",
+      "units": 58,
+      "price": 33.919998,
+      "assetId": 20,
+      "id": 55
+    },
+    {
+      "date": "17-09-2024",
+      "type": "BUY",
+      "units": 9,
+      "price": 33.919998,
+      "assetId": 20,
+      "id": 56
+    },
+    {
+      "date": "17-09-2024",
+      "type": "BUY",
+      "units": 200,
+      "price": 74.650002,
+      "assetId": 13,
+      "id": 57
+    },
+    {
+      "date": "04-10-2024",
+      "type": "BUY",
+      "units": 23,
+      "price": 281.399994,
+      "assetId": 5,
+      "id": 58
+    },
+    {
+      "date": "04-10-2024",
+      "type": "BUY",
+      "units": 25,
+      "price": 281.399994,
+      "assetId": 5,
+      "id": 59
+    },
+    {
+      "date": "04-10-2024",
+      "type": "BUY",
+      "units": 2,
+      "price": 281.399994,
+      "assetId": 5,
+      "id": 60
+    },
+    {
+      "date": "07-10-2024",
+      "type": "BUY",
+      "units": 233,
+      "price": 21.5,
+      "assetId": 26,
+      "id": 61
+    },
+    {
+      "date": "09-10-2024",
+      "type": "BUY",
+      "units": 50,
+      "price": 182.470001,
+      "assetId": 2,
+      "id": 62
+    },
+    {
+      "date": "14-10-2024",
+      "type": "BUY",
+      "units": 35,
+      "price": 65.400002,
+      "assetId": 8,
+      "id": 63
+    },
+    {
+      "date": "18-10-2024",
+      "type": "BUY",
+      "units": 15,
+      "price": 327.5,
+      "assetId": 27,
+      "id": 64
+    },
+    {
+      "date": "22-10-2024",
+      "type": "BUY",
+      "units": 80,
+      "price": 63.09,
+      "assetId": 8,
+      "id": 65
+    },
+    {
+      "date": "23-10-2024",
+      "type": "BUY",
+      "units": 150,
+      "price": 32.509998,
+      "assetId": 20,
+      "id": 66
+    },
+    {
+      "date": "29-10-2024",
+      "type": "BUY",
+      "units": 240,
+      "price": 20.9,
+      "assetId": 26,
+      "id": 67
+    },
+    {
+      "date": "31-10-2024",
+      "type": "BUY",
+      "units": 145,
+      "price": 35.169998,
+      "assetId": 6,
+      "id": 68
+    },
+    {
+      "date": "31-10-2024",
+      "type": "BUY",
+      "units": 19,
+      "price": 270.579987,
+      "assetId": 5,
+      "id": 69
+    },
+    {
+      "date": "06-11-2024",
+      "type": "BUY",
+      "units": 80,
+      "price": 61.619999,
+      "assetId": 8,
+      "id": 70
+    },
+    {
+      "date": "07-11-2024",
+      "type": "BUY",
+      "units": 120,
+      "price": 87.849998,
+      "assetId": 28,
+      "id": 71
+    },
+    {
+      "date": "18-11-2024",
+      "type": "BUY",
+      "units": 90,
+      "price": 50.82,
+      "assetId": 1,
+      "id": 72
+    },
+    {
+      "date": "19-11-2024",
+      "type": "BUY",
+      "units": 275,
+      "price": 18.35,
+      "assetId": 29,
+      "id": 73
+    },
+    {
+      "date": "21-11-2024",
+      "type": "BUY",
+      "units": 150,
+      "price": 33.419998,
+      "assetId": 6,
+      "id": 74
+    },
+    {
+      "date": "22-11-2024",
+      "type": "BUY",
+      "units": 16,
+      "price": 322.350006,
+      "assetId": 27,
+      "id": 75
+    },
+    {
+      "date": "26-11-2024",
+      "type": "BUY",
+      "units": 58,
+      "price": 85.769997,
+      "assetId": 28,
+      "id": 76
+    },
+    {
+      "date": "09-12-2024",
+      "type": "BUY",
+      "units": 80,
+      "price": 59.43,
+      "assetId": 8,
+      "id": 77
+    },
+    {
+      "date": "16-12-2024",
+      "type": "BUY",
+      "units": 80,
+      "price": 64.32,
+      "assetId": 3,
+      "id": 78
+    },
+    {
+      "date": "16-12-2024",
+      "type": "BUY",
+      "units": 500,
+      "price": 11.14,
+      "assetId": 30,
+      "id": 79
+    },
+    {
+      "date": "24-12-2024",
+      "type": "BUY",
+      "units": 19,
+      "price": 265.670013,
+      "assetId": 5,
+      "id": 80
+    },
+    {
+      "date": "24-12-2024",
+      "type": "BUY",
+      "units": 400,
+      "price": 10.82,
+      "assetId": 30,
+      "id": 81
+    },
+    {
+      "date": "21-07-2025",
+      "type": "BUY",
+      "units": 83.988,
+      "price": 119.0587,
+      "assetId": 31,
+      "id": 82
+    },
+    {
+      "date": "31-07-2025",
+      "type": "BUY",
+      "units": 34.249,
+      "price": 116.7859,
+      "assetId": 31,
+      "id": 83
+    },
+    {
+      "date": "07-08-2025",
+      "type": "BUY",
+      "units": 34.146,
+      "price": 117.1368,
+      "assetId": 31,
+      "id": 84
+    },
+    {
+      "date": "14-08-2025",
+      "type": "BUY",
+      "units": 34.31,
+      "price": 116.5781,
+      "assetId": 31,
+      "id": 85
+    },
+    {
+      "date": "21-08-2025",
+      "type": "BUY",
+      "units": 33.517,
+      "price": 119.3378,
+      "assetId": 31,
+      "id": 86
+    },
+    {
+      "date": "28-08-2025",
+      "type": "BUY",
+      "units": 34.037,
+      "price": 117.512,
+      "assetId": 31,
+      "id": 87
+    },
+    {
+      "date": "04-09-2025",
+      "type": "BUY",
+      "units": 33.38,
+      "price": 119.8278,
+      "assetId": 31,
+      "id": 88
+    },
+    {
+      "date": "11-09-2025",
+      "type": "BUY",
+      "units": 33.221,
+      "price": 120.3999,
+      "assetId": 31,
+      "id": 89
+    },
+    {
+      "date": "18-09-2025",
+      "type": "BUY",
+      "units": 32.648,
+      "price": 122.513,
+      "assetId": 31,
+      "id": 90
+    },
+    {
+      "date": "25-09-2025",
+      "type": "BUY",
+      "units": 34.236,
+      "price": 116.8295,
+      "assetId": 31,
+      "id": 91
+    },
+    {
+      "date": "03-10-2025",
+      "type": "BUY",
+      "units": 34.528,
+      "price": 115.8423,
+      "assetId": 31,
+      "id": 92
+    },
+    {
+      "date": "09-10-2025",
+      "type": "BUY",
+      "units": 33.623,
+      "price": 118.9619,
+      "assetId": 31,
+      "id": 93
+    },
+    {
+      "date": "16-10-2025",
+      "type": "BUY",
+      "units": 33.156,
+      "price": 120.6363,
+      "assetId": 31,
+      "id": 94
+    },
+    {
+      "date": "30-10-2025",
+      "type": "BUY",
+      "units": 33.109,
+      "price": 120.8065,
+      "assetId": 31,
+      "id": 95
+    },
+    {
+      "date": "06-11-2025",
+      "type": "BUY",
+      "units": 33.887,
+      "price": 118.0336,
+      "assetId": 31,
+      "id": 96
+    },
+    {
+      "date": "13-11-2025",
+      "type": "BUY",
+      "units": 33.776,
+      "price": 118.4212,
+      "assetId": 31,
+      "id": 97
+    },
+    {
+      "date": "20-11-2025",
+      "type": "BUY",
+      "units": 33.544,
+      "price": 119.2392,
+      "assetId": 31,
+      "id": 98
+    },
+    {
+      "date": "27-11-2025",
+      "type": "BUY",
+      "units": 33.691,
+      "price": 118.7198,
+      "assetId": 31,
+      "id": 99
+    },
+    {
+      "date": "04-12-2025",
+      "type": "BUY",
+      "units": 34.037,
+      "price": 117.5128,
+      "assetId": 31,
+      "id": 100
+    },
+    {
+      "date": "12-12-2025",
+      "type": "BUY",
+      "units": 34.663,
+      "price": 115.3914,
+      "assetId": 31,
+      "id": 101
+    },
+    {
+      "date": "18-12-2025",
+      "type": "BUY",
+      "units": 35.047,
+      "price": 114.1269,
+      "assetId": 31,
+      "id": 102
+    },
+    {
+      "date": "03-01-2025",
+      "type": "BUY",
+      "units": 128.087,
+      "price": 19.517,
+      "assetId": 32,
+      "id": 103
+    },
+    {
+      "date": "10-01-2025",
+      "type": "BUY",
+      "units": 134.997,
+      "price": 18.518,
+      "assetId": 32,
+      "id": 104
+    },
+    {
+      "date": "17-01-2025",
+      "type": "BUY",
+      "units": 133.984,
+      "price": 18.658,
+      "assetId": 32,
+      "id": 105
+    },
+    {
+      "date": "24-01-2025",
+      "type": "BUY",
+      "units": 138.667,
+      "price": 18.028,
+      "assetId": 32,
+      "id": 106
+    },
+    {
+      "date": "31-01-2025",
+      "type": "BUY",
+      "units": 138.851,
+      "price": 18.004,
+      "assetId": 32,
+      "id": 107
+    },
+    {
+      "date": "07-02-2025",
+      "type": "BUY",
+      "units": 138.153,
+      "price": 18.095,
+      "assetId": 32,
+      "id": 108
+    },
+    {
+      "date": "14-02-2025",
+      "type": "BUY",
+      "units": 148.405,
+      "price": 16.845,
+      "assetId": 32,
+      "id": 109
+    },
+    {
+      "date": "21-02-2025",
+      "type": "BUY",
+      "units": 148.458,
+      "price": 16.839,
+      "assetId": 32,
+      "id": 110
+    },
+    {
+      "date": "28-02-2025",
+      "type": "BUY",
+      "units": 155.349,
+      "price": 16.092,
+      "assetId": 32,
+      "id": 111
+    },
+    {
+      "date": "07-03-2025",
+      "type": "BUY",
+      "units": 146.535,
+      "price": 17.06,
+      "assetId": 32,
+      "id": 112
+    },
+    {
+      "date": "17-03-2025",
+      "type": "BUY",
+      "units": 146.715,
+      "price": 17.039,
+      "assetId": 32,
+      "id": 113
+    },
+    {
+      "date": "21-03-2025",
+      "type": "BUY",
+      "units": 139.37,
+      "price": 17.937,
+      "assetId": 32,
+      "id": 114
+    },
+    {
+      "date": "28-03-2025",
+      "type": "BUY",
+      "units": 140.199,
+      "price": 17.831,
+      "assetId": 32,
+      "id": 115
+    },
+    {
+      "date": "04-04-2025",
+      "type": "BUY",
+      "units": 145.57,
+      "price": 17.173,
+      "assetId": 32,
+      "id": 116
+    },
+    {
+      "date": "11-04-2025",
+      "type": "BUY",
+      "units": 145.944,
+      "price": 17.129,
+      "assetId": 32,
+      "id": 117
+    },
+    {
+      "date": "21-04-2025",
+      "type": "BUY",
+      "units": 138.482,
+      "price": 18.052,
+      "assetId": 32,
+      "id": 118
+    },
+    {
+      "date": "25-04-2025",
+      "type": "BUY",
+      "units": 139.526,
+      "price": 17.917,
+      "assetId": 32,
+      "id": 119
+    },
+    {
+      "date": "06-05-2025",
+      "type": "BUY",
+      "units": 137.643,
+      "price": 18.162,
+      "assetId": 32,
+      "id": 120
+    },
+    {
+      "date": "13-05-2025",
+      "type": "BUY",
+      "units": 134.366,
+      "price": 18.605,
+      "assetId": 32,
+      "id": 121
+    },
+    {
+      "date": "20-05-2025",
+      "type": "BUY",
+      "units": 131.85,
+      "price": 18.96,
+      "assetId": 32,
+      "id": 122
+    },
+    {
+      "date": "27-05-2025",
+      "type": "BUY",
+      "units": 130.351,
+      "price": 19.178,
+      "assetId": 32,
+      "id": 123
+    },
+    {
+      "date": "03-06-2025",
+      "type": "BUY",
+      "units": 130.59,
+      "price": 19.143,
+      "assetId": 32,
+      "id": 124
+    },
+    {
+      "date": "10-06-2025",
+      "type": "BUY",
+      "units": 127.884,
+      "price": 19.548,
+      "assetId": 32,
+      "id": 125
+    },
+    {
+      "date": "17-06-2025",
+      "type": "BUY",
+      "units": 130.542,
+      "price": 19.15,
+      "assetId": 32,
+      "id": 126
+    },
+    {
+      "date": "24-06-2025",
+      "type": "BUY",
+      "units": 128.893,
+      "price": 19.395,
+      "assetId": 32,
+      "id": 127
+    },
+    {
+      "date": "01-07-2025",
+      "type": "BUY",
+      "units": 125.881,
+      "price": 19.859,
+      "assetId": 32,
+      "id": 128
+    },
+    {
+      "date": "08-07-2025",
+      "type": "BUY",
+      "units": 124.932,
+      "price": 20.01,
+      "assetId": 32,
+      "id": 129
+    },
+    {
+      "date": "15-07-2025",
+      "type": "BUY",
+      "units": 125.257,
+      "price": 19.958,
+      "assetId": 32,
+      "id": 130
+    },
+    {
+      "date": "22-07-2025",
+      "type": "BUY",
+      "units": 125.439,
+      "price": 19.929,
+      "assetId": 32,
+      "id": 131
+    },
+    {
+      "date": "29-07-2025",
+      "type": "BUY",
+      "units": 126.148,
+      "price": 19.817,
+      "assetId": 32,
+      "id": 132
+    },
+    {
+      "date": "05-08-2025",
+      "type": "BUY",
+      "units": 127.917,
+      "price": 19.543,
+      "assetId": 32,
+      "id": 133
+    },
+    {
+      "date": "12-08-2025",
+      "type": "BUY",
+      "units": 129.911,
+      "price": 19.243,
+      "assetId": 32,
+      "id": 134
+    },
+    {
+      "date": "19-08-2025",
+      "type": "BUY",
+      "units": 125.907,
+      "price": 19.855,
+      "assetId": 32,
+      "id": 135
+    },
+    {
+      "date": "26-08-2025",
+      "type": "BUY",
+      "units": 127.039,
+      "price": 19.678,
+      "assetId": 32,
+      "id": 136
+    },
+    {
+      "date": "02-09-2025",
+      "type": "BUY",
+      "units": 126.269,
+      "price": 19.798,
+      "assetId": 32,
+      "id": 137
+    },
+    {
+      "date": "09-09-2025",
+      "type": "BUY",
+      "units": 123.384,
+      "price": 20.261,
+      "assetId": 32,
+      "id": 138
+    },
+    {
+      "date": "16-09-2025",
+      "type": "BUY",
+      "units": 121.524,
+      "price": 20.571,
+      "assetId": 32,
+      "id": 139
+    },
+    {
+      "date": "23-09-2025",
+      "type": "BUY",
+      "units": 121.625,
+      "price": 20.554,
+      "assetId": 32,
+      "id": 140
+    },
+    {
+      "date": "30-09-2025",
+      "type": "BUY",
+      "units": 124.453,
+      "price": 20.087,
+      "assetId": 32,
+      "id": 141
+    },
+    {
+      "date": "07-10-2025",
+      "type": "BUY",
+      "units": 121.999,
+      "price": 20.491,
+      "assetId": 32,
+      "id": 142
+    },
+    {
+      "date": "14-10-2025",
+      "type": "BUY",
+      "units": 123.116,
+      "price": 20.305,
+      "assetId": 32,
+      "id": 143
+    },
+    {
+      "date": "28-10-2025",
+      "type": "BUY",
+      "units": 120.302,
+      "price": 20.78,
+      "assetId": 32,
+      "id": 144
+    },
+    {
+      "date": "04-11-2025",
+      "type": "BUY",
+      "units": 119.898,
+      "price": 20.85,
+      "assetId": 32,
+      "id": 145
+    },
+    {
+      "date": "11-11-2025",
+      "type": "BUY",
+      "units": 120.273,
+      "price": 20.785,
+      "assetId": 32,
+      "id": 146
+    },
+    {
+      "date": "18-11-2025",
+      "type": "BUY",
+      "units": 119.629,
+      "price": 20.897,
+      "assetId": 32,
+      "id": 147
+    },
+    {
+      "date": "25-11-2025",
+      "type": "BUY",
+      "units": 121.483,
+      "price": 20.578,
+      "assetId": 32,
+      "id": 148
+    },
+    {
+      "date": "02-12-2025",
+      "type": "BUY",
+      "units": 120.494,
+      "price": 20.747,
+      "assetId": 32,
+      "id": 149
+    },
+    {
+      "date": "09-12-2025",
+      "type": "BUY",
+      "units": 123.044,
+      "price": 20.317,
+      "assetId": 32,
+      "id": 150
+    },
+    {
+      "date": "16-12-2025",
+      "type": "BUY",
+      "units": 121.749,
+      "price": 20.533,
+      "assetId": 32,
+      "id": 151
+    },
+    {
+      "date": "23-12-2025",
+      "type": "BUY",
+      "units": 119.755,
+      "price": 20.875,
+      "assetId": 32,
+      "id": 152
+    },
+    {
+      "date": "30-09-2024",
+      "type": "BUY",
+      "units": 486.381,
+      "price": 20.559,
+      "assetId": 32,
+      "id": 153
+    },
+    {
+      "date": "04-10-2024",
+      "type": "BUY",
+      "units": 125.635,
+      "price": 19.898,
+      "assetId": 32,
+      "id": 154
+    },
+    {
+      "date": "11-10-2024",
+      "type": "BUY",
+      "units": 124.863,
+      "price": 20.021,
+      "assetId": 32,
+      "id": 155
+    },
+    {
+      "date": "18-10-2024",
+      "type": "BUY",
+      "units": 125.521,
+      "price": 19.916,
+      "assetId": 32,
+      "id": 156
+    },
+    {
+      "date": "25-10-2024",
+      "type": "BUY",
+      "units": 133.377,
+      "price": 18.743,
+      "assetId": 32,
+      "id": 157
+    },
+    {
+      "date": "04-11-2024",
+      "type": "BUY",
+      "units": 131.552,
+      "price": 19.003,
+      "assetId": 32,
+      "id": 158
+    },
+    {
+      "date": "08-11-2024",
+      "type": "BUY",
+      "units": 130.603,
+      "price": 19.141,
+      "assetId": 32,
+      "id": 159
+    },
+    {
+      "date": "18-11-2024",
+      "type": "BUY",
+      "units": 135.253,
+      "price": 18.483,
+      "assetId": 32,
+      "id": 160
+    },
+    {
+      "date": "22-11-2024",
+      "type": "BUY",
+      "units": 134.027,
+      "price": 18.652,
+      "assetId": 32,
+      "id": 161
+    },
+    {
+      "date": "29-11-2024",
+      "type": "BUY",
+      "units": 130.692,
+      "price": 19.128,
+      "assetId": 32,
+      "id": 162
+    },
+    {
+      "date": "06-12-2024",
+      "type": "BUY",
+      "units": 127.799,
+      "price": 19.561,
+      "assetId": 32,
+      "id": 163
+    },
+    {
+      "date": "13-12-2024",
+      "type": "BUY",
+      "units": 127.61,
+      "price": 19.59,
+      "assetId": 32,
+      "id": 164
+    },
+    {
+      "date": "20-12-2024",
+      "type": "BUY",
+      "units": 131.103,
+      "price": 19.068,
+      "assetId": 32,
+      "id": 165
+    },
+    {
+      "date": "27-12-2024",
+      "type": "BUY",
+      "units": 129.689,
+      "price": 19.276,
+      "assetId": 32,
+      "id": 166
+    },
+    {
+      "date": "30-09-2024",
+      "type": "BUY",
+      "units": 235.978,
+      "price": 42.3747,
+      "assetId": 33,
+      "id": 167
+    },
+    {
+      "date": "07-10-2024",
+      "type": "BUY",
+      "units": 61.775,
+      "price": 40.4674,
+      "assetId": 33,
+      "id": 168
+    },
+    {
+      "date": "14-10-2024",
+      "type": "BUY",
+      "units": 59.444,
+      "price": 42.0546,
+      "assetId": 33,
+      "id": 169
+    },
+    {
+      "date": "21-10-2024",
+      "type": "BUY",
+      "units": 61.193,
+      "price": 40.8521,
+      "assetId": 33,
+      "id": 170
+    },
+    {
+      "date": "28-10-2024",
+      "type": "BUY",
+      "units": 63.323,
+      "price": 39.478,
+      "assetId": 33,
+      "id": 171
+    },
+    {
+      "date": "05-11-2024",
+      "type": "BUY",
+      "units": 62.885,
+      "price": 39.7529,
+      "assetId": 33,
+      "id": 172
+    },
+    {
+      "date": "11-11-2024",
+      "type": "BUY",
+      "units": 63.267,
+      "price": 39.5131,
+      "assetId": 33,
+      "id": 173
+    },
+    {
+      "date": "19-11-2024",
+      "type": "BUY",
+      "units": 64.924,
+      "price": 38.5046,
+      "assetId": 33,
+      "id": 174
+    },
+    {
+      "date": "25-11-2024",
+      "type": "BUY",
+      "units": 63.683,
+      "price": 39.2549,
+      "assetId": 33,
+      "id": 175
+    },
+    {
+      "date": "02-12-2024",
+      "type": "BUY",
+      "units": 62.76,
+      "price": 39.8323,
+      "assetId": 33,
+      "id": 176
+    },
+    {
+      "date": "09-12-2024",
+      "type": "BUY",
+      "units": 61.246,
+      "price": 40.8169,
+      "assetId": 33,
+      "id": 177
+    },
+    {
+      "date": "16-12-2024",
+      "type": "BUY",
+      "units": 60.647,
+      "price": 41.2203,
+      "assetId": 33,
+      "id": 178
+    },
+    {
+      "date": "23-12-2024",
+      "type": "BUY",
+      "units": 62.571,
+      "price": 39.9528,
+      "assetId": 33,
+      "id": 179
+    },
+    {
+      "date": "30-12-2024",
+      "type": "BUY",
+      "units": 62.51,
+      "price": 39.9915,
+      "assetId": 33,
+      "id": 180
+    },
+    {
+      "date": "06-01-2025",
+      "type": "BUY",
+      "units": 63.288,
+      "price": 39.5,
+      "assetId": 33,
+      "id": 181
+    },
+    {
+      "date": "13-01-2025",
+      "type": "BUY",
+      "units": 66.459,
+      "price": 37.6154,
+      "assetId": 33,
+      "id": 182
+    },
+    {
+      "date": "20-01-2025",
+      "type": "BUY",
+      "units": 64.582,
+      "price": 38.7088,
+      "assetId": 33,
+      "id": 183
+    },
+    {
+      "date": "27-01-2025",
+      "type": "BUY",
+      "units": 69.054,
+      "price": 36.2017,
+      "assetId": 33,
+      "id": 184
+    },
+    {
+      "date": "03-02-2025",
+      "type": "BUY",
+      "units": 66.845,
+      "price": 37.398,
+      "assetId": 33,
+      "id": 185
+    },
+    {
+      "date": "10-02-2025",
+      "type": "BUY",
+      "units": 67.506,
+      "price": 37.0317,
+      "assetId": 33,
+      "id": 186
+    },
+    {
+      "date": "17-02-2025",
+      "type": "BUY",
+      "units": 70.603,
+      "price": 35.4074,
+      "assetId": 33,
+      "id": 187
+    },
+    {
+      "date": "24-02-2025",
+      "type": "BUY",
+      "units": 70.798,
+      "price": 35.3098,
+      "assetId": 33,
+      "id": 188
+    },
+    {
+      "date": "03-03-2025",
+      "type": "BUY",
+      "units": 73.388,
+      "price": 34.064,
+      "assetId": 33,
+      "id": 189
+    },
+    {
+      "date": "10-03-2025",
+      "type": "BUY",
+      "units": 72.396,
+      "price": 34.5304,
+      "assetId": 33,
+      "id": 190
+    },
+    {
+      "date": "17-03-2025",
+      "type": "BUY",
+      "units": 71.907,
+      "price": 34.7657,
+      "assetId": 33,
+      "id": 191
+    },
+    {
+      "date": "24-03-2025",
+      "type": "BUY",
+      "units": 67.37,
+      "price": 37.1068,
+      "assetId": 33,
+      "id": 192
+    },
+    {
+      "date": "02-04-2025",
+      "type": "BUY",
+      "units": 67.752,
+      "price": 36.8975,
+      "assetId": 33,
+      "id": 193
+    },
+    {
+      "date": "07-04-2025",
+      "type": "BUY",
+      "units": 72.011,
+      "price": 34.7153,
+      "assetId": 33,
+      "id": 194
+    },
+    {
+      "date": "15-04-2025",
+      "type": "BUY",
+      "units": 67.393,
+      "price": 37.094,
+      "assetId": 33,
+      "id": 195
+    },
+    {
+      "date": "21-04-2025",
+      "type": "BUY",
+      "units": 65.077,
+      "price": 38.4144,
+      "assetId": 33,
+      "id": 196
+    },
+    {
+      "date": "28-04-2025",
+      "type": "BUY",
+      "units": 65.293,
+      "price": 38.2869,
+      "assetId": 33,
+      "id": 197
+    },
+    {
+      "date": "05-05-2025",
+      "type": "BUY",
+      "units": 65.267,
+      "price": 38.3025,
+      "assetId": 33,
+      "id": 198
+    },
+    {
+      "date": "12-05-2025",
+      "type": "BUY",
+      "units": 64.533,
+      "price": 38.7381,
+      "assetId": 33,
+      "id": 199
+    },
+    {
+      "date": "19-05-2025",
+      "type": "BUY",
+      "units": 62.941,
+      "price": 39.7177,
+      "assetId": 33,
+      "id": 200
+    },
+    {
+      "date": "26-05-2025",
+      "type": "BUY",
+      "units": 63.089,
+      "price": 39.6244,
+      "assetId": 33,
+      "id": 201
+    },
+    {
+      "date": "02-06-2025",
+      "type": "BUY",
+      "units": 62.984,
+      "price": 39.6907,
+      "assetId": 33,
+      "id": 202
+    },
+    {
+      "date": "09-06-2025",
+      "type": "BUY",
+      "units": 60.931,
+      "price": 41.028,
+      "assetId": 33,
+      "id": 203
+    },
+    {
+      "date": "16-06-2025",
+      "type": "BUY",
+      "units": 61.402,
+      "price": 40.7134,
+      "assetId": 33,
+      "id": 204
+    },
+    {
+      "date": "23-06-2025",
+      "type": "BUY",
+      "units": 61.513,
+      "price": 40.6396,
+      "assetId": 33,
+      "id": 205
+    },
+    {
+      "date": "30-06-2025",
+      "type": "BUY",
+      "units": 59.725,
+      "price": 41.8565,
+      "assetId": 33,
+      "id": 206
+    },
+    {
+      "date": "07-07-2025",
+      "type": "BUY",
+      "units": 59.821,
+      "price": 41.7895,
+      "assetId": 33,
+      "id": 207
+    },
+    {
+      "date": "14-07-2025",
+      "type": "BUY",
+      "units": 59.598,
+      "price": 41.946,
+      "assetId": 33,
+      "id": 208
+    },
+    {
+      "date": "21-07-2025",
+      "type": "BUY",
+      "units": 59.161,
+      "price": 42.2556,
+      "assetId": 33,
+      "id": 209
+    },
+    {
+      "date": "28-07-2025",
+      "type": "BUY",
+      "units": 60.909,
+      "price": 41.0429,
+      "assetId": 33,
+      "id": 210
+    },
+    {
+      "date": "04-08-2025",
+      "type": "BUY",
+      "units": 61.36,
+      "price": 40.7412,
+      "assetId": 33,
+      "id": 211
+    },
+    {
+      "date": "11-08-2025",
+      "type": "BUY",
+      "units": 62.177,
+      "price": 40.2061,
+      "assetId": 33,
+      "id": 212
+    },
+    {
+      "date": "18-08-2025",
+      "type": "BUY",
+      "units": 61.296,
+      "price": 40.7838,
+      "assetId": 33,
+      "id": 213
+    },
+    {
+      "date": "25-08-2025",
+      "type": "BUY",
+      "units": 60.927,
+      "price": 41.0308,
+      "assetId": 33,
+      "id": 214
+    },
+    {
+      "date": "01-09-2025",
+      "type": "BUY",
+      "units": 62.159,
+      "price": 40.2178,
+      "assetId": 33,
+      "id": 215
+    },
+    {
+      "date": "08-09-2025",
+      "type": "BUY",
+      "units": 61.635,
+      "price": 40.5596,
+      "assetId": 33,
+      "id": 216
+    },
+    {
+      "date": "15-09-2025",
+      "type": "BUY",
+      "units": 60.725,
+      "price": 41.1671,
+      "assetId": 33,
+      "id": 217
+    },
+    {
+      "date": "22-09-2025",
+      "type": "BUY",
+      "units": 60.449,
+      "price": 41.3555,
+      "assetId": 33,
+      "id": 218
+    },
+    {
+      "date": "20-10-2025",
+      "type": "BUY",
+      "units": 59.589,
+      "price": 41.9522,
+      "assetId": 33,
+      "id": 219
+    },
+    {
+      "date": "20-11-2025",
+      "type": "BUY",
+      "units": 58.959,
+      "price": 42.4,
+      "assetId": 33,
+      "id": 220
+    },
+    {
+      "date": "22-12-2025",
+      "type": "BUY",
+      "units": 59.485,
+      "price": 42.0257,
+      "assetId": 33,
+      "id": 221
+    },
+    {
+      "date": "21-07-2025",
+      "type": "BUY",
+      "units": 108.061,
+      "price": 92.5354,
+      "assetId": 34,
+      "id": 222
+    },
+    {
+      "date": "29-07-2025",
+      "type": "BUY",
+      "units": 27.205,
+      "price": 91.8916,
+      "assetId": 34,
+      "id": 223
+    },
+    {
+      "date": "05-08-2025",
+      "type": "BUY",
+      "units": 27.317,
+      "price": 91.5126,
+      "assetId": 34,
+      "id": 224
+    },
+    {
+      "date": "12-08-2025",
+      "type": "BUY",
+      "units": 27.252,
+      "price": 91.7307,
+      "assetId": 34,
+      "id": 225
+    },
+    {
+      "date": "19-08-2025",
+      "type": "BUY",
+      "units": 27.049,
+      "price": 92.4207,
+      "assetId": 34,
+      "id": 226
+    },
+    {
+      "date": "26-08-2025",
+      "type": "BUY",
+      "units": 27.294,
+      "price": 91.5915,
+      "assetId": 34,
+      "id": 227
+    },
+    {
+      "date": "02-09-2025",
+      "type": "BUY",
+      "units": 27.368,
+      "price": 91.3431,
+      "assetId": 34,
+      "id": 228
+    },
+    {
+      "date": "09-09-2025",
+      "type": "BUY",
+      "units": 26.862,
+      "price": 93.063,
+      "assetId": 34,
+      "id": 229
+    },
+    {
+      "date": "16-09-2025",
+      "type": "BUY",
+      "units": 26.483,
+      "price": 94.3948,
+      "assetId": 34,
+      "id": 230
+    },
+    {
+      "date": "23-09-2025",
+      "type": "BUY",
+      "units": 37.228,
+      "price": 94.0097,
+      "assetId": 34,
+      "id": 231
+    },
+    {
+      "date": "30-09-2025",
+      "type": "BUY",
+      "units": 38.002,
+      "price": 92.0956,
+      "assetId": 34,
+      "id": 232
+    },
+    {
+      "date": "07-10-2025",
+      "type": "BUY",
+      "units": 37.553,
+      "price": 93.1978,
+      "assetId": 34,
+      "id": 233
+    },
+    {
+      "date": "14-10-2025",
+      "type": "BUY",
+      "units": 37.551,
+      "price": 93.2029,
+      "assetId": 34,
+      "id": 234
+    },
+    {
+      "date": "28-10-2025",
+      "type": "BUY",
+      "units": 36.647,
+      "price": 95.5012,
+      "assetId": 34,
+      "id": 235
+    },
+    {
+      "date": "04-11-2025",
+      "type": "BUY",
+      "units": 37.298,
+      "price": 93.8341,
+      "assetId": 34,
+      "id": 236
+    },
+    {
+      "date": "11-11-2025",
+      "type": "BUY",
+      "units": 37.161,
+      "price": 94.1798,
+      "assetId": 34,
+      "id": 237
+    },
+    {
+      "date": "18-11-2025",
+      "type": "BUY",
+      "units": 37.207,
+      "price": 94.0629,
+      "assetId": 34,
+      "id": 238
+    },
+    {
+      "date": "25-11-2025",
+      "type": "BUY",
+      "units": 37.079,
+      "price": 94.3884,
+      "assetId": 34,
+      "id": 239
+    },
+    {
+      "date": "02-12-2025",
+      "type": "BUY",
+      "units": 36.937,
+      "price": 94.7524,
+      "assetId": 34,
+      "id": 240
+    },
+    {
+      "date": "09-12-2025",
+      "type": "BUY",
+      "units": 37.009,
+      "price": 94.5666,
+      "assetId": 34,
+      "id": 241
+    },
+    {
+      "date": "16-12-2025",
+      "type": "BUY",
+      "units": 37.061,
+      "price": 94.4339,
+      "assetId": 34,
+      "id": 242
+    },
+    {
+      "date": "23-12-2025",
+      "type": "BUY",
+      "units": 36.713,
+      "price": 95.3305,
+      "assetId": 34,
+      "id": 243
+    },
+    {
+      "date": "30-09-2024",
+      "type": "BUY",
+      "units": 960.567,
+      "price": 10.41,
+      "assetId": 35,
+      "id": 244
+    },
+    {
+      "date": "04-10-2024",
+      "type": "BUY",
+      "units": 245.809,
+      "price": 10.17,
+      "assetId": 35,
+      "id": 245
+    },
+    {
+      "date": "11-10-2024",
+      "type": "BUY",
+      "units": 246.051,
+      "price": 10.16,
+      "assetId": 35,
+      "id": 246
+    },
+    {
+      "date": "18-10-2024",
+      "type": "BUY",
+      "units": 246.536,
+      "price": 10.14,
+      "assetId": 35,
+      "id": 247
+    },
+    {
+      "date": "25-10-2024",
+      "type": "BUY",
+      "units": 257.72,
+      "price": 9.7,
+      "assetId": 35,
+      "id": 248
+    },
+    {
+      "date": "04-11-2024",
+      "type": "BUY",
+      "units": 256.135,
+      "price": 9.76,
+      "assetId": 35,
+      "id": 249
+    },
+    {
+      "date": "08-11-2024",
+      "type": "BUY",
+      "units": 254.83,
+      "price": 9.81,
+      "assetId": 35,
+      "id": 250
+    },
+    {
+      "date": "18-11-2024",
+      "type": "BUY",
+      "units": 262.317,
+      "price": 9.53,
+      "assetId": 35,
+      "id": 251
+    },
+    {
+      "date": "22-11-2024",
+      "type": "BUY",
+      "units": 260.133,
+      "price": 9.61,
+      "assetId": 35,
+      "id": 252
+    },
+    {
+      "date": "29-11-2024",
+      "type": "BUY",
+      "units": 255.611,
+      "price": 9.78,
+      "assetId": 35,
+      "id": 253
+    },
+    {
+      "date": "06-12-2024",
+      "type": "BUY",
+      "units": 250.74,
+      "price": 9.97,
+      "assetId": 35,
+      "id": 254
+    },
+    {
+      "date": "13-12-2024",
+      "type": "BUY",
+      "units": 253.281,
+      "price": 9.87,
+      "assetId": 35,
+      "id": 255
+    },
+    {
+      "date": "20-12-2024",
+      "type": "BUY",
+      "units": 262.317,
+      "price": 9.53,
+      "assetId": 35,
+      "id": 256
+    },
+    {
+      "date": "27-12-2024",
+      "type": "BUY",
+      "units": 261.22,
+      "price": 9.57,
+      "assetId": 35,
+      "id": 257
+    },
+    {
+      "date": "03-01-2025",
+      "type": "BUY",
+      "units": 256.398,
+      "price": 9.75,
+      "assetId": 35,
+      "id": 258
+    },
+    {
+      "date": "10-01-2025",
+      "type": "BUY",
+      "units": 266.228,
+      "price": 9.39,
+      "assetId": 35,
+      "id": 259
+    },
+    {
+      "date": "17-01-2025",
+      "type": "BUY",
+      "units": 263.7,
+      "price": 9.48,
+      "assetId": 35,
+      "id": 260
+    },
+    {
+      "date": "24-01-2025",
+      "type": "BUY",
+      "units": 271.137,
+      "price": 9.22,
+      "assetId": 35,
+      "id": 261
+    },
+    {
+      "date": "31-01-2025",
+      "type": "BUY",
+      "units": 267.367,
+      "price": 9.35,
+      "assetId": 35,
+      "id": 262
+    },
+    {
+      "date": "07-02-2025",
+      "type": "BUY",
+      "units": 272.318,
+      "price": 9.18,
+      "assetId": 35,
+      "id": 263
+    },
+    {
+      "date": "14-02-2025",
+      "type": "BUY",
+      "units": 289.338,
+      "price": 8.64,
+      "assetId": 35,
+      "id": 264
+    },
+    {
+      "date": "21-02-2025",
+      "type": "BUY",
+      "units": 280.885,
+      "price": 8.9,
+      "assetId": 35,
+      "id": 265
+    },
+    {
+      "date": "28-02-2025",
+      "type": "BUY",
+      "units": 294.104,
+      "price": 8.5,
+      "assetId": 35,
+      "id": 266
+    },
+    {
+      "date": "07-03-2025",
+      "type": "BUY",
+      "units": 279.004,
+      "price": 8.96,
+      "assetId": 35,
+      "id": 267
+    },
+    {
+      "date": "17-03-2025",
+      "type": "BUY",
+      "units": 280.256,
+      "price": 8.92,
+      "assetId": 35,
+      "id": 268
+    },
+    {
+      "date": "21-03-2025",
+      "type": "BUY",
+      "units": 265.38,
+      "price": 9.42,
+      "assetId": 35,
+      "id": 269
+    },
+    {
+      "date": "28-03-2025",
+      "type": "BUY",
+      "units": 264.818,
+      "price": 9.44,
+      "assetId": 35,
+      "id": 270
+    },
+    {
+      "date": "04-04-2025",
+      "type": "BUY",
+      "units": 271.726,
+      "price": 9.2,
+      "assetId": 35,
+      "id": 271
+    },
+    {
+      "date": "11-04-2025",
+      "type": "BUY",
+      "units": 269.094,
+      "price": 9.29,
+      "assetId": 35,
+      "id": 272
+    },
+    {
+      "date": "21-04-2025",
+      "type": "BUY",
+      "units": 256.661,
+      "price": 9.74,
+      "assetId": 35,
+      "id": 273
+    },
+    {
+      "date": "25-04-2025",
+      "type": "BUY",
+      "units": 259.863,
+      "price": 9.62,
+      "assetId": 35,
+      "id": 274
+    },
+    {
+      "date": "07-05-2025",
+      "type": "BUY",
+      "units": 256.925,
+      "price": 9.73,
+      "assetId": 35,
+      "id": 275
+    },
+    {
+      "date": "14-05-2025",
+      "type": "BUY",
+      "units": 250.992,
+      "price": 9.96,
+      "assetId": 35,
+      "id": 276
+    },
+    {
+      "date": "21-05-2025",
+      "type": "BUY",
+      "units": 246.78,
+      "price": 10.13,
+      "assetId": 35,
+      "id": 277
+    },
+    {
+      "date": "28-05-2025",
+      "type": "BUY",
+      "units": 245.568,
+      "price": 10.18,
+      "assetId": 35,
+      "id": 278
+    },
+    {
+      "date": "04-06-2025",
+      "type": "BUY",
+      "units": 246.78,
+      "price": 10.13,
+      "assetId": 35,
+      "id": 279
+    },
+    {
+      "date": "11-06-2025",
+      "type": "BUY",
+      "units": 240.604,
+      "price": 10.39,
+      "assetId": 35,
+      "id": 280
+    },
+    {
+      "date": "18-06-2025",
+      "type": "BUY",
+      "units": 246.051,
+      "price": 10.16,
+      "assetId": 35,
+      "id": 281
+    },
+    {
+      "date": "25-06-2025",
+      "type": "BUY",
+      "units": 244.607,
+      "price": 10.22,
+      "assetId": 35,
+      "id": 282
+    },
+    {
+      "date": "02-07-2025",
+      "type": "BUY",
+      "units": 240.373,
+      "price": 10.4,
+      "assetId": 35,
+      "id": 283
+    },
+    {
+      "date": "09-07-2025",
+      "type": "BUY",
+      "units": 237.406,
+      "price": 10.53,
+      "assetId": 35,
+      "id": 284
+    },
+    {
+      "date": "16-07-2025",
+      "type": "BUY",
+      "units": 237.406,
+      "price": 10.53,
+      "assetId": 35,
+      "id": 285
+    },
+    {
+      "date": "23-07-2025",
+      "type": "BUY",
+      "units": 237.631,
+      "price": 10.52,
+      "assetId": 35,
+      "id": 286
+    },
+    {
+      "date": "30-07-2025",
+      "type": "BUY",
+      "units": 242.707,
+      "price": 10.3,
+      "assetId": 35,
+      "id": 287
+    },
+    {
+      "date": "06-08-2025",
+      "type": "BUY",
+      "units": 249.988,
+      "price": 10,
+      "assetId": 35,
+      "id": 288
+    },
+    {
+      "date": "13-08-2025",
+      "type": "BUY",
+      "units": 247.758,
+      "price": 10.09,
+      "assetId": 35,
+      "id": 289
+    },
+    {
+      "date": "20-08-2025",
+      "type": "BUY",
+      "units": 246.294,
+      "price": 10.15,
+      "assetId": 35,
+      "id": 290
+    },
+    {
+      "date": "28-08-2025",
+      "type": "BUY",
+      "units": 251.497,
+      "price": 9.94,
+      "assetId": 35,
+      "id": 291
+    },
+    {
+      "date": "03-09-2025",
+      "type": "BUY",
+      "units": 247.024,
+      "price": 10.12,
+      "assetId": 35,
+      "id": 292
+    },
+    {
+      "date": "10-09-2025",
+      "type": "BUY",
+      "units": 247.513,
+      "price": 10.1,
+      "assetId": 35,
+      "id": 293
+    },
+    {
+      "date": "25-09-2025",
+      "type": "BUY",
+      "units": 242.707,
+      "price": 10.3,
+      "assetId": 35,
+      "id": 294
+    },
+    {
+      "date": "27-10-2025",
+      "type": "BUY",
+      "units": 235.615,
+      "price": 10.61,
+      "assetId": 35,
+      "id": 295
+    },
+    {
+      "date": "25-11-2025",
+      "type": "BUY",
+      "units": 235.838,
+      "price": 10.6,
+      "assetId": 35,
+      "id": 296
+    },
+    {
+      "type": "BUY",
+      "date": "26-12-2025",
+      "units": 35.113,
+      "price": 113.91,
+      "assetId": 31,
+      "id": 297
+    },
+    {
+      "type": "BUY",
+      "date": "01-01-2026",
+      "units": 35.11494878484719,
+      "price": 113.9116,
+      "note": "Auto SIP",
+      "assetId": 31,
+      "id": 298
+    },
+    {
+      "type": "BUY",
+      "date": "08-01-2026",
+      "units": 35.15176334426846,
+      "price": 113.7923,
+      "note": "Auto SIP",
+      "assetId": 31,
+      "id": 299
+    },
+    {
+      "type": "BUY",
+      "date": "06-01-2026",
+      "units": 36.71672730171918,
+      "price": 95.3244,
+      "note": "Auto SIP",
+      "assetId": 34,
+      "id": 300
+    },
+    {
+      "type": "BUY",
+      "date": "30-12-2025",
+      "units": 120.972,
+      "price": 20.66,
+      "assetId": 32,
+      "id": 301
+    },
+    {
+      "type": "BUY",
+      "date": "06-01-2026",
+      "units": 117.217,
+      "price": 21.33,
+      "assetId": 32,
+      "id": 302
+    },
+    {
+      "type": "BUY",
+      "date": "30-12-2025",
+      "units": 36.992,
+      "price": 95.32,
+      "assetId": 34,
+      "id": 303
+    },
+    {
+      "type": "BUY",
+      "date": "26-12-2025",
+      "units": 237.406,
+      "price": 10.53,
+      "assetId": 35,
+      "id": 304
+    },
+    {
+      "date": "05-10-2023",
+      "type": "BUY",
+      "units": 3.578,
+      "price": 279.46,
+      "assetId": 36,
+      "id": 305
+    },
+    {
+      "date": "11-10-2023",
+      "type": "BUY",
+      "units": 10.626,
+      "price": 282.32,
+      "assetId": 36,
+      "id": 306
+    },
+    {
+      "date": "12-10-2023",
+      "type": "BUY",
+      "units": 10.601,
+      "price": 282.99,
+      "assetId": 36,
+      "id": 307
+    },
+    {
+      "date": "13-11-2023",
+      "type": "BUY",
+      "units": 10.548,
+      "price": 284.4,
+      "assetId": 36,
+      "id": 308
+    },
+    {
+      "date": "28-11-2023",
+      "type": "BUY",
+      "units": 10.339,
+      "price": 290.15,
+      "assetId": 36,
+      "id": 309
+    },
+    {
+      "date": "12-12-2023",
+      "type": "BUY",
+      "units": 9.992,
+      "price": 300.22,
+      "assetId": 36,
+      "id": 310
+    },
+    {
+      "date": "26-12-2023",
+      "type": "BUY",
+      "units": 9.794,
+      "price": 306.29,
+      "assetId": 36,
+      "id": 311
+    },
+    {
+      "date": "12-01-2024",
+      "type": "BUY",
+      "units": 9.529,
+      "price": 314.81,
+      "assetId": 36,
+      "id": 312
+    },
+    {
+      "date": "25-01-2024",
+      "type": "BUY",
+      "units": 9.526,
+      "price": 314.92,
+      "assetId": 36,
+      "id": 313
+    },
+    {
+      "date": "13-02-2024",
+      "type": "BUY",
+      "units": 9.271,
+      "price": 323.56,
+      "assetId": 36,
+      "id": 314
+    },
+    {
+      "date": "26-02-2024",
+      "type": "BUY",
+      "units": 9.081,
+      "price": 330.35,
+      "assetId": 36,
+      "id": 315
+    },
+    {
+      "date": "12-03-2024",
+      "type": "BUY",
+      "units": 8.986,
+      "price": 333.84,
+      "assetId": 36,
+      "id": 316
+    },
+    {
+      "date": "26-03-2024",
+      "type": "BUY",
+      "units": 9.002,
+      "price": 333.23,
+      "assetId": 36,
+      "id": 317
+    },
+    {
+      "date": "25-04-2024",
+      "type": "BUY",
+      "units": 8.718,
+      "price": 344.08,
+      "assetId": 36,
+      "id": 318
+    },
+    {
+      "date": "11-04-2025",
+      "type": "BUY",
+      "units": 34.371,
+      "price": 363.66,
+      "assetId": 36,
+      "id": 319
+    },
+    {
+      "date": "02-05-2025",
+      "type": "BUY",
+      "units": 13.149,
+      "price": 380.23,
+      "assetId": 36,
+      "id": 320
+    },
+    {
+      "date": "22-05-2025",
+      "type": "BUY",
+      "units": 13.004,
+      "price": 384.48,
+      "assetId": 36,
+      "id": 321
+    },
+    {
+      "date": "26-05-2025",
+      "type": "BUY",
+      "units": 12.921,
+      "price": 386.96,
+      "assetId": 36,
+      "id": 322
+    },
+    {
+      "date": "17-06-2025",
+      "type": "BUY",
+      "units": 12.907,
+      "price": 387.37,
+      "assetId": 36,
+      "id": 323
+    },
+    {
+      "date": "25-06-2025",
+      "type": "BUY",
+      "units": 12.763,
+      "price": 391.74,
+      "assetId": 36,
+      "id": 324
+    },
+    {
+      "date": "14-07-2025",
+      "type": "BUY",
+      "units": 47.208,
+      "price": 391.86,
+      "assetId": 36,
+      "id": 325
+    },
+    {
+      "date": "14-07-2025",
+      "type": "BUY",
+      "units": 12.759,
+      "price": 391.86,
+      "assetId": 36,
+      "id": 326
+    },
+    {
+      "date": "16-07-2025",
+      "type": "BUY",
+      "units": 50.773,
+      "price": 393.89,
+      "assetId": 36,
+      "id": 327
+    },
+    {
+      "date": "25-07-2025",
+      "type": "BUY",
+      "units": 12.826,
+      "price": 389.81,
+      "assetId": 36,
+      "id": 328
+    },
+    {
+      "date": "14-08-2025",
+      "type": "BUY",
+      "units": 12.802,
+      "price": 390.53,
+      "assetId": 36,
+      "id": 329
+    },
+    {
+      "date": "25-08-2025",
+      "type": "BUY",
+      "units": 12.575,
+      "price": 397.58,
+      "assetId": 36,
+      "id": 330
+    },
+    {
+      "date": "15-09-2025",
+      "type": "BUY",
+      "units": 12.504,
+      "price": 399.85,
+      "assetId": 36,
+      "id": 331
+    },
+    {
+      "date": "25-09-2025",
+      "type": "BUY",
+      "units": 12.489,
+      "price": 400.33,
+      "assetId": 36,
+      "id": 332
+    },
+    {
+      "date": "14-10-2025",
+      "type": "BUY",
+      "units": 12.439,
+      "price": 401.94,
+      "assetId": 36,
+      "id": 333
+    },
+    {
+      "date": "27-10-2025",
+      "type": "BUY",
+      "units": 12.185,
+      "price": 410.31,
+      "assetId": 36,
+      "id": 334
+    },
+    {
+      "date": "14-11-2025",
+      "type": "BUY",
+      "units": 12.232,
+      "price": 408.73,
+      "assetId": 36,
+      "id": 335
+    },
+    {
+      "date": "09-07-2024",
+      "type": "BUY",
+      "units": 4.592,
+      "price": 435.51,
+      "assetId": 37,
+      "id": 336
+    },
+    {
+      "date": "07-08-2024",
+      "type": "BUY",
+      "units": 4.56,
+      "price": 438.58,
+      "assetId": 37,
+      "id": 337
+    },
+    {
+      "date": "09-08-2024",
+      "type": "BUY",
+      "units": 4.566,
+      "price": 437.99,
+      "assetId": 37,
+      "id": 338
+    },
+    {
+      "date": "09-09-2024",
+      "type": "BUY",
+      "units": 4.556,
+      "price": 438.96,
+      "assetId": 37,
+      "id": 339
+    },
+    {
+      "date": "24-09-2024",
+      "type": "BUY",
+      "units": 4.49,
+      "price": 445.38,
+      "assetId": 37,
+      "id": 340
+    },
+    {
+      "date": "09-10-2024",
+      "type": "BUY",
+      "units": 4.624,
+      "price": 432.46,
+      "assetId": 37,
+      "id": 341
+    },
+    {
+      "date": "24-10-2024",
+      "type": "BUY",
+      "units": 4.794,
+      "price": 417.17,
+      "assetId": 37,
+      "id": 342
+    },
+    {
+      "date": "11-11-2024",
+      "type": "BUY",
+      "units": 4.903,
+      "price": 407.91,
+      "assetId": 37,
+      "id": 343
+    },
+    {
+      "date": "25-11-2024",
+      "type": "BUY",
+      "units": 4.96,
+      "price": 403.21,
+      "assetId": 37,
+      "id": 344
+    },
+    {
+      "date": "09-12-2024",
+      "type": "BUY",
+      "units": 4.835,
+      "price": 413.59,
+      "assetId": 37,
+      "id": 345
+    },
+    {
+      "date": "24-12-2024",
+      "type": "BUY",
+      "units": 5.038,
+      "price": 396.95,
+      "assetId": 37,
+      "id": 346
+    },
+    {
+      "date": "09-01-2025",
+      "type": "BUY",
+      "units": 5.071,
+      "price": 394.41,
+      "assetId": 37,
+      "id": 347
+    },
+    {
+      "date": "24-01-2025",
+      "type": "BUY",
+      "units": 5.146,
+      "price": 388.61,
+      "assetId": 37,
+      "id": 348
+    },
+    {
+      "date": "24-02-2025",
+      "type": "BUY",
+      "units": 5.379,
+      "price": 371.82,
+      "assetId": 37,
+      "id": 349
+    },
+    {
+      "date": "03-04-2020",
+      "type": "BUY",
+      "units": 21.926,
+      "price": 114.02,
+      "assetId": 38,
+      "id": 350
+    },
+    {
+      "date": "08-06-2020",
+      "type": "BUY",
+      "units": 19.045,
+      "price": 131.27,
+      "assetId": 38,
+      "id": 351
+    },
+    {
+      "date": "25-09-2023",
+      "type": "BUY",
+      "units": 3.376,
+      "price": 1332.71,
+      "assetId": 39,
+      "id": 352
+    },
+    {
+      "date": "12-10-2023",
+      "type": "BUY",
+      "units": 3.364,
+      "price": 1337.81,
+      "assetId": 39,
+      "id": 353
+    },
+    {
+      "date": "25-10-2023",
+      "type": "BUY",
+      "units": 3.466,
+      "price": 1298.11,
+      "assetId": 39,
+      "id": 354
+    },
+    {
+      "date": "13-11-2023",
+      "type": "BUY",
+      "units": 3.357,
+      "price": 1340.28,
+      "assetId": 39,
+      "id": 355
+    },
+    {
+      "date": "28-11-2023",
+      "type": "BUY",
+      "units": 3.272,
+      "price": 1375.39,
+      "assetId": 39,
+      "id": 356
+    },
+    {
+      "date": "12-12-2023",
+      "type": "BUY",
+      "units": 3.085,
+      "price": 1458.76,
+      "assetId": 39,
+      "id": 357
+    },
+    {
+      "date": "26-12-2023",
+      "type": "BUY",
+      "units": 3.017,
+      "price": 1491.33,
+      "assetId": 39,
+      "id": 358
+    },
+    {
+      "date": "12-01-2024",
+      "type": "BUY",
+      "units": 2.94,
+      "price": 1530.45,
+      "assetId": 39,
+      "id": 359
+    },
+    {
+      "date": "25-01-2024",
+      "type": "BUY",
+      "units": 2.982,
+      "price": 1508.93,
+      "assetId": 39,
+      "id": 360
+    },
+    {
+      "date": "13-02-2024",
+      "type": "BUY",
+      "units": 2.891,
+      "price": 1556.57,
+      "assetId": 39,
+      "id": 361
+    },
+    {
+      "date": "26-02-2024",
+      "type": "BUY",
+      "units": 2.815,
+      "price": 1598.56,
+      "assetId": 39,
+      "id": 362
+    },
+    {
+      "date": "12-03-2024",
+      "type": "BUY",
+      "units": 2.802,
+      "price": 1606.13,
+      "assetId": 39,
+      "id": 363
+    },
+    {
+      "date": "21-03-2024",
+      "type": "BUY",
+      "units": 0.947,
+      "price": 1583.41,
+      "assetId": 39,
+      "id": 364
+    },
+    {
+      "date": "08-04-2024",
+      "type": "BUY",
+      "units": 0.915,
+      "price": 1638.8,
+      "assetId": 39,
+      "id": 365
+    },
+    {
+      "date": "07-05-2024",
+      "type": "BUY",
+      "units": 0.917,
+      "price": 1636.14,
+      "assetId": 39,
+      "id": 366
+    },
+    {
+      "date": "10-06-2024",
+      "type": "BUY",
+      "units": 0.857,
+      "price": 1749.64,
+      "assetId": 39,
+      "id": 367
+    },
+    {
+      "date": "08-07-2024",
+      "type": "BUY",
+      "units": 0.821,
+      "price": 1827.76,
+      "assetId": 39,
+      "id": 368
+    },
+    {
+      "date": "09-07-2024",
+      "type": "BUY",
+      "units": 2.175,
+      "price": 1839.03,
+      "assetId": 39,
+      "id": 369
+    },
+    {
+      "date": "06-08-2024",
+      "type": "BUY",
+      "units": 2.221,
+      "price": 1801.3,
+      "assetId": 39,
+      "id": 370
+    },
+    {
+      "date": "07-08-2024",
+      "type": "BUY",
+      "units": 2.196,
+      "price": 1821.48,
+      "assetId": 39,
+      "id": 371
+    },
+    {
+      "date": "07-08-2024",
+      "type": "BUY",
+      "units": 0.823,
+      "price": 1821.48,
+      "assetId": 39,
+      "id": 372
+    },
+    {
+      "date": "06-09-2024",
+      "type": "BUY",
+      "units": 2.124,
+      "price": 1883.5,
+      "assetId": 39,
+      "id": 373
+    },
+    {
+      "date": "09-09-2024",
+      "type": "BUY",
+      "units": 0.795,
+      "price": 1886.84,
+      "assetId": 39,
+      "id": 374
+    },
+    {
+      "date": "23-09-2024",
+      "type": "BUY",
+      "units": 2.036,
+      "price": 1964.31,
+      "assetId": 39,
+      "id": 375
+    },
+    {
+      "date": "07-10-2024",
+      "type": "BUY",
+      "units": 2.121,
+      "price": 1885.52,
+      "assetId": 39,
+      "id": 376
+    },
+    {
+      "date": "07-10-2024",
+      "type": "BUY",
+      "units": 0.795,
+      "price": 1885.52,
+      "assetId": 39,
+      "id": 377
+    },
+    {
+      "date": "21-10-2024",
+      "type": "BUY",
+      "units": 2.1,
+      "price": 1905.1,
+      "assetId": 39,
+      "id": 378
+    },
+    {
+      "date": "06-11-2024",
+      "type": "BUY",
+      "units": 2.099,
+      "price": 1905.21,
+      "assetId": 39,
+      "id": 379
+    },
+    {
+      "date": "07-11-2024",
+      "type": "BUY",
+      "units": 0.793,
+      "price": 1891.96,
+      "assetId": 39,
+      "id": 380
+    },
+    {
+      "date": "21-11-2024",
+      "type": "BUY",
+      "units": 2.18,
+      "price": 1834.72,
+      "assetId": 39,
+      "id": 381
+    },
+    {
+      "date": "06-12-2024",
+      "type": "BUY",
+      "units": 2.087,
+      "price": 1916.5,
+      "assetId": 39,
+      "id": 382
+    },
+    {
+      "date": "09-12-2024",
+      "type": "BUY",
+      "units": 0.784,
+      "price": 1912.64,
+      "assetId": 39,
+      "id": 383
+    },
+    {
+      "date": "23-12-2024",
+      "type": "BUY",
+      "units": 2.149,
+      "price": 1861.51,
+      "assetId": 39,
+      "id": 384
+    },
+    {
+      "date": "06-01-2025",
+      "type": "BUY",
+      "units": 2.157,
+      "price": 1854.38,
+      "assetId": 39,
+      "id": 385
+    },
+    {
+      "date": "07-01-2025",
+      "type": "BUY",
+      "units": 0.806,
+      "price": 1860.7,
+      "assetId": 39,
+      "id": 386
+    },
+    {
+      "date": "21-01-2025",
+      "type": "BUY",
+      "units": 2.228,
+      "price": 1795.27,
+      "assetId": 39,
+      "id": 387
+    },
+    {
+      "date": "07-02-2025",
+      "type": "BUY",
+      "units": 0.817,
+      "price": 1836.62,
+      "assetId": 39,
+      "id": 388
+    },
+    {
+      "date": "21-02-2025",
+      "type": "BUY",
+      "units": 2.241,
+      "price": 1785.18,
+      "assetId": 39,
+      "id": 389
+    },
+    {
+      "date": "07-03-2025",
+      "type": "BUY",
+      "units": 0.85,
+      "price": 1764.37,
+      "assetId": 39,
+      "id": 390
+    },
+    {
+      "date": "07-04-2025",
+      "type": "BUY",
+      "units": 0.851,
+      "price": 1763.52,
+      "assetId": 39,
+      "id": 391
+    },
+    {
+      "date": "11-04-2025",
+      "type": "BUY",
+      "units": 7.728,
+      "price": 1811.46,
+      "assetId": 39,
+      "id": 392
+    },
+    {
+      "date": "02-05-2025",
+      "type": "BUY",
+      "units": 3.131,
+      "price": 1916.27,
+      "assetId": 39,
+      "id": 393
+    },
+    {
+      "date": "07-05-2025",
+      "type": "BUY",
+      "units": 0.783,
+      "price": 1916.28,
+      "assetId": 39,
+      "id": 394
+    },
+    {
+      "date": "22-05-2025",
+      "type": "BUY",
+      "units": 3.093,
+      "price": 1940.07,
+      "assetId": 39,
+      "id": 395
+    },
+    {
+      "date": "26-05-2025",
+      "type": "BUY",
+      "units": 3.059,
+      "price": 1961.54,
+      "assetId": 39,
+      "id": 396
+    },
+    {
+      "date": "09-06-2025",
+      "type": "BUY",
+      "units": 0.76,
+      "price": 1973.82,
+      "assetId": 39,
+      "id": 397
+    },
+    {
+      "date": "12-06-2025",
+      "type": "BUY",
+      "units": 3.067,
+      "price": 1956.02,
+      "assetId": 39,
+      "id": 398
+    },
+    {
+      "date": "24-06-2025",
+      "type": "BUY",
+      "units": 3.041,
+      "price": 1972.67,
+      "assetId": 39,
+      "id": 399
+    },
+    {
+      "date": "07-07-2025",
+      "type": "BUY",
+      "units": 0.753,
+      "price": 1992.43,
+      "assetId": 39,
+      "id": 400
+    },
+    {
+      "date": "14-07-2025",
+      "type": "BUY",
+      "units": 3.02,
+      "price": 1986.37,
+      "assetId": 39,
+      "id": 401
+    },
+    {
+      "date": "14-07-2025",
+      "type": "BUY",
+      "units": 8.558,
+      "price": 1986.37,
+      "assetId": 39,
+      "id": 402
+    },
+    {
+      "date": "16-07-2025",
+      "type": "BUY",
+      "units": 15.05,
+      "price": 1993.28,
+      "assetId": 39,
+      "id": 403
+    },
+    {
+      "date": "24-07-2025",
+      "type": "BUY",
+      "units": 3.022,
+      "price": 1985.5,
+      "assetId": 39,
+      "id": 404
+    },
+    {
+      "date": "07-08-2025",
+      "type": "BUY",
+      "units": 0.765,
+      "price": 1960.76,
+      "assetId": 39,
+      "id": 405
+    },
+    {
+      "date": "12-08-2025",
+      "type": "BUY",
+      "units": 3.064,
+      "price": 1958.36,
+      "assetId": 39,
+      "id": 406
+    },
+    {
+      "date": "25-08-2025",
+      "type": "BUY",
+      "units": 2.994,
+      "price": 2003.92,
+      "assetId": 39,
+      "id": 407
+    },
+    {
+      "date": "08-09-2025",
+      "type": "BUY",
+      "units": 0.75,
+      "price": 2000.1,
+      "assetId": 39,
+      "id": 408
+    },
+    {
+      "date": "12-09-2025",
+      "type": "BUY",
+      "units": 2.97,
+      "price": 2019.93,
+      "assetId": 39,
+      "id": 409
+    },
+    {
+      "date": "24-09-2025",
+      "type": "BUY",
+      "units": 2.943,
+      "price": 2038.81,
+      "assetId": 39,
+      "id": 410
+    },
+    {
+      "date": "07-10-2025",
+      "type": "BUY",
+      "units": 0.736,
+      "price": 2037,
+      "assetId": 39,
+      "id": 411
+    },
+    {
+      "date": "13-10-2025",
+      "type": "BUY",
+      "units": 2.931,
+      "price": 2046.81,
+      "assetId": 39,
+      "id": 412
+    },
+    {
+      "date": "24-10-2025",
+      "type": "BUY",
+      "units": 2.903,
+      "price": 2066.61,
+      "assetId": 39,
+      "id": 413
+    },
+    {
+      "date": "07-11-2025",
+      "type": "BUY",
+      "units": 0.732,
+      "price": 2049.56,
+      "assetId": 39,
+      "id": 414
+    },
+    {
+      "date": "12-11-2025",
+      "type": "BUY",
+      "units": 2.906,
+      "price": 2064.42,
+      "assetId": 39,
+      "id": 415
+    },
+    {
+      "date": "08-12-2025",
+      "type": "BUY",
+      "units": 0.727,
+      "price": 2063.71,
+      "assetId": 39,
+      "id": 416
+    },
+    {
+      "date": "11-04-2025",
+      "type": "BUY",
+      "units": 186.895,
+      "price": 77.58,
+      "assetId": 40,
+      "id": 417
+    },
+    {
+      "date": "02-05-2025",
+      "type": "BUY",
+      "units": 74.211,
+      "price": 80.85,
+      "assetId": 40,
+      "id": 418
+    },
+    {
+      "date": "22-05-2025",
+      "type": "BUY",
+      "units": 72.994,
+      "price": 82.19,
+      "assetId": 40,
+      "id": 419
+    },
+    {
+      "date": "27-05-2025",
+      "type": "BUY",
+      "units": 72.474,
+      "price": 82.78,
+      "assetId": 40,
+      "id": 420
+    },
+    {
+      "date": "20-06-2025",
+      "type": "BUY",
+      "units": 71.477,
+      "price": 83.94,
+      "assetId": 40,
+      "id": 421
+    },
+    {
+      "date": "27-06-2025",
+      "type": "BUY",
+      "units": 70.153,
+      "price": 85.52,
+      "assetId": 40,
+      "id": 422
+    },
+    {
+      "date": "14-07-2025",
+      "type": "BUY",
+      "units": 194.756,
+      "price": 84.72,
+      "assetId": 40,
+      "id": 423
+    },
+    {
+      "date": "16-07-2025",
+      "type": "BUY",
+      "units": 353.761,
+      "price": 84.8,
+      "assetId": 40,
+      "id": 424
+    },
+    {
+      "date": "21-07-2025",
+      "type": "BUY",
+      "units": 70.662,
+      "price": 84.91,
+      "assetId": 40,
+      "id": 425
+    },
+    {
+      "date": "28-07-2025",
+      "type": "BUY",
+      "units": 71.405,
+      "price": 84.02,
+      "assetId": 40,
+      "id": 426
+    },
+    {
+      "date": "20-08-2025",
+      "type": "BUY",
+      "units": 70.875,
+      "price": 84.65,
+      "assetId": 40,
+      "id": 427
+    },
+    {
+      "date": "28-08-2025",
+      "type": "BUY",
+      "units": 71.765,
+      "price": 83.6,
+      "assetId": 40,
+      "id": 428
+    },
+    {
+      "date": "22-09-2025",
+      "type": "BUY",
+      "units": 69.569,
+      "price": 86.24,
+      "assetId": 40,
+      "id": 429
+    },
+    {
+      "date": "29-09-2025",
+      "type": "BUY",
+      "units": 70.88,
+      "price": 84.65,
+      "assetId": 40,
+      "id": 430
+    },
+    {
+      "date": "27-10-2025",
+      "type": "BUY",
+      "units": 68.391,
+      "price": 87.73,
+      "assetId": 40,
+      "id": 431
+    },
+    {
+      "date": "20-11-2025",
+      "type": "BUY",
+      "units": 69.402,
+      "price": 86.45,
+      "assetId": 40,
+      "id": 432
+    },
+    {
+      "date": "05-10-2023",
+      "type": "BUY",
+      "units": 14.084,
+      "price": 71,
+      "assetId": 41,
+      "id": 433
+    },
+    {
+      "date": "11-10-2023",
+      "type": "BUY",
+      "units": 62.789,
+      "price": 71.67,
+      "assetId": 41,
+      "id": 434
+    },
+    {
+      "date": "12-10-2023",
+      "type": "BUY",
+      "units": 62.541,
+      "price": 71.95,
+      "assetId": 41,
+      "id": 435
+    },
+    {
+      "date": "13-11-2023",
+      "type": "BUY",
+      "units": 61.965,
+      "price": 72.62,
+      "assetId": 41,
+      "id": 436
+    },
+    {
+      "date": "28-11-2023",
+      "type": "BUY",
+      "units": 60.205,
+      "price": 74.74,
+      "assetId": 41,
+      "id": 437
+    },
+    {
+      "date": "12-12-2023",
+      "type": "BUY",
+      "units": 57.1,
+      "price": 78.81,
+      "assetId": 41,
+      "id": 438
+    },
+    {
+      "date": "26-12-2023",
+      "type": "BUY",
+      "units": 55.743,
+      "price": 80.72,
+      "assetId": 41,
+      "id": 439
+    },
+    {
+      "date": "12-01-2024",
+      "type": "BUY",
+      "units": 52.53,
+      "price": 85.66,
+      "assetId": 41,
+      "id": 440
+    },
+    {
+      "date": "25-01-2024",
+      "type": "BUY",
+      "units": 51.273,
+      "price": 87.76,
+      "assetId": 41,
+      "id": 441
+    },
+    {
+      "date": "13-02-2024",
+      "type": "BUY",
+      "units": 49.145,
+      "price": 91.56,
+      "assetId": 41,
+      "id": 442
+    },
+    {
+      "date": "26-02-2024",
+      "type": "BUY",
+      "units": 47.332,
+      "price": 95.07,
+      "assetId": 41,
+      "id": 443
+    },
+    {
+      "date": "12-03-2024",
+      "type": "BUY",
+      "units": 48.362,
+      "price": 93.04,
+      "assetId": 41,
+      "id": 444
+    },
+    {
+      "date": "26-03-2024",
+      "type": "BUY",
+      "units": 49.015,
+      "price": 91.8,
+      "assetId": 41,
+      "id": 445
+    },
+    {
+      "date": "25-04-2024",
+      "type": "BUY",
+      "units": 45.813,
+      "price": 98.22,
+      "assetId": 41,
+      "id": 446
+    },
+    {
+      "date": "09-07-2024",
+      "type": "BUY",
+      "units": 36.632,
+      "price": 109.19,
+      "assetId": 41,
+      "id": 447
+    },
+    {
+      "date": "07-08-2024",
+      "type": "BUY",
+      "units": 37.126,
+      "price": 107.74,
+      "assetId": 41,
+      "id": 448
+    },
+    {
+      "date": "13-08-2024",
+      "type": "BUY",
+      "units": 37.791,
+      "price": 105.84,
+      "assetId": 41,
+      "id": 449
+    },
+    {
+      "date": "11-09-2024",
+      "type": "BUY",
+      "units": 36.965,
+      "price": 108.2,
+      "assetId": 41,
+      "id": 450
+    },
+    {
+      "date": "26-09-2024",
+      "type": "BUY",
+      "units": 35.894,
+      "price": 111.43,
+      "assetId": 41,
+      "id": 451
+    },
+    {
+      "date": "11-10-2024",
+      "type": "BUY",
+      "units": 37.333,
+      "price": 107.14,
+      "assetId": 41,
+      "id": 452
+    },
+    {
+      "date": "28-10-2024",
+      "type": "BUY",
+      "units": 39.499,
+      "price": 101.26,
+      "assetId": 41,
+      "id": 453
+    },
+    {
+      "date": "11-11-2024",
+      "type": "BUY",
+      "units": 40.264,
+      "price": 99.34,
+      "assetId": 41,
+      "id": 454
+    },
+    {
+      "date": "26-11-2024",
+      "type": "BUY",
+      "units": 41.669,
+      "price": 95.99,
+      "assetId": 41,
+      "id": 455
+    },
+    {
+      "date": "11-12-2024",
+      "type": "BUY",
+      "units": 40.129,
+      "price": 99.67,
+      "assetId": 41,
+      "id": 456
+    },
+    {
+      "date": "26-12-2024",
+      "type": "BUY",
+      "units": 41.936,
+      "price": 95.38,
+      "assetId": 41,
+      "id": 457
+    },
+    {
+      "date": "13-01-2025",
+      "type": "BUY",
+      "units": 44.241,
+      "price": 90.41,
+      "assetId": 41,
+      "id": 458
+    },
+    {
+      "date": "27-01-2025",
+      "type": "BUY",
+      "units": 44.263,
+      "price": 90.36,
+      "assetId": 41,
+      "id": 459
+    },
+    {
+      "date": "27-02-2025",
+      "type": "BUY",
+      "units": 46.64,
+      "price": 85.76,
+      "assetId": 41,
+      "id": 460
+    },
+    {
+      "date": "03-04-2020",
+      "type": "BUY",
+      "units": 70.264,
+      "price": 71.16,
+      "assetId": 42,
+      "id": 461
+    },
+    {
+      "date": "08-06-2020",
+      "type": "BUY",
+      "units": 57.537,
+      "price": 86.9,
+      "assetId": 42,
+      "id": 462
+    },
+    {
+      "date": "05-10-2023",
+      "type": "BUY",
+      "units": 1.48,
+      "price": 675.51,
+      "assetId": 43,
+      "id": 463
+    },
+    {
+      "date": "11-10-2023",
+      "type": "BUY",
+      "units": 4.384,
+      "price": 684.27,
+      "assetId": 43,
+      "id": 464
+    },
+    {
+      "date": "12-10-2023",
+      "type": "BUY",
+      "units": 4.37,
+      "price": 686.53,
+      "assetId": 43,
+      "id": 465
+    },
+    {
+      "date": "13-11-2023",
+      "type": "BUY",
+      "units": 4.369,
+      "price": 686.59,
+      "assetId": 43,
+      "id": 466
+    },
+    {
+      "date": "28-11-2023",
+      "type": "BUY",
+      "units": 4.231,
+      "price": 708.98,
+      "assetId": 43,
+      "id": 467
+    },
+    {
+      "date": "12-12-2023",
+      "type": "BUY",
+      "units": 4.048,
+      "price": 741.09,
+      "assetId": 43,
+      "id": 468
+    },
+    {
+      "date": "26-12-2023",
+      "type": "BUY",
+      "units": 3.977,
+      "price": 754.3,
+      "assetId": 43,
+      "id": 469
+    },
+    {
+      "date": "12-01-2024",
+      "type": "BUY",
+      "units": 3.853,
+      "price": 778.53,
+      "assetId": 43,
+      "id": 470
+    },
+    {
+      "date": "25-01-2024",
+      "type": "BUY",
+      "units": 3.887,
+      "price": 771.68,
+      "assetId": 43,
+      "id": 471
+    },
+    {
+      "date": "13-02-2024",
+      "type": "BUY",
+      "units": 3.755,
+      "price": 798.89,
+      "assetId": 43,
+      "id": 472
+    },
+    {
+      "date": "26-02-2024",
+      "type": "BUY",
+      "units": 3.658,
+      "price": 819.99,
+      "assetId": 43,
+      "id": 473
+    },
+    {
+      "date": "12-03-2024",
+      "type": "BUY",
+      "units": 3.656,
+      "price": 820.44,
+      "assetId": 43,
+      "id": 474
+    },
+    {
+      "date": "26-03-2024",
+      "type": "BUY",
+      "units": 3.65,
+      "price": 821.87,
+      "assetId": 43,
+      "id": 475
+    },
+    {
+      "date": "25-04-2024",
+      "type": "BUY",
+      "units": 3.499,
+      "price": 857.4,
+      "assetId": 43,
+      "id": 476
+    },
+    {
+      "date": "11-04-2025",
+      "type": "BUY",
+      "units": 26.591,
+      "price": 300.84,
+      "assetId": 44,
+      "id": 477
+    },
+    {
+      "date": "02-05-2025",
+      "type": "BUY",
+      "units": 9.455,
+      "price": 317.26,
+      "assetId": 44,
+      "id": 478
+    },
+    {
+      "date": "22-05-2025",
+      "type": "BUY",
+      "units": 9.11,
+      "price": 329.3,
+      "assetId": 44,
+      "id": 479
+    },
+    {
+      "date": "26-05-2025",
+      "type": "BUY",
+      "units": 9.031,
+      "price": 332.19,
+      "assetId": 44,
+      "id": 480
+    },
+    {
+      "date": "17-06-2025",
+      "type": "BUY",
+      "units": 8.931,
+      "price": 335.88,
+      "assetId": 44,
+      "id": 481
+    },
+    {
+      "date": "26-06-2025",
+      "type": "BUY",
+      "units": 8.765,
+      "price": 342.24,
+      "assetId": 44,
+      "id": 482
+    },
+    {
+      "date": "14-07-2025",
+      "type": "BUY",
+      "units": 49.59,
+      "price": 342.79,
+      "assetId": 44,
+      "id": 483
+    },
+    {
+      "date": "16-07-2025",
+      "type": "BUY",
+      "units": 8.702,
+      "price": 344.72,
+      "assetId": 44,
+      "id": 484
+    },
+    {
+      "date": "16-07-2025",
+      "type": "BUY",
+      "units": 29.007,
+      "price": 344.72,
+      "assetId": 44,
+      "id": 485
+    },
+    {
+      "date": "28-07-2025",
+      "type": "BUY",
+      "units": 8.885,
+      "price": 337.62,
+      "assetId": 44,
+      "id": 486
+    },
+    {
+      "date": "18-08-2025",
+      "type": "BUY",
+      "units": 8.836,
+      "price": 339.5,
+      "assetId": 44,
+      "id": 487
+    },
+    {
+      "date": "26-08-2025",
+      "type": "BUY",
+      "units": 8.921,
+      "price": 336.26,
+      "assetId": 44,
+      "id": 488
+    },
+    {
+      "date": "16-09-2025",
+      "type": "BUY",
+      "units": 8.7,
+      "price": 344.82,
+      "assetId": 44,
+      "id": 489
+    },
+    {
+      "date": "26-09-2025",
+      "type": "BUY",
+      "units": 8.908,
+      "price": 336.76,
+      "assetId": 44,
+      "id": 490
+    },
+    {
+      "date": "16-10-2025",
+      "type": "BUY",
+      "units": 8.576,
+      "price": 349.79,
+      "assetId": 44,
+      "id": 491
+    },
+    {
+      "date": "27-10-2025",
+      "type": "BUY",
+      "units": 8.496,
+      "price": 353.09,
+      "assetId": 44,
+      "id": 492
+    },
+    {
+      "date": "17-11-2025",
+      "type": "BUY",
+      "units": 8.489,
+      "price": 353.38,
+      "assetId": 44,
+      "id": 493
+    },
+    {
+      "date": "21-03-2024",
+      "type": "BUY",
+      "units": 7.888,
+      "price": 126.76,
+      "assetId": 45,
+      "id": 494
+    },
+    {
+      "date": "08-04-2024",
+      "type": "BUY",
+      "units": 7.507,
+      "price": 133.21,
+      "assetId": 45,
+      "id": 495
+    },
+    {
+      "date": "07-05-2024",
+      "type": "BUY",
+      "units": 7.573,
+      "price": 132.05,
+      "assetId": 45,
+      "id": 496
+    },
+    {
+      "date": "06-06-2024",
+      "type": "BUY",
+      "units": 7.295,
+      "price": 137.08,
+      "assetId": 45,
+      "id": 497
+    },
+    {
+      "date": "08-07-2024",
+      "type": "BUY",
+      "units": 6.771,
+      "price": 147.69,
+      "assetId": 45,
+      "id": 498
+    },
+    {
+      "date": "09-07-2024",
+      "type": "BUY",
+      "units": 20.226,
+      "price": 148.32,
+      "assetId": 45,
+      "id": 499
+    },
+    {
+      "date": "06-08-2024",
+      "type": "BUY",
+      "units": 6.87,
+      "price": 145.56,
+      "assetId": 45,
+      "id": 500
+    },
+    {
+      "date": "07-08-2024",
+      "type": "BUY",
+      "units": 20.28,
+      "price": 147.92,
+      "assetId": 45,
+      "id": 501
+    },
+    {
+      "date": "08-08-2024",
+      "type": "BUY",
+      "units": 20.385,
+      "price": 147.16,
+      "assetId": 45,
+      "id": 502
+    },
+    {
+      "date": "06-09-2024",
+      "type": "BUY",
+      "units": 6.572,
+      "price": 152.15,
+      "assetId": 45,
+      "id": 503
+    },
+    {
+      "date": "09-09-2024",
+      "type": "BUY",
+      "units": 19.741,
+      "price": 151.96,
+      "assetId": 45,
+      "id": 504
+    },
+    {
+      "date": "23-09-2024",
+      "type": "BUY",
+      "units": 19.291,
+      "price": 155.5,
+      "assetId": 45,
+      "id": 505
+    },
+    {
+      "date": "07-10-2024",
+      "type": "BUY",
+      "units": 6.72,
+      "price": 148.81,
+      "assetId": 45,
+      "id": 506
+    },
+    {
+      "date": "08-10-2024",
+      "type": "BUY",
+      "units": 19.911,
+      "price": 150.66,
+      "assetId": 45,
+      "id": 507
+    },
+    {
+      "date": "23-10-2024",
+      "type": "BUY",
+      "units": 20.5,
+      "price": 146.34,
+      "assetId": 45,
+      "id": 508
+    },
+    {
+      "date": "06-11-2024",
+      "type": "BUY",
+      "units": 6.759,
+      "price": 147.93,
+      "assetId": 45,
+      "id": 509
+    },
+    {
+      "date": "08-11-2024",
+      "type": "BUY",
+      "units": 20.555,
+      "price": 145.94,
+      "assetId": 45,
+      "id": 510
+    },
+    {
+      "date": "25-11-2024",
+      "type": "BUY",
+      "units": 20.592,
+      "price": 145.68,
+      "assetId": 45,
+      "id": 511
+    },
+    {
+      "date": "06-12-2024",
+      "type": "BUY",
+      "units": 6.619,
+      "price": 151.08,
+      "assetId": 45,
+      "id": 512
+    },
+    {
+      "date": "09-12-2024",
+      "type": "BUY",
+      "units": 19.841,
+      "price": 151.19,
+      "assetId": 45,
+      "id": 513
+    },
+    {
+      "date": "23-12-2024",
+      "type": "BUY",
+      "units": 20.656,
+      "price": 145.23,
+      "assetId": 45,
+      "id": 514
+    },
+    {
+      "date": "06-01-2025",
+      "type": "BUY",
+      "units": 7.002,
+      "price": 142.81,
+      "assetId": 45,
+      "id": 515
+    },
+    {
+      "date": "08-01-2025",
+      "type": "BUY",
+      "units": 21.065,
+      "price": 142.41,
+      "assetId": 45,
+      "id": 516
+    },
+    {
+      "date": "23-01-2025",
+      "type": "BUY",
+      "units": 21.716,
+      "price": 138.14,
+      "assetId": 45,
+      "id": 517
+    },
+    {
+      "date": "06-02-2025",
+      "type": "BUY",
+      "units": 7.256,
+      "price": 137.82,
+      "assetId": 45,
+      "id": 518
+    },
+    {
+      "date": "24-02-2025",
+      "type": "BUY",
+      "units": 23.107,
+      "price": 129.82,
+      "assetId": 45,
+      "id": 519
+    },
+    {
+      "date": "06-03-2025",
+      "type": "BUY",
+      "units": 7.657,
+      "price": 130.59,
+      "assetId": 45,
+      "id": 520
+    },
+    {
+      "date": "07-04-2025",
+      "type": "BUY",
+      "units": 7.824,
+      "price": 127.8,
+      "assetId": 45,
+      "id": 521
+    },
+    {
+      "date": "06-05-2025",
+      "type": "BUY",
+      "units": 7.198,
+      "price": 138.93,
+      "assetId": 45,
+      "id": 522
+    },
+    {
+      "date": "06-06-2025",
+      "type": "BUY",
+      "units": 6.727,
+      "price": 148.64,
+      "assetId": 45,
+      "id": 523
+    },
+    {
+      "date": "07-07-2025",
+      "type": "BUY",
+      "units": 6.602,
+      "price": 151.47,
+      "assetId": 45,
+      "id": 524
+    },
+    {
+      "date": "06-08-2025",
+      "type": "BUY",
+      "units": 6.815,
+      "price": 146.74,
+      "assetId": 45,
+      "id": 525
+    },
+    {
+      "date": "08-09-2025",
+      "type": "BUY",
+      "units": 6.689,
+      "price": 149.49,
+      "assetId": 45,
+      "id": 526
+    },
+    {
+      "date": "06-10-2025",
+      "type": "BUY",
+      "units": 6.581,
+      "price": 151.95,
+      "assetId": 45,
+      "id": 527
+    },
+    {
+      "date": "06-11-2025",
+      "type": "BUY",
+      "units": 6.454,
+      "price": 154.95,
+      "assetId": 45,
+      "id": 528
+    },
+    {
+      "date": "08-12-2025",
+      "type": "BUY",
+      "units": 6.429,
+      "price": 155.53,
+      "assetId": 45,
+      "id": 529
+    },
+    {
+      "date": "21-03-2024",
+      "type": "BUY",
+      "units": 15.914,
+      "price": 94.25,
+      "assetId": 46,
+      "id": 530
+    },
+    {
+      "date": "08-04-2024",
+      "type": "BUY",
+      "units": 15.449,
+      "price": 97.09,
+      "assetId": 46,
+      "id": 531
+    },
+    {
+      "date": "07-05-2024",
+      "type": "BUY",
+      "units": 15.606,
+      "price": 96.11,
+      "assetId": 46,
+      "id": 532
+    },
+    {
+      "date": "06-06-2024",
+      "type": "BUY",
+      "units": 15.194,
+      "price": 98.72,
+      "assetId": 46,
+      "id": 533
+    },
+    {
+      "date": "05-07-2024",
+      "type": "BUY",
+      "units": 14.242,
+      "price": 105.32,
+      "assetId": 46,
+      "id": 534
+    },
+    {
+      "date": "09-07-2024",
+      "type": "BUY",
+      "units": 28.287,
+      "price": 106.05,
+      "assetId": 46,
+      "id": 535
+    },
+    {
+      "date": "06-08-2024",
+      "type": "BUY",
+      "units": 14.381,
+      "price": 104.3,
+      "assetId": 46,
+      "id": 536
+    },
+    {
+      "date": "06-08-2024",
+      "type": "BUY",
+      "units": 28.762,
+      "price": 104.3,
+      "assetId": 46,
+      "id": 537
+    },
+    {
+      "date": "07-08-2024",
+      "type": "BUY",
+      "units": 28.314,
+      "price": 105.95,
+      "assetId": 46,
+      "id": 538
+    },
+    {
+      "date": "05-09-2024",
+      "type": "BUY",
+      "units": 27.326,
+      "price": 109.78,
+      "assetId": 46,
+      "id": 539
+    },
+    {
+      "date": "06-09-2024",
+      "type": "BUY",
+      "units": 13.819,
+      "price": 108.54,
+      "assetId": 46,
+      "id": 540
+    },
+    {
+      "date": "20-09-2024",
+      "type": "BUY",
+      "units": 26.756,
+      "price": 112.12,
+      "assetId": 46,
+      "id": 541
+    },
+    {
+      "date": "07-10-2024",
+      "type": "BUY",
+      "units": 13.882,
+      "price": 108.05,
+      "assetId": 46,
+      "id": 542
+    },
+    {
+      "date": "07-10-2024",
+      "type": "BUY",
+      "units": 27.764,
+      "price": 108.05,
+      "assetId": 46,
+      "id": 543
+    },
+    {
+      "date": "21-10-2024",
+      "type": "BUY",
+      "units": 27.641,
+      "price": 108.53,
+      "assetId": 46,
+      "id": 544
+    },
+    {
+      "date": "06-11-2024",
+      "type": "BUY",
+      "units": 28.054,
+      "price": 106.93,
+      "assetId": 46,
+      "id": 545
+    },
+    {
+      "date": "06-11-2024",
+      "type": "BUY",
+      "units": 14.027,
+      "price": 106.93,
+      "assetId": 46,
+      "id": 546
+    },
+    {
+      "date": "21-11-2024",
+      "type": "BUY",
+      "units": 29.159,
+      "price": 102.88,
+      "assetId": 46,
+      "id": 547
+    },
+    {
+      "date": "05-12-2024",
+      "type": "BUY",
+      "units": 13.899,
+      "price": 107.92,
+      "assetId": 46,
+      "id": 548
+    },
+    {
+      "date": "05-12-2024",
+      "type": "BUY",
+      "units": 27.797,
+      "price": 107.92,
+      "assetId": 46,
+      "id": 549
+    },
+    {
+      "date": "20-12-2024",
+      "type": "BUY",
+      "units": 28.925,
+      "price": 103.71,
+      "assetId": 46,
+      "id": 550
+    },
+    {
+      "date": "06-01-2025",
+      "type": "BUY",
+      "units": 28.964,
+      "price": 103.57,
+      "assetId": 46,
+      "id": 551
+    },
+    {
+      "date": "06-01-2025",
+      "type": "BUY",
+      "units": 14.482,
+      "price": 103.57,
+      "assetId": 46,
+      "id": 552
+    },
+    {
+      "date": "20-01-2025",
+      "type": "BUY",
+      "units": 29.425,
+      "price": 101.95,
+      "assetId": 46,
+      "id": 553
+    },
+    {
+      "date": "05-02-2025",
+      "type": "BUY",
+      "units": 14.544,
+      "price": 103.13,
+      "assetId": 46,
+      "id": 554
+    },
+    {
+      "date": "20-02-2025",
+      "type": "BUY",
+      "units": 29.957,
+      "price": 100.14,
+      "assetId": 46,
+      "id": 555
+    },
+    {
+      "date": "05-03-2025",
+      "type": "BUY",
+      "units": 15.4,
+      "price": 97.4,
+      "assetId": 46,
+      "id": 556
+    },
+    {
+      "date": "07-04-2025",
+      "type": "BUY",
+      "units": 15.381,
+      "price": 97.52,
+      "assetId": 46,
+      "id": 557
+    },
+    {
+      "date": "11-04-2025",
+      "type": "BUY",
+      "units": 129.877,
+      "price": 100.09,
+      "assetId": 46,
+      "id": 558
+    },
+    {
+      "date": "02-05-2025",
+      "type": "BUY",
+      "units": 51.607,
+      "price": 106.57,
+      "assetId": 46,
+      "id": 559
+    },
+    {
+      "date": "06-05-2025",
+      "type": "BUY",
+      "units": 14.081,
+      "price": 106.52,
+      "assetId": 46,
+      "id": 560
+    },
+    {
+      "date": "22-05-2025",
+      "type": "BUY",
+      "units": 50.881,
+      "price": 108.09,
+      "assetId": 46,
+      "id": 561
+    },
+    {
+      "date": "28-05-2025",
+      "type": "BUY",
+      "units": 50.693,
+      "price": 108.49,
+      "assetId": 46,
+      "id": 562
+    },
+    {
+      "date": "05-06-2025",
+      "type": "BUY",
+      "units": 13.805,
+      "price": 108.65,
+      "assetId": 46,
+      "id": 563
+    },
+    {
+      "date": "23-06-2025",
+      "type": "BUY",
+      "units": 50.332,
+      "price": 109.27,
+      "assetId": 46,
+      "id": 564
+    },
+    {
+      "date": "30-06-2025",
+      "type": "BUY",
+      "units": 49.267,
+      "price": 111.63,
+      "assetId": 46,
+      "id": 565
+    },
+    {
+      "date": "07-07-2025",
+      "type": "BUY",
+      "units": 13.441,
+      "price": 111.59,
+      "assetId": 46,
+      "id": 566
+    },
+    {
+      "date": "14-07-2025",
+      "type": "BUY",
+      "units": 154.117,
+      "price": 110.3,
+      "assetId": 46,
+      "id": 567
+    },
+    {
+      "date": "16-07-2025",
+      "type": "BUY",
+      "units": 270.598,
+      "price": 110.86,
+      "assetId": 46,
+      "id": 568
+    },
+    {
+      "date": "21-07-2025",
+      "type": "BUY",
+      "units": 49.812,
+      "price": 110.41,
+      "assetId": 46,
+      "id": 569
+    },
+    {
+      "date": "28-07-2025",
+      "type": "BUY",
+      "units": 50.424,
+      "price": 109.07,
+      "assetId": 46,
+      "id": 570
+    },
+    {
+      "date": "05-08-2025",
+      "type": "BUY",
+      "units": 13.756,
+      "price": 109.04,
+      "assetId": 46,
+      "id": 571
+    },
+    {
+      "date": "21-08-2025",
+      "type": "BUY",
+      "units": 49.276,
+      "price": 111.61,
+      "assetId": 46,
+      "id": 572
+    },
+    {
+      "date": "28-08-2025",
+      "type": "BUY",
+      "units": 50.364,
+      "price": 109.2,
+      "assetId": 46,
+      "id": 573
+    },
+    {
+      "date": "05-09-2025",
+      "type": "BUY",
+      "units": 13.647,
+      "price": 109.91,
+      "assetId": 46,
+      "id": 574
+    },
+    {
+      "date": "22-09-2025",
+      "type": "BUY",
+      "units": 49.105,
+      "price": 112,
+      "assetId": 46,
+      "id": 575
+    },
+    {
+      "date": "29-09-2025",
+      "type": "BUY",
+      "units": 50.066,
+      "price": 109.85,
+      "assetId": 46,
+      "id": 576
+    },
+    {
+      "date": "06-10-2025",
+      "type": "BUY",
+      "units": 13.469,
+      "price": 111.36,
+      "assetId": 46,
+      "id": 577
+    },
+    {
+      "date": "28-10-2025",
+      "type": "BUY",
+      "units": 48.125,
+      "price": 114.28,
+      "assetId": 46,
+      "id": 578
+    },
+    {
+      "date": "06-11-2025",
+      "type": "BUY",
+      "units": 13.297,
+      "price": 112.8,
+      "assetId": 46,
+      "id": 579
+    },
+    {
+      "date": "21-11-2025",
+      "type": "BUY",
+      "units": 47.576,
+      "price": 115.6,
+      "assetId": 46,
+      "id": 580
+    },
+    {
+      "date": "05-12-2025",
+      "type": "BUY",
+      "units": 12.912,
+      "price": 116.17,
+      "assetId": 46,
+      "id": 581
+    },
+    {
+      "date": "03-04-2020",
+      "type": "BUY",
+      "units": 68.215,
+      "price": 36.65,
+      "assetId": 47,
+      "id": 582
+    },
+    {
+      "date": "08-06-2020",
+      "type": "BUY",
+      "units": 55.021,
+      "price": 45.44,
+      "assetId": 47,
+      "id": 583
+    },
+    {
+      "date": "25-09-2023",
+      "type": "BUY",
+      "units": 51.387,
+      "price": 87.57,
+      "assetId": 47,
+      "id": 584
+    },
+    {
+      "date": "12-10-2023",
+      "type": "BUY",
+      "units": 50.986,
+      "price": 88.26,
+      "assetId": 47,
+      "id": 585
+    },
+    {
+      "date": "25-10-2023",
+      "type": "BUY",
+      "units": 53.133,
+      "price": 84.69,
+      "assetId": 47,
+      "id": 586
+    },
+    {
+      "date": "13-11-2023",
+      "type": "BUY",
+      "units": 52.036,
+      "price": 86.47,
+      "assetId": 47,
+      "id": 587
+    },
+    {
+      "date": "28-11-2023",
+      "type": "BUY",
+      "units": 50.939,
+      "price": 88.34,
+      "assetId": 47,
+      "id": 588
+    },
+    {
+      "date": "12-12-2023",
+      "type": "BUY",
+      "units": 48.911,
+      "price": 92,
+      "assetId": 47,
+      "id": 589
+    },
+    {
+      "date": "26-12-2023",
+      "type": "BUY",
+      "units": 47.959,
+      "price": 93.83,
+      "assetId": 47,
+      "id": 590
+    },
+    {
+      "date": "12-01-2024",
+      "type": "BUY",
+      "units": 47.042,
+      "price": 95.65,
+      "assetId": 47,
+      "id": 591
+    },
+    {
+      "date": "25-01-2024",
+      "type": "BUY",
+      "units": 48.154,
+      "price": 93.45,
+      "assetId": 47,
+      "id": 592
+    },
+    {
+      "date": "13-02-2024",
+      "type": "BUY",
+      "units": 47.822,
+      "price": 94.09,
+      "assetId": 47,
+      "id": 593
+    },
+    {
+      "date": "26-02-2024",
+      "type": "BUY",
+      "units": 46.972,
+      "price": 95.8,
+      "assetId": 47,
+      "id": 594
+    },
+    {
+      "date": "12-03-2024",
+      "type": "BUY",
+      "units": 46.836,
+      "price": 96.08,
+      "assetId": 47,
+      "id": 595
+    },
+    {
+      "date": "11-04-2025",
+      "type": "BUY",
+      "units": 166.809,
+      "price": 80.93,
+      "assetId": 48,
+      "id": 596
+    },
+    {
+      "date": "02-05-2025",
+      "type": "BUY",
+      "units": 63.833,
+      "price": 86.16,
+      "assetId": 48,
+      "id": 597
+    },
+    {
+      "date": "22-05-2025",
+      "type": "BUY",
+      "units": 62.577,
+      "price": 87.89,
+      "assetId": 48,
+      "id": 598
+    },
+    {
+      "date": "23-05-2025",
+      "type": "BUY",
+      "units": 61.977,
+      "price": 88.74,
+      "assetId": 48,
+      "id": 599
+    },
+    {
+      "date": "11-06-2025",
+      "type": "BUY",
+      "units": 60.503,
+      "price": 90.9,
+      "assetId": 48,
+      "id": 600
+    },
+    {
+      "date": "23-06-2025",
+      "type": "BUY",
+      "units": 61.369,
+      "price": 89.62,
+      "assetId": 48,
+      "id": 601
+    },
+    {
+      "date": "11-07-2025",
+      "type": "BUY",
+      "units": 60.573,
+      "price": 90.79,
+      "assetId": 48,
+      "id": 602
+    },
+    {
+      "date": "14-07-2025",
+      "type": "BUY",
+      "units": 204.184,
+      "price": 90.6,
+      "assetId": 48,
+      "id": 603
+    },
+    {
+      "date": "16-07-2025",
+      "type": "BUY",
+      "units": 263.429,
+      "price": 91.1,
+      "assetId": 48,
+      "id": 604
+    },
+    {
+      "date": "23-07-2025",
+      "type": "BUY",
+      "units": 60.281,
+      "price": 91.24,
+      "assetId": 48,
+      "id": 605
+    },
+    {
+      "date": "12-08-2025",
+      "type": "BUY",
+      "units": 61.54,
+      "price": 89.37,
+      "assetId": 48,
+      "id": 606
+    },
+    {
+      "date": "25-08-2025",
+      "type": "BUY",
+      "units": 60.004,
+      "price": 91.66,
+      "assetId": 48,
+      "id": 607
+    },
+    {
+      "date": "11-09-2025",
+      "type": "BUY",
+      "units": 59.989,
+      "price": 91.68,
+      "assetId": 48,
+      "id": 608
+    },
+    {
+      "date": "23-09-2025",
+      "type": "BUY",
+      "units": 59.19,
+      "price": 92.92,
+      "assetId": 48,
+      "id": 609
+    },
+    {
+      "date": "13-10-2025",
+      "type": "BUY",
+      "units": 59.703,
+      "price": 92.12,
+      "assetId": 48,
+      "id": 610
+    },
+    {
+      "date": "11-11-2025",
+      "type": "BUY",
+      "units": 59.078,
+      "price": 93.09,
+      "assetId": 48,
+      "id": 611
+    },
+    {
+      "date": "25-09-2023",
+      "type": "BUY",
+      "units": 63.045,
+      "price": 71.37,
+      "assetId": 49,
+      "id": 612
+    },
+    {
+      "date": "12-10-2023",
+      "type": "BUY",
+      "units": 62.301,
+      "price": 72.23,
+      "assetId": 49,
+      "id": 613
+    },
+    {
+      "date": "25-10-2023",
+      "type": "BUY",
+      "units": 64.494,
+      "price": 69.77,
+      "assetId": 49,
+      "id": 614
+    },
+    {
+      "date": "13-11-2023",
+      "type": "BUY",
+      "units": 63.386,
+      "price": 70.99,
+      "assetId": 49,
+      "id": 615
+    },
+    {
+      "date": "28-11-2023",
+      "type": "BUY",
+      "units": 62.334,
+      "price": 72.19,
+      "assetId": 49,
+      "id": 616
+    },
+    {
+      "date": "12-12-2023",
+      "type": "BUY",
+      "units": 59.778,
+      "price": 75.27,
+      "assetId": 49,
+      "id": 617
+    },
+    {
+      "date": "26-12-2023",
+      "type": "BUY",
+      "units": 58.548,
+      "price": 76.86,
+      "assetId": 49,
+      "id": 618
+    },
+    {
+      "date": "12-01-2024",
+      "type": "BUY",
+      "units": 57.484,
+      "price": 78.28,
+      "assetId": 49,
+      "id": 619
+    },
+    {
+      "date": "25-01-2024",
+      "type": "BUY",
+      "units": 58.805,
+      "price": 76.52,
+      "assetId": 49,
+      "id": 620
+    },
+    {
+      "date": "13-02-2024",
+      "type": "BUY",
+      "units": 58.765,
+      "price": 76.57,
+      "assetId": 49,
+      "id": 621
+    },
+    {
+      "date": "26-02-2024",
+      "type": "BUY",
+      "units": 57.669,
+      "price": 78.03,
+      "assetId": 49,
+      "id": 622
+    },
+    {
+      "date": "12-03-2024",
+      "type": "BUY",
+      "units": 57.521,
+      "price": 78.23,
+      "assetId": 49,
+      "id": 623
+    },
+    {
+      "date": "09-07-2024",
+      "type": "BUY",
+      "units": 33.57,
+      "price": 89.36,
+      "assetId": 49,
+      "id": 624
+    },
+    {
+      "date": "07-08-2024",
+      "type": "BUY",
+      "units": 33.867,
+      "price": 88.58,
+      "assetId": 49,
+      "id": 625
+    },
+    {
+      "date": "13-08-2024",
+      "type": "BUY",
+      "units": 34.056,
+      "price": 88.08,
+      "assetId": 49,
+      "id": 626
+    },
+    {
+      "date": "11-09-2024",
+      "type": "BUY",
+      "units": 32.858,
+      "price": 91.3,
+      "assetId": 49,
+      "id": 627
+    },
+    {
+      "date": "25-09-2024",
+      "type": "BUY",
+      "units": 31.474,
+      "price": 95.31,
+      "assetId": 49,
+      "id": 628
+    },
+    {
+      "date": "11-10-2024",
+      "type": "BUY",
+      "units": 32.422,
+      "price": 92.52,
+      "assetId": 49,
+      "id": 629
+    },
+    {
+      "date": "25-10-2024",
+      "type": "BUY",
+      "units": 33.548,
+      "price": 89.42,
+      "assetId": 49,
+      "id": 630
+    },
+    {
+      "date": "12-11-2024",
+      "type": "BUY",
+      "units": 33.927,
+      "price": 88.42,
+      "assetId": 49,
+      "id": 631
+    },
+    {
+      "date": "25-11-2024",
+      "type": "BUY",
+      "units": 33.552,
+      "price": 89.41,
+      "assetId": 49,
+      "id": 632
+    },
+    {
+      "date": "10-12-2024",
+      "type": "BUY",
+      "units": 32.921,
+      "price": 91.12,
+      "assetId": 49,
+      "id": 633
+    },
+    {
+      "date": "26-12-2024",
+      "type": "BUY",
+      "units": 33.984,
+      "price": 88.27,
+      "assetId": 49,
+      "id": 634
+    },
+    {
+      "date": "13-01-2025",
+      "type": "BUY",
+      "units": 35.295,
+      "price": 84.99,
+      "assetId": 49,
+      "id": 635
+    },
+    {
+      "date": "27-01-2025",
+      "type": "BUY",
+      "units": 35.565,
+      "price": 84.35,
+      "assetId": 49,
+      "id": 636
+    },
+    {
+      "date": "25-02-2025",
+      "type": "BUY",
+      "units": 36.296,
+      "price": 82.65,
+      "assetId": 49,
+      "id": 637
+    },
+    {
+      "date": "03-04-2020",
+      "type": "BUY",
+      "units": 58.759,
+      "price": 42.55,
+      "assetId": 50,
+      "id": 638
+    },
+    {
+      "date": "08-06-2020",
+      "type": "BUY",
+      "units": 47.961,
+      "price": 52.13,
+      "assetId": 50,
+      "id": 639
+    },
+    {
+      "date": "05-10-2023",
+      "type": "BUY",
+      "units": 15.955,
+      "price": 62.67,
+      "assetId": 51,
+      "id": 640
+    },
+    {
+      "date": "11-10-2023",
+      "type": "BUY",
+      "units": 70.662,
+      "price": 63.68,
+      "assetId": 51,
+      "id": 641
+    },
+    {
+      "date": "12-10-2023",
+      "type": "BUY",
+      "units": 70.606,
+      "price": 63.73,
+      "assetId": 51,
+      "id": 642
+    },
+    {
+      "date": "13-11-2023",
+      "type": "BUY",
+      "units": 68.534,
+      "price": 65.66,
+      "assetId": 51,
+      "id": 643
+    },
+    {
+      "date": "28-11-2023",
+      "type": "BUY",
+      "units": 66.987,
+      "price": 67.17,
+      "assetId": 51,
+      "id": 644
+    },
+    {
+      "date": "12-12-2023",
+      "type": "BUY",
+      "units": 63.825,
+      "price": 70.5,
+      "assetId": 51,
+      "id": 645
+    },
+    {
+      "date": "26-12-2023",
+      "type": "BUY",
+      "units": 62.602,
+      "price": 71.88,
+      "assetId": 51,
+      "id": 646
+    },
+    {
+      "date": "12-01-2024",
+      "type": "BUY",
+      "units": 60.3,
+      "price": 74.62,
+      "assetId": 51,
+      "id": 647
+    },
+    {
+      "date": "25-01-2024",
+      "type": "BUY",
+      "units": 60.945,
+      "price": 73.83,
+      "assetId": 51,
+      "id": 648
+    },
+    {
+      "date": "13-02-2024",
+      "type": "BUY",
+      "units": 59.549,
+      "price": 75.56,
+      "assetId": 51,
+      "id": 649
+    },
+    {
+      "date": "26-02-2024",
+      "type": "BUY",
+      "units": 58.118,
+      "price": 77.43,
+      "assetId": 51,
+      "id": 650
+    },
+    {
+      "date": "12-03-2024",
+      "type": "BUY",
+      "units": 59.282,
+      "price": 75.91,
+      "assetId": 51,
+      "id": 651
+    },
+    {
+      "date": "25-04-2024",
+      "type": "BUY",
+      "units": 56.07,
+      "price": 80.25,
+      "assetId": 51,
+      "id": 652
+    },
+    {
+      "date": "26-04-2024",
+      "type": "BUY",
+      "units": 55.873,
+      "price": 80.54,
+      "assetId": 51,
+      "id": 653
+    },
+    {
+      "date": "09-07-2024",
+      "type": "BUY",
+      "units": 15.801,
+      "price": 94.93,
+      "assetId": 51,
+      "id": 654
+    },
+    {
+      "date": "07-08-2024",
+      "type": "BUY",
+      "units": 16.089,
+      "price": 93.23,
+      "assetId": 51,
+      "id": 655
+    },
+    {
+      "date": "13-08-2024",
+      "type": "BUY",
+      "units": 15.955,
+      "price": 94.01,
+      "assetId": 51,
+      "id": 656
+    },
+    {
+      "date": "12-09-2024",
+      "type": "BUY",
+      "units": 15.021,
+      "price": 99.85,
+      "assetId": 51,
+      "id": 657
+    },
+    {
+      "date": "27-09-2024",
+      "type": "BUY",
+      "units": 14.626,
+      "price": 102.55,
+      "assetId": 51,
+      "id": 658
+    },
+    {
+      "date": "14-10-2024",
+      "type": "BUY",
+      "units": 14.633,
+      "price": 102.5,
+      "assetId": 51,
+      "id": 659
+    },
+    {
+      "date": "28-10-2024",
+      "type": "BUY",
+      "units": 15.514,
+      "price": 96.69,
+      "assetId": 51,
+      "id": 660
+    },
+    {
+      "date": "12-11-2024",
+      "type": "BUY",
+      "units": 15.507,
+      "price": 96.72,
+      "assetId": 51,
+      "id": 661
+    },
+    {
+      "date": "27-11-2024",
+      "type": "BUY",
+      "units": 15.133,
+      "price": 99.12,
+      "assetId": 51,
+      "id": 662
+    },
+    {
+      "date": "12-12-2024",
+      "type": "BUY",
+      "units": 14.503,
+      "price": 103.42,
+      "assetId": 51,
+      "id": 663
+    },
+    {
+      "date": "27-12-2024",
+      "type": "BUY",
+      "units": 14.946,
+      "price": 100.36,
+      "assetId": 51,
+      "id": 664
+    },
+    {
+      "date": "13-01-2025",
+      "type": "BUY",
+      "units": 16.248,
+      "price": 92.31,
+      "assetId": 51,
+      "id": 665
+    },
+    {
+      "date": "27-01-2025",
+      "type": "BUY",
+      "units": 16.63,
+      "price": 90.19,
+      "assetId": 51,
+      "id": 666
+    },
+    {
+      "date": "27-02-2025",
+      "type": "BUY",
+      "units": 17.738,
+      "price": 84.56,
+      "assetId": 51,
+      "id": 667
+    },
+    {
+      "date": "11-04-2025",
+      "type": "BUY",
+      "units": 143.481,
+      "price": 87.12,
+      "assetId": 51,
+      "id": 668
+    },
+    {
+      "date": "02-05-2025",
+      "type": "BUY",
+      "units": 54.167,
+      "price": 92.3,
+      "assetId": 51,
+      "id": 669
+    },
+    {
+      "date": "22-05-2025",
+      "type": "BUY",
+      "units": 51.66,
+      "price": 96.78,
+      "assetId": 51,
+      "id": 670
+    },
+    {
+      "date": "27-05-2025",
+      "type": "BUY",
+      "units": 51.171,
+      "price": 97.71,
+      "assetId": 51,
+      "id": 671
+    },
+    {
+      "date": "19-06-2025",
+      "type": "BUY",
+      "units": 50.454,
+      "price": 99.1,
+      "assetId": 51,
+      "id": 672
+    },
+    {
+      "date": "27-06-2025",
+      "type": "BUY",
+      "units": 48.524,
+      "price": 103.04,
+      "assetId": 51,
+      "id": 673
+    },
+    {
+      "date": "14-07-2025",
+      "type": "BUY",
+      "units": 182.087,
+      "price": 101.6,
+      "assetId": 51,
+      "id": 674
+    },
+    {
+      "date": "16-07-2025",
+      "type": "BUY",
+      "units": 195.328,
+      "price": 102.39,
+      "assetId": 51,
+      "id": 675
+    },
+    {
+      "date": "21-07-2025",
+      "type": "BUY",
+      "units": 48.915,
+      "price": 102.21,
+      "assetId": 51,
+      "id": 676
+    },
+    {
+      "date": "28-07-2025",
+      "type": "BUY",
+      "units": 50.399,
+      "price": 99.2,
+      "assetId": 51,
+      "id": 677
+    },
+    {
+      "date": "19-08-2025",
+      "type": "BUY",
+      "units": 49.305,
+      "price": 101.4,
+      "assetId": 51,
+      "id": 678
+    },
+    {
+      "date": "28-08-2025",
+      "type": "BUY",
+      "units": 50.508,
+      "price": 98.99,
+      "assetId": 51,
+      "id": 679
+    },
+    {
+      "date": "19-09-2025",
+      "type": "BUY",
+      "units": 48.54,
+      "price": 103,
+      "assetId": 51,
+      "id": 680
+    },
+    {
+      "date": "29-09-2025",
+      "type": "BUY",
+      "units": 50.657,
+      "price": 98.7,
+      "assetId": 51,
+      "id": 681
+    },
+    {
+      "date": "27-10-2025",
+      "type": "BUY",
+      "units": 48.291,
+      "price": 103.53,
+      "assetId": 51,
+      "id": 682
+    },
+    {
+      "date": "19-11-2025",
+      "type": "BUY",
+      "units": 47.756,
+      "price": 104.69,
+      "assetId": 51,
+      "id": 683
+    },
+    {
+      "date": "25-09-2023",
+      "type": "BUY",
+      "units": 49.449,
+      "price": 91,
+      "assetId": 52,
+      "id": 684
+    },
+    {
+      "date": "12-10-2023",
+      "type": "BUY",
+      "units": 48.92,
+      "price": 91.98,
+      "assetId": 52,
+      "id": 685
+    },
+    {
+      "date": "25-10-2023",
+      "type": "BUY",
+      "units": 50.126,
+      "price": 89.77,
+      "assetId": 52,
+      "id": 686
+    },
+    {
+      "date": "13-11-2023",
+      "type": "BUY",
+      "units": 48.394,
+      "price": 92.98,
+      "assetId": 52,
+      "id": 687
+    },
+    {
+      "date": "28-11-2023",
+      "type": "BUY",
+      "units": 47.628,
+      "price": 94.48,
+      "assetId": 52,
+      "id": 688
+    },
+    {
+      "date": "12-12-2023",
+      "type": "BUY",
+      "units": 46.238,
+      "price": 97.32,
+      "assetId": 52,
+      "id": 689
+    },
+    {
+      "date": "26-12-2023",
+      "type": "BUY",
+      "units": 45.225,
+      "price": 99.5,
+      "assetId": 52,
+      "id": 690
+    },
+    {
+      "date": "12-01-2024",
+      "type": "BUY",
+      "units": 44.128,
+      "price": 101.97,
+      "assetId": 52,
+      "id": 691
+    },
+    {
+      "date": "25-01-2024",
+      "type": "BUY",
+      "units": 45.401,
+      "price": 99.11,
+      "assetId": 52,
+      "id": 692
+    },
+    {
+      "date": "13-02-2024",
+      "type": "BUY",
+      "units": 44.973,
+      "price": 100.06,
+      "assetId": 52,
+      "id": 693
+    },
+    {
+      "date": "26-02-2024",
+      "type": "BUY",
+      "units": 43.681,
+      "price": 103.02,
+      "assetId": 52,
+      "id": 694
+    },
+    {
+      "date": "12-03-2024",
+      "type": "BUY",
+      "units": 44.217,
+      "price": 101.77,
+      "assetId": 52,
+      "id": 695
+    },
+    {
+      "date": "21-03-2024",
+      "type": "BUY",
+      "units": 9.877,
+      "price": 101.24,
+      "assetId": 52,
+      "id": 696
+    },
+    {
+      "date": "08-04-2024",
+      "type": "BUY",
+      "units": 9.332,
+      "price": 107.15,
+      "assetId": 52,
+      "id": 697
+    },
+    {
+      "date": "08-05-2024",
+      "type": "BUY",
+      "units": 9.117,
+      "price": 109.68,
+      "assetId": 52,
+      "id": 698
+    },
+    {
+      "date": "11-06-2024",
+      "type": "BUY",
+      "units": 8.243,
+      "price": 121.3,
+      "assetId": 52,
+      "id": 699
+    },
+    {
+      "date": "08-07-2024",
+      "type": "BUY",
+      "units": 7.712,
+      "price": 129.67,
+      "assetId": 52,
+      "id": 700
+    },
+    {
+      "date": "09-07-2024",
+      "type": "BUY",
+      "units": 15.356,
+      "price": 130.24,
+      "assetId": 52,
+      "id": 701
+    },
+    {
+      "date": "07-08-2024",
+      "type": "BUY",
+      "units": 15.649,
+      "price": 127.8,
+      "assetId": 52,
+      "id": 702
+    },
+    {
+      "date": "08-08-2024",
+      "type": "BUY",
+      "units": 7.847,
+      "price": 127.43,
+      "assetId": 52,
+      "id": 703
+    },
+    {
+      "date": "09-09-2024",
+      "type": "BUY",
+      "units": 7.527,
+      "price": 132.84,
+      "assetId": 52,
+      "id": 704
+    },
+    {
+      "date": "09-09-2024",
+      "type": "BUY",
+      "units": 15.055,
+      "price": 132.84,
+      "assetId": 52,
+      "id": 705
+    },
+    {
+      "date": "23-09-2024",
+      "type": "BUY",
+      "units": 14.664,
+      "price": 136.38,
+      "assetId": 52,
+      "id": 706
+    },
+    {
+      "date": "07-10-2024",
+      "type": "BUY",
+      "units": 15.309,
+      "price": 130.64,
+      "assetId": 52,
+      "id": 707
+    },
+    {
+      "date": "08-10-2024",
+      "type": "BUY",
+      "units": 7.518,
+      "price": 133,
+      "assetId": 52,
+      "id": 708
+    },
+    {
+      "date": "22-10-2024",
+      "type": "BUY",
+      "units": 15.365,
+      "price": 130.16,
+      "assetId": 52,
+      "id": 709
+    },
+    {
+      "date": "07-11-2024",
+      "type": "BUY",
+      "units": 15.09,
+      "price": 132.53,
+      "assetId": 52,
+      "id": 710
+    },
+    {
+      "date": "08-11-2024",
+      "type": "BUY",
+      "units": 7.61,
+      "price": 131.4,
+      "assetId": 52,
+      "id": 711
+    },
+    {
+      "date": "22-11-2024",
+      "type": "BUY",
+      "units": 15.381,
+      "price": 130.02,
+      "assetId": 52,
+      "id": 712
+    },
+    {
+      "date": "09-12-2024",
+      "type": "BUY",
+      "units": 14.584,
+      "price": 137.13,
+      "assetId": 52,
+      "id": 713
+    },
+    {
+      "date": "09-12-2024",
+      "type": "BUY",
+      "units": 7.292,
+      "price": 137.13,
+      "assetId": 52,
+      "id": 714
+    },
+    {
+      "date": "23-12-2024",
+      "type": "BUY",
+      "units": 14.976,
+      "price": 133.54,
+      "assetId": 52,
+      "id": 715
+    },
+    {
+      "date": "07-01-2025",
+      "type": "BUY",
+      "units": 14.925,
+      "price": 134,
+      "assetId": 52,
+      "id": 716
+    },
+    {
+      "date": "08-01-2025",
+      "type": "BUY",
+      "units": 7.548,
+      "price": 132.49,
+      "assetId": 52,
+      "id": 717
+    },
+    {
+      "date": "22-01-2025",
+      "type": "BUY",
+      "units": 16.33,
+      "price": 122.47,
+      "assetId": 52,
+      "id": 718
+    },
+    {
+      "date": "11-02-2025",
+      "type": "BUY",
+      "units": 8.494,
+      "price": 117.73,
+      "assetId": 52,
+      "id": 719
+    },
+    {
+      "date": "24-02-2025",
+      "type": "BUY",
+      "units": 17.632,
+      "price": 113.43,
+      "assetId": 52,
+      "id": 720
+    },
+    {
+      "date": "11-03-2025",
+      "type": "BUY",
+      "units": 8.952,
+      "price": 111.71,
+      "assetId": 52,
+      "id": 721
+    },
+    {
+      "date": "08-04-2025",
+      "type": "BUY",
+      "units": 8.91,
+      "price": 112.23,
+      "assetId": 52,
+      "id": 722
+    },
+    {
+      "date": "08-05-2025",
+      "type": "BUY",
+      "units": 8.327,
+      "price": 120.08,
+      "assetId": 52,
+      "id": 723
+    },
+    {
+      "date": "09-06-2025",
+      "type": "BUY",
+      "units": 7.489,
+      "price": 133.52,
+      "assetId": 52,
+      "id": 724
+    },
+    {
+      "date": "08-07-2025",
+      "type": "BUY",
+      "units": 7.326,
+      "price": 136.5,
+      "assetId": 52,
+      "id": 725
+    },
+    {
+      "date": "08-08-2025",
+      "type": "BUY",
+      "units": 7.49,
+      "price": 133.51,
+      "assetId": 52,
+      "id": 726
+    },
+    {
+      "date": "08-09-2025",
+      "type": "BUY",
+      "units": 7.364,
+      "price": 135.79,
+      "assetId": 52,
+      "id": 727
+    },
+    {
+      "date": "08-10-2025",
+      "type": "BUY",
+      "units": 7.214,
+      "price": 138.62,
+      "assetId": 52,
+      "id": 728
+    },
+    {
+      "date": "10-11-2025",
+      "type": "BUY",
+      "units": 7.265,
+      "price": 137.64,
+      "assetId": 52,
+      "id": 729
+    },
+    {
+      "date": "08-12-2025",
+      "type": "BUY",
+      "units": 7.477,
+      "price": 133.74,
+      "assetId": 52,
+      "id": 730
+    },
+    {
+      "date": "11-04-2025",
+      "type": "BUY",
+      "units": 3.323,
+      "price": 3611.29,
+      "assetId": 53,
+      "id": 731
+    },
+    {
+      "date": "02-05-2025",
+      "type": "BUY",
+      "units": 1.312,
+      "price": 3810.97,
+      "assetId": 53,
+      "id": 732
+    },
+    {
+      "date": "22-05-2025",
+      "type": "BUY",
+      "units": 1.257,
+      "price": 3979.05,
+      "assetId": 53,
+      "id": 733
+    },
+    {
+      "date": "13-06-2025",
+      "type": "BUY",
+      "units": 1.222,
+      "price": 4091.22,
+      "assetId": 53,
+      "id": 734
+    },
+    {
+      "date": "23-06-2025",
+      "type": "BUY",
+      "units": 1.218,
+      "price": 4105.91,
+      "assetId": 53,
+      "id": 735
+    },
+    {
+      "date": "14-07-2025",
+      "type": "BUY",
+      "units": 4.568,
+      "price": 4158.85,
+      "assetId": 53,
+      "id": 736
+    },
+    {
+      "date": "14-07-2025",
+      "type": "BUY",
+      "units": 1.202,
+      "price": 4158.85,
+      "assetId": 53,
+      "id": 737
+    },
+    {
+      "date": "16-07-2025",
+      "type": "BUY",
+      "units": 4.765,
+      "price": 4196.72,
+      "assetId": 53,
+      "id": 738
+    },
+    {
+      "date": "22-07-2025",
+      "type": "BUY",
+      "units": 1.193,
+      "price": 4189.2,
+      "assetId": 53,
+      "id": 739
+    },
+    {
+      "date": "13-08-2025",
+      "type": "BUY",
+      "units": 1.217,
+      "price": 4106.59,
+      "assetId": 53,
+      "id": 740
+    },
+    {
+      "date": "22-08-2025",
+      "type": "BUY",
+      "units": 1.2,
+      "price": 4167.58,
+      "assetId": 53,
+      "id": 741
+    },
+    {
+      "date": "22-09-2025",
+      "type": "BUY",
+      "units": 1.186,
+      "price": 4214.67,
+      "assetId": 53,
+      "id": 742
+    },
+    {
+      "date": "13-10-2025",
+      "type": "BUY",
+      "units": 1.193,
+      "price": 4192.14,
+      "assetId": 53,
+      "id": 743
+    },
+    {
+      "date": "13-11-2025",
+      "type": "BUY",
+      "units": 1.172,
+      "price": 4267.08,
+      "assetId": 53,
+      "id": 744
+    },
+    {
+      "date": "03-04-2020",
+      "type": "BUY",
+      "units": 72.067,
+      "price": 34.69,
+      "assetId": 54,
+      "id": 745
+    },
+    {
+      "date": "08-06-2020",
+      "type": "BUY",
+      "units": 58.439,
+      "price": 42.78,
+      "assetId": 54,
+      "id": 746
+    },
+    {
+      "type": "BUY",
+      "date": "07-08-2024",
+      "units": 15.649,
+      "price": 127.8,
+      "assetId": 52,
+      "id": 747
+    },
+    {
+      "type": "BUY",
+      "date": "22-05-2025",
+      "units": 1.257,
+      "price": 3979.05,
+      "assetId": 53,
+      "id": 748
+    },
+    {
+      "type": "BUY",
+      "date": "04-03-2020",
+      "units": 4,
+      "price": 254.48,
+      "assetId": 61,
+      "id": 749
+    },
+    {
+      "type": "BUY",
+      "date": "27-02-2020",
+      "units": 30,
+      "price": 263.72,
+      "assetId": 61,
+      "id": 750
+    },
+    {
+      "type": "BUY",
+      "date": "09-03-2020",
+      "units": 2,
+      "price": 235.32,
+      "assetId": 61,
+      "id": 751
+    },
+    {
+      "type": "BUY",
+      "date": "04-03-2020",
+      "units": 1,
+      "price": 557.86,
+      "assetId": 62,
+      "id": 752
+    },
+    {
+      "type": "BUY",
+      "date": "17-01-2020",
+      "units": 19,
+      "price": 520.14,
+      "assetId": 62,
+      "id": 753
+    },
+    {
+      "type": "BUY",
+      "date": "2026-01-11",
+      "units": 3,
+      "price": 8856.46,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 55,
+      "id": 754
+    },
+    {
+      "type": "BUY",
+      "date": "28-11-2025",
+      "units": 28,
+      "price": 684.93,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 56,
+      "id": 755
+    },
+    {
+      "type": "BUY",
+      "date": "18-12-2025",
+      "units": 10,
+      "price": 1284.36,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 57,
+      "id": 756
+    },
+    {
+      "type": "BUY",
+      "date": "28-11-2025",
+      "units": 42,
+      "price": 813.39,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 58,
+      "id": 757
+    },
+    {
+      "type": "BUY",
+      "date": "17-01-2020",
+      "units": 57,
+      "price": 184.63,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 59,
+      "id": 758
+    },
+    {
+      "type": "BUY",
+      "date": "28-11-2025",
+      "units": 30,
+      "price": 886.75,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 60,
+      "id": 759
+    },
+    {
+      "type": "BUY",
+      "date": "2026-01-11",
+      "units": 16,
+      "price": 304.44,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 63,
+      "id": 760
+    },
+    {
+      "type": "BUY",
+      "date": "05-10-2025",
+      "units": 9999.5,
+      "price": 10,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 64,
+      "id": 761
+    },
+    {
+      "type": "BUY",
+      "date": "22-06-2025",
+      "units": 200000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 65,
+      "id": 762
+    },
+    {
+      "type": "BUY",
+      "date": "22-06-2025",
+      "units": 200000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 66,
+      "id": 763
+    },
+    {
+      "type": "BUY",
+      "date": "09-08-2025",
+      "units": 100000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 67,
+      "id": 764
+    },
+    {
+      "type": "BUY",
+      "date": "27-01-2025",
+      "units": 200000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 68,
+      "id": 765
+    },
+    {
+      "type": "BUY",
+      "date": "04-09-2024",
+      "units": 100000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 69,
+      "id": 766
+    },
+    {
+      "type": "BUY",
+      "date": "04-09-2024",
+      "units": 100000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 70,
+      "id": 767
+    },
+    {
+      "type": "BUY",
+      "date": "06-11-2025",
+      "units": 225000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 71,
+      "id": 768
+    },
+    {
+      "type": "BUY",
+      "date": "05-11-2025",
+      "units": 200000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 72,
+      "id": 769
+    },
+    {
+      "type": "BUY",
+      "date": "05-11-2025",
+      "units": 200000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 73,
+      "id": 770
+    },
+    {
+      "type": "BUY",
+      "date": "12-07-2025",
+      "units": 108001,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 74,
+      "id": 771
+    },
+    {
+      "type": "BUY",
+      "date": "12-07-2025",
+      "units": 108001,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 75,
+      "id": 772
+    },
+    {
+      "type": "BUY",
+      "date": "11-01-2026",
+      "units": 1000000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 76,
+      "id": 773
+    },
+    {
+      "type": "BUY",
+      "date": "11-01-2026",
+      "units": 45000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 77,
+      "id": 774
+    },
+    {
+      "type": "BUY",
+      "date": "11-01-2026",
+      "units": 510000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 78,
+      "id": 775
+    },
+    {
+      "type": "BUY",
+      "date": "11-01-2026",
+      "units": 81000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 79,
+      "id": 776
+    },
+    {
+      "type": "BUY",
+      "date": "11-01-2026",
+      "units": 41000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 80,
+      "id": 777
+    },
+    {
+      "type": "BUY",
+      "date": "11-01-2026",
+      "units": 1200000,
+      "price": 1,
+      "note": "Opening Balance (Auto-Generated)",
+      "assetId": 81,
+      "id": 778
+    },
+    {
+      "assetId": 32,
+      "type": "BUY",
+      "date": "2026-01-13",
+      "units": 120.27904738994467,
+      "price": 20.785,
+      "note": "Auto SIP",
+      "id": 779
+    },
+    {
+      "assetId": 34,
+      "type": "BUY",
+      "date": "2026-01-13",
+      "units": 37.16355041447977,
+      "price": 94.1783,
+      "note": "Auto SIP",
+      "id": 780
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+"""
+Rebalance plan formatters — converts the raw plan dict into HTML (for email)
+and plain text (for logging / debugging).
+"""
+from __future__ import annotations
+
+import config
+
+
+def format_plan_as_html(plan: dict, portfolio_value: float = 0.0) -> str:
+    """Generate a full HTML email body for the monthly rebalance plan."""
+    sells = plan.get("sells", [])
+    buys = plan.get("buys", [])
+    regime = plan.get("regime_summary", "")
+    equity_cap = plan.get("equity_cap", 0.9)
+    fd_action = plan.get("fd_action") or ""
+    deploy_note = plan.get("deployment_note") or ""
+
+    # ── Alert boxes ───────────────────────────────────────────────────────────
+    alert_html = ""
+    if fd_action:
+        alert_html += (
+            '<div style="background:#fff3cd;border:1px solid #ffc107;'
+            'padding:12px;margin:10px 0;border-radius:6px">'
+            f"⚠️ {fd_action}</div>"
+        )
+    if deploy_note:
+        bg = "#d4edda" if "UNDERVALUED" in deploy_note else "#f8d7da"
+        border = "#28a745" if "UNDERVALUED" in deploy_note else "#dc3545"
+        alert_html += (
+            f'<div style="background:{bg};border:1px solid {border};'
+            f'padding:12px;margin:10px 0;border-radius:6px">{deploy_note}</div>'
+        )
+
+    # ── Sell table ────────────────────────────────────────────────────────────
+    if sells:
+        sell_rows = "".join(
+            f"<tr>"
+            f"<td style='padding:6px'><strong>{s['ticker']}</strong></td>"
+            f"<td style='padding:6px;color:#dc3545;font-weight:bold'>SELL</td>"
+            f"<td style='padding:6px'>{s['reason']}</td>"
+            f"<td style='padding:6px'>₹{s['current_value']:,.0f}</td>"
+            f"</tr>"
+            for s in sells
+        )
+        sell_section = f"""
+        <h3 style="color:#dc3545">🔴 Sell Orders ({len(sells)})</h3>
+        <table border="1" cellpadding="0" cellspacing="0"
+               style="border-collapse:collapse;width:100%;font-size:14px">
+          <tr style="background:#f8d7da;font-weight:bold">
+            <th style="padding:8px">Ticker</th>
+            <th style="padding:8px">Action</th>
+            <th style="padding:8px">Reason</th>
+            <th style="padding:8px">Current Value</th>
+          </tr>
+          {sell_rows}
+        </table>"""
+    else:
+        sell_section = "<h3>🔴 Sell Orders</h3><p><em>No exit signals this month.</em></p>"
+
+    # ── Buy table ─────────────────────────────────────────────────────────────
+    if buys:
+        buy_rows = "".join(
+            f"<tr>"
+            f"<td style='padding:6px'><strong>{b['ticker']}</strong></td>"
+            f"<td style='padding:6px;color:#28a745;font-weight:bold'>BUY</td>"
+            f"<td style='padding:6px'>{b['sector']}</td>"
+            f"<td style='padding:6px'>{b['roc_6m']:.1f}%</td>"
+            f"<td style='padding:6px'>{b['rsi']:.1f}</td>"
+            f"<td style='padding:6px'>{b['roe']:.1f}%</td>"
+            f"<td style='padding:6px'><strong>{b['weight']:.1f}%</strong></td>"
+            f"<td style='padding:6px'>₹{b['target_value']:,.0f}</td>"
+            f"</tr>"
+            for b in buys
+        )
+        buy_section = f"""
+        <h3 style="color:#28a745">🟢 Buy Orders ({len(buys)})</h3>
+        <p style="font-size:13px;color:#666">
+          Target values are sized from sell proceeds.
+          Add your monthly SIP amount to allocate proportionally across the Buy list.
+        </p>
+        <table border="1" cellpadding="0" cellspacing="0"
+               style="border-collapse:collapse;width:100%;font-size:14px">
+          <tr style="background:#d4edda;font-weight:bold">
+            <th style="padding:8px">Ticker</th>
+            <th style="padding:8px">Action</th>
+            <th style="padding:8px">Sector</th>
+            <th style="padding:8px">ROC 6M</th>
+            <th style="padding:8px">RSI</th>
+            <th style="padding:8px">ROE</th>
+            <th style="padding:8px">Weight</th>
+            <th style="padding:8px">Target ₹</th>
+          </tr>
+          {buy_rows}
+        </table>"""
+    else:
+        reason = "BEARISH regime or OVERVALUED market — no new buys recommended."
+        buy_section = f"<h3>🟢 Buy Orders</h3><p><em>{reason}</em></p>"
+
+    return f"""
+    <!DOCTYPE html>
+    <html>
+    <body style="font-family:Arial,sans-serif;max-width:750px;margin:auto;color:#333">
+      <h2 style="color:#1a1a2e;border-bottom:2px solid #4a90e2;padding-bottom:8px">
+        📊 Monthly Rebalance Plan
+      </h2>
+      <p>
+        <strong>Market Regime:</strong> {regime} &nbsp;|&nbsp;
+        <strong>Equity Cap:</strong> {equity_cap*100:.0f}% &nbsp;|&nbsp;
+        <strong>Portfolio Value:</strong> ₹{portfolio_value:,.0f}
+      </p>
+      {alert_html}
+      {sell_section}
+      <br>
+      {buy_section}
+      <hr style="margin-top:30px">
+      <p style="color:#999;font-size:11px">
+        Generated by Quantitative Portfolio Manager. Review all recommendations
+        before executing. This is not financial advice.
+      </p>
+    </body>
+    </html>
+    """
+
+
+def format_plan_as_text(plan: dict) -> str:
+    """Compact plain-text summary of the rebalance plan (for logging)."""
+    sells = plan.get("sells", [])
+    buys = plan.get("buys", [])
+    lines = [
+        "=== MONTHLY REBALANCE PLAN ===",
+        f"Regime : {plan.get('regime_summary', '')}",
+        f"Eq Cap : {plan.get('equity_cap', 0)*100:.0f}%",
+    ]
+    if plan.get("fd_action"):
+        lines += ["", f"ACTION : {plan['fd_action']}"]
+    if plan.get("deployment_note"):
+        lines += ["", f"NOTE   : {plan['deployment_note']}"]
+    lines += ["", f"SELLS ({len(sells)}):"]
+    for s in sells:
+        lines.append(f"  SELL {s['ticker']:12s}  ₹{s['current_value']:>12,.0f}  {s['reason']}")
+    lines += ["", f"BUYS ({len(buys)}):"]
+    for b in buys:
+        lines.append(
+            f"  BUY  {b['ticker']:12s}  {b['weight']:5.1f}%  "
+            f"₹{b['target_value']:>10,.0f}  "
+            f"ROC:{b['roc_6m']:.1f}% RSI:{b['rsi']:.1f} ROE:{b['roe']:.1f}%"
+        )
+    return "\n".join(lines)
