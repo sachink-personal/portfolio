@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import os
 import json
+import base64
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -95,17 +96,18 @@ TAB_MARKET_HISTORY: str = "MarketHistory"
 def get_google_credentials():
     """
     Get Google credentials from either:
-    1. Credentials file (local development)
-    2. Environment variable (Render.com deployment)
+    1. Base64 encoded environment variable (Render.com deployment)
+    2. Credentials file (local development)
     
     Returns a credentials dict for use with gspread.
     """
-    # Try environment variable first (for Render)
-    if "GOOGLE_SERVICE_ACCOUNT_JSON" in os.environ:
+    # Try base64 encoded environment variable first (for Render)
+    if "GOOGLE_CREDENTIALS_B64" in os.environ:
         try:
-            return json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"])
-        except json.JSONDecodeError as e:
-            print(f"Failed to parse GOOGLE_SERVICE_ACCOUNT_JSON: {e}")
+            decoded = base64.b64decode(os.environ["GOOGLE_CREDENTIALS_B64"]).decode('utf-8')
+            return json.loads(decoded)
+        except Exception as e:
+            print(f"Failed to decode GOOGLE_CREDENTIALS_B64: {e}")
     
     # Try credentials file
     if os.path.exists(CREDENTIALS_PATH):
@@ -118,30 +120,15 @@ def get_google_credentials():
     return None
 
 
-def create_credentials_from_json(creds_dict):
+def encode_credentials_to_b64(creds_dict: dict) -> str:
     """
-    Create Google credentials from a dictionary (environment variable).
+    Encode credentials dict to base64 string for environment variable.
     
     Args:
         creds_dict: Dictionary containing service account JSON data
     
     Returns:
-        Google credentials object
+        Base64 encoded string
     """
-    from google.oauth2.service_account import Credentials
-    
-    # Convert to proper format if needed
-    if 'private_key' in creds_dict:
-        # Create temp file for credentials
-        import tempfile
-        import os
-        
-        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
-            json.dump(creds_dict, f)
-            temp_path = f.name
-        
-        creds = Credentials.from_service_account_file(temp_path, scopes=_SCOPES)
-        os.unlink(temp_path)  # Delete temp file
-        return creds
-    
-    raise ValueError("Invalid credentials format")
+    json_str = json.dumps(creds_dict)
+    return base64.b64encode(json_str.encode('utf-8')).decode('utf-8')
