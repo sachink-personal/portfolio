@@ -105,7 +105,13 @@ def get_google_credentials():
     if "GOOGLE_CREDENTIALS_B64" in os.environ:
         try:
             decoded = base64.b64decode(os.environ["GOOGLE_CREDENTIALS_B64"]).decode('utf-8')
-            return json.loads(decoded)
+            creds = json.loads(decoded)
+            
+            # Convert \n escape sequences back to actual newlines in private_key
+            if 'private_key' in creds:
+                creds['private_key'] = creds['private_key'].replace('\\n', '\n')
+            
+            return creds
         except Exception as e:
             print(f"Failed to decode GOOGLE_CREDENTIALS_B64: {e}")
     
