@@ -1,6 +1,5 @@
-# Secrets and sensitive data
+# Secrets and sensitive data (excluding credentials that need to be uploaded)
 .env
-credentials.json
 .secrets
 
 # Git

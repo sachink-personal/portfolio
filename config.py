@@ -5,6 +5,7 @@ Edit this file to tune the strategy; no changes needed in the engine modules.
 from __future__ import annotations
 
 import os
+import json
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -19,7 +20,7 @@ EMAIL_PASSWORD: str = os.getenv("EMAIL_PASSWORD", "")
 EMAIL_RECIPIENT: str = os.getenv("EMAIL_RECIPIENT", os.getenv("EMAIL_SENDER", ""))
 
 # ── Market Tickers ────────────────────────────────────────────────────────────
-# Note: ^CNX500 (Nifty 500) is unavailable on yfinance — ^NSEI (Nifty 50) used
+# Note: ^CNX500 (Nifty 500) is unavailable on yfinance; ^NSEI (Nifty 50) used
 NIFTY500_TICKER: str = "^NSEI"    # Nifty 50 — reliable proxy for 200-DMA regime
 NIFTY50_TICKER: str = "^NSEI"     # Benchmark for growth chart comparison
 
@@ -88,3 +89,59 @@ TAB_HOLDINGS: str = "Holdings"
 TAB_LEDGER: str = "Ledger"
 TAB_SIGNALS: str = "Signals"
 TAB_MARKET_HISTORY: str = "MarketHistory"
+
+
+# ── Google Credentials Helper Functions ───────────────────────────────────────
+def get_google_credentials():
+    """
+    Get Google credentials from either:
+    1. Credentials file (local development)
+    2. Environment variable (Render.com deployment)
+    
+    Returns a credentials dict for use with gspread.
+    """
+    # Try environment variable first (for Render)
+    if "GOOGLE_SERVICE_ACCOUNT_JSON" in os.environ:
+        try:
+            return json.loads(os.environ["GOOGLE_SERVICE_ACCOUNT_JSON"])
+        except json.JSONDecodeError as e:
+            print(f"Failed to parse GOOGLE_SERVICE_ACCOUNT_JSON: {e}")
+    
+    # Try credentials file
+    if os.path.exists(CREDENTIALS_PATH):
+        try:
+            with open(CREDENTIALS_PATH, 'r') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Failed to read credentials file: {e}")
+    
+    return None
+
+
+def create_credentials_from_json(creds_dict):
+    """
+    Create Google credentials from a dictionary (environment variable).
+    
+    Args:
+        creds_dict: Dictionary containing service account JSON data
+    
+    Returns:
+        Google credentials object
+    """
+    from google.oauth2.service_account import Credentials
+    
+    # Convert to proper format if needed
+    if 'private_key' in creds_dict:
+        # Create temp file for credentials
+        import tempfile
+        import os
+        
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+            json.dump(creds_dict, f)
+            temp_path = f.name
+        
+        creds = Credentials.from_service_account_file(temp_path, scopes=_SCOPES)
+        os.unlink(temp_path)  # Delete temp file
+        return creds
+    
+    raise ValueError("Invalid credentials format")

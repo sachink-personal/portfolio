@@ -46,7 +46,24 @@ class SheetsClient:
 
     def _connect(self) -> gspread.Spreadsheet:
         if self._spreadsheet is None:
-            creds = Credentials.from_service_account_file(self._creds_path, scopes=_SCOPES)
+            # Try to load from credentials.json file first
+            creds_dict = config.get_google_credentials()
+            if creds_dict is None:
+                raise FileNotFoundError(f"Google credentials not found. Please upload credentials.json to Render or set GOOGLE_SERVICE_ACCOUNT_JSON environment variable.")
+            
+            # Create temp file for credentials
+            import tempfile
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+                import json
+                json.dump(creds_dict, f)
+                temp_path = f.name
+            
+            try:
+                creds = Credentials.from_service_account_file(temp_path, scopes=_SCOPES)
+            finally:
+                import os
+                os.unlink(temp_path)  # Delete temp file
+            
             gc = gspread.authorize(creds)
             self._spreadsheet = gc.open_by_key(self._sheet_id)
             log.info("Connected to Google Sheet: %s", self._sheet_id)
