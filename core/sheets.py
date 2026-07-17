@@ -11,6 +11,9 @@ How to set up:
 from __future__ import annotations
 
 import logging
+import os
+import tempfile
+import json
 from typing import Optional
 
 import gspread
@@ -51,17 +54,17 @@ class SheetsClient:
             if creds_dict is None:
                 raise FileNotFoundError(f"Google credentials not found. Please upload credentials.json to Render or set GOOGLE_SERVICE_ACCOUNT_JSON environment variable.")
             
-            # Create temp file for credentials
-            import tempfile
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
-                import json
-                json.dump(creds_dict, f)
+            # Create temp file for credentials - use json.dumps with ensure_ascii=False
+            # This preserves the newlines in the private_key field
+            creds_json = json.dumps(creds_dict, ensure_ascii=False)
+            
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False, encoding='utf-8') as f:
+                f.write(creds_json)
                 temp_path = f.name
             
             try:
                 creds = Credentials.from_service_account_file(temp_path, scopes=_SCOPES)
             finally:
-                import os
                 os.unlink(temp_path)  # Delete temp file
             
             gc = gspread.authorize(creds)
