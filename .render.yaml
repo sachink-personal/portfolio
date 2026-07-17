@@ -6,24 +6,15 @@ services:
   - type: web
     name: portfolio-web
     plan: free
-    region: oregon  # Change to your preferred region (oregon, frankfurt, sydney)
+    region: oregon
     buildCommand: pip install -r requirements.txt
-    startCommand: streamlit run app.py --server.port=$PORT --server.enableCORS=false
-    envVars:
-      - key: PORT
-        value: "8501"
-      - key: PYTHONUNBUFFERED
-        value: "1"
-      - key: STREAMLIT_SERVER_HEADLESS
-        value: "true"
-    env:  # Environment variables from render.yaml section below
-    
+    startCommand: streamlit run app.py --server.port=8501 --server.enableCORS=false
     healthCheck:
       path: /_stcore/health
       interval: 30
       timeout: 10
 
-# Environment variables (set these in Render dashboard or here)
+# Environment variables (configure these in Render dashboard or here)
 env:
   - key: GOOGLE_SHEET_ID
     sync: false
@@ -34,7 +25,11 @@ env:
   - key: SCREEN_MODE
     value: tickertape
 
-# Cron jobs (configured separately in Render dashboard)
-# Daily at 2 AM UTC = 8 AM IST
-# Weekly at 3 AM UTC on Saturday = ~8:30 AM IST
-# Monthly at 3 AM UTC on 1st Saturday = ~8:30 AM IST
+# Cron jobs for daily emails (configure these in Render dashboard)
+cronTriggers:
+  - cron: "0 2 * * *"  # Daily at 8 AM IST
+    command: python main.py --daily
+  - cron: "0 3 * * 6"  # Weekly on Saturday at ~8:30 AM IST
+    command: python main.py --weekly
+  - cron: "0 3 1-7 * 6"  # Monthly on 1st Saturday at ~8:30 AM IST
+    command: python main.py --monthly
