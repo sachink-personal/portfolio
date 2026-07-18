@@ -52,7 +52,7 @@ class SheetsClient:
             # Try to load from credentials.json file first
             creds_dict = config.get_google_credentials()
             if creds_dict is None:
-                raise FileNotFoundError(f"Google credentials not found. Please upload credentials.json to Render or set GOOGLE_SERVICE_ACCOUNT_JSON environment variable.")
+                raise FileNotFoundError(f"Google credentials not found. Set GOOGLE_SERVICE_ACCOUNT_JSON on Render, or provide GOOGLE_CREDENTIALS_B64 / credentials.json.")
             
             # Create temp file for credentials - use json.dumps with ensure_ascii=False
             # This preserves the newlines in the private_key field

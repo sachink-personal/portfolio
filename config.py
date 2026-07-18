@@ -96,11 +96,23 @@ TAB_MARKET_HISTORY: str = "MarketHistory"
 def get_google_credentials():
     """
     Get Google credentials from either:
-    1. Base64 encoded environment variable (Render.com deployment)
-    2. Credentials file (local development)
+    1. Raw service account JSON environment variable (Render.com deployment)
+    2. Base64 encoded environment variable
+    3. Credentials file (local development)
     
     Returns a credentials dict for use with gspread.
     """
+    # Render-friendly raw JSON environment variable.
+    raw_json = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON") or os.getenv("GOOGLE_CREDENTIALS_JSON")
+    if raw_json:
+        try:
+            creds = json.loads(raw_json)
+            if 'private_key' in creds:
+                creds['private_key'] = creds['private_key'].replace('\\n', '\n')
+            return creds
+        except Exception as e:
+            print(f"Failed to parse GOOGLE_SERVICE_ACCOUNT_JSON: {e}")
+
     # Try base64 encoded environment variable first (for Render)
     if "GOOGLE_CREDENTIALS_B64" in os.environ:
         try:
