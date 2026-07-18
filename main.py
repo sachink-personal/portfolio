@@ -3,7 +3,7 @@ Quantitative Portfolio Manager — Entry Point
 
 Usage:
   python main.py              Start the scheduler (runs indefinitely)
-  python main.py --init       Create all Google Sheet tabs with correct headers
+  python main.py --init       Create all database tables with correct schema
   python main.py --test       Fire all three notification jobs once; check inbox
   python main.py --daily      Run only the daily digest job once and exit
   python main.py --weekly     Run only the weekly analysis job once and exit
@@ -31,10 +31,10 @@ log = logging.getLogger("main")
 
 
 def cmd_init() -> None:
-    log.info("Initialising Google Sheets structure…")
-    from core.sheets import SheetsClient
-    SheetsClient().initialize_sheet_structure()
-    log.info("Done. Open your Google Sheet to verify the four tabs.")
+    log.info("Initialising database structure…")
+    from core.database import initialize_database
+    initialize_database()
+    log.info("Done. Database tables created at %s", __import__("config").DB_PATH)
 
 
 def cmd_test() -> None:
@@ -78,7 +78,7 @@ def main() -> None:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__,
     )
-    parser.add_argument("--init", action="store_true", help="Initialise Google Sheets tabs")
+    parser.add_argument("--init", action="store_true", help="Initialise database tables")
     parser.add_argument("--test", action="store_true", help="Fire all jobs once (check email)")
     parser.add_argument("--daily", action="store_true", help="Run daily job once")
     parser.add_argument("--weekly", action="store_true", help="Run weekly job once")

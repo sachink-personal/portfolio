@@ -37,13 +37,13 @@ run_button = st.button("🚀 Run Rebalance Analysis", type="primary", use_contai
 if not run_button:
     st.info(
         "Click **Run Rebalance Analysis** to generate buy/sell recommendations "
-        "based on current market regime and your Signals sheet data."
+        "based on current market regime and your signals data."
     )
     st.markdown("""
 **How it works:**
-1. Reads your current holdings from Google Sheets.
+1. Reads your current holdings from the database.
 2. Fetches Nifty 500 price data to determine the market regime.
-3. Reads the Signals tab for screener candidates.
+3. Reads signals for screener candidates.
 4. Applies momentum + quality filters (ROC, RSI, ROE).
 5. Checks each holding for exit triggers (RSI < 40, price < 200-DMA).
 6. Sizes buys using Inverse Volatility Weighting.
@@ -178,8 +178,8 @@ else:
         st.warning("No new buys recommended — Nifty PE is OVERVALUED.")
     elif approved.empty:
         st.info(
-            "No qualified candidates in the Signals sheet. "
-            "Paste Chartink / Screener.in results into the Signals tab."
+            "No qualified candidates in signals. "
+            "Run the auto-screen from the Weekly Analysis page to populate signals."
         )
     else:
         st.info("All approved candidates are already held.")

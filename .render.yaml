@@ -7,10 +7,8 @@ services:
     buildCommand: pip install -r requirements.txt
     startCommand: streamlit run app.py --server.port $PORT --server.address 0.0.0.0 --server.enableCORS false
     envVars:
-      - key: GOOGLE_SHEET_ID
-        sync: false
-      - key: GOOGLE_SERVICE_ACCOUNT_JSON
-        sync: false
+      - key: DB_PATH
+        value: /opt/render/project/src/portfolio.db
       - key: EMAIL_SENDER
         sync: false
       - key: EMAIL_PASSWORD

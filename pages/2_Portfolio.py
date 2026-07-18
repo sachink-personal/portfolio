@@ -22,7 +22,7 @@ def load_holdings():
 
 
 def refresh_prices(holdings):
-    """Fetch latest prices and write them back to Sheets."""
+    """Fetch latest prices and write them back to the database."""
     from data.equity import get_current_prices
     from data.mf_nav import get_mf_prices
     from core.sheets import SheetsClient
@@ -70,7 +70,7 @@ except Exception as exc:
 if holdings.empty:
     st.info(
         "No holdings yet. Use the form below to add your first position, "
-        "or paste data directly into the Holdings tab of your Google Sheet."
+        "or run `python scripts/import_portfolio.py` to import from a backup file."
     )
 else:
     # ── Computed columns ──────────────────────────────────────────────────────
@@ -160,7 +160,7 @@ else:
         )
         st.plotly_chart(fig, use_container_width=True)
     else:
-        st.info("Add TargetWeight values in your Holdings sheet to see this chart.")
+        st.info("Add TargetWeight values for your holdings to see this chart.")
 
 st.divider()
 

@@ -92,8 +92,8 @@ try:
 except Exception as exc:
     st.error(f"Failed to load data: {exc}")
     st.info(
-        "Check that `credentials.json` exists and `GOOGLE_SHEET_ID` is set in `.env`. "
-        "Run `python main.py --init` to create the sheet structure."
+        "Check that the database file exists. "
+        "Run `python main.py --init` to create the database structure."
     )
     st.stop()
 
@@ -219,6 +219,6 @@ if (
         st.dataframe(display, use_container_width=True, hide_index=True)
 else:
     st.info(
-        "No holdings found. Add holdings to the **Holdings** tab in your Google Sheet, "
-        "then click Refresh."
+        "No holdings found. Use the Portfolio page to add your first position, "
+        "or run `python scripts/import_portfolio.py` to import from a backup file."
     )

@@ -1,12 +1,12 @@
 """
-Signal Processor — filters raw screener candidates from the Signals sheet
+Signal Processor — filters raw screener candidates from the signals database
 and scans current holdings for mandatory exit triggers.
 
 Inputs come from two external platforms:
   - Chartink.com  : RSI, 6-month ROC, volume breakouts
   - Screener.in   : ROE, Debt-to-Equity (pre-screened before pasting)
 
-The user pastes CSV output from these platforms into the Signals tab monthly.
+Candidates are stored in the signals database via auto-screener or manual import.
 """
 from __future__ import annotations
 
@@ -45,13 +45,13 @@ class SignalProcessor:
         """
         df = self.signals.copy()
         if df.empty:
-            log.warning("Signals sheet is empty — paste candidates from Chartink/Screener.in first.")
+            log.warning("Signals database is empty — run the auto-screener to populate candidates.")
             return pd.DataFrame()
 
         required = {"ROC_6M", "RSI_Weekly", "ROE"}
         missing = required - set(df.columns)
         if missing:
-            log.error("Signals sheet is missing required columns: %s", missing)
+            log.error("Signals database is missing required columns: %s", missing)
             return pd.DataFrame()
 
         mask = (

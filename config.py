@@ -1,19 +1,18 @@
 """
 Central configuration — all numeric thresholds live here.
 Edit this file to tune the strategy; no changes needed in the engine modules.
+
+Data persistence: SQLite database (no Google Sheets dependency).
 """
 from __future__ import annotations
 
 import os
-import json
-import base64
 from dotenv import load_dotenv
 
 load_dotenv()
 
-# ── Google Sheets ─────────────────────────────────────────────────────────────
-SHEET_ID: str = os.getenv("GOOGLE_SHEET_ID", "")
-CREDENTIALS_PATH: str = os.getenv("GOOGLE_CREDENTIALS_PATH", "credentials.json")
+# ── Database ──────────────────────────────────────────────────────────────────
+DB_PATH: str = os.getenv("DB_PATH", "portfolio.db")
 
 # ── Email ─────────────────────────────────────────────────────────────────────
 EMAIL_SENDER: str = os.getenv("EMAIL_SENDER", "")
@@ -92,77 +91,9 @@ TAB_SIGNALS: str = "Signals"
 TAB_MARKET_HISTORY: str = "MarketHistory"
 
 
-GOOGLE_CREDENTIALS_SOURCE: str = "not configured"
+# ── Database Helper Functions ─────────────────────────────────────────────────
 
-
-def _normalize_google_credentials(creds: dict, source: str) -> dict:
-    if not isinstance(creds, dict):
-        raise ValueError(f"{source} must contain a JSON object")
-
-    required = ("client_email", "private_key", "private_key_id", "token_uri")
-    missing = [key for key in required if not creds.get(key)]
-    if missing:
-        raise ValueError(f"{source} is missing required field(s): {', '.join(missing)}")
-
-    creds = dict(creds)
-    creds["private_key"] = creds["private_key"].replace("\\n", "\n").replace("\r\n", "\n").strip()
-    return creds
-
-
-def _parse_credentials_json(raw_value: str, source: str) -> dict:
-    parsed = json.loads(raw_value.strip())
-    if isinstance(parsed, str):
-        parsed = json.loads(parsed)
-    return _normalize_google_credentials(parsed, source)
-
-# ── Google Credentials Helper Functions ───────────────────────────────────────
-def get_google_credentials():
-    """
-    Get Google credentials from either:
-    1. Raw service account JSON environment variable (Render.com deployment)
-    2. Base64 encoded environment variable
-    3. Credentials file (local development)
-
-    Returns a credentials dict for use with gspread.
-    """
-    global GOOGLE_CREDENTIALS_SOURCE
-
-    raw_json = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON") or os.getenv("GOOGLE_CREDENTIALS_JSON")
-    if raw_json:
-        try:
-            GOOGLE_CREDENTIALS_SOURCE = "GOOGLE_SERVICE_ACCOUNT_JSON"
-            return _parse_credentials_json(raw_json, GOOGLE_CREDENTIALS_SOURCE)
-        except Exception as e:
-            print(f"Failed to parse GOOGLE_SERVICE_ACCOUNT_JSON: {e}")
-
-    if "GOOGLE_CREDENTIALS_B64" in os.environ:
-        try:
-            GOOGLE_CREDENTIALS_SOURCE = "GOOGLE_CREDENTIALS_B64"
-            decoded = base64.b64decode(os.environ["GOOGLE_CREDENTIALS_B64"]).decode("utf-8")
-            return _parse_credentials_json(decoded, GOOGLE_CREDENTIALS_SOURCE)
-        except Exception as e:
-            print(f"Failed to decode GOOGLE_CREDENTIALS_B64: {e}")
-
-    if os.path.exists(CREDENTIALS_PATH):
-        try:
-            GOOGLE_CREDENTIALS_SOURCE = CREDENTIALS_PATH
-            with open(CREDENTIALS_PATH, "r", encoding="utf-8") as f:
-                return _normalize_google_credentials(json.load(f), CREDENTIALS_PATH)
-        except Exception as e:
-            print(f"Failed to read credentials file: {e}")
-
-    GOOGLE_CREDENTIALS_SOURCE = "not configured"
-    return None
-
-def encode_credentials_to_b64(creds_dict: dict) -> str:
-    """
-    Encode credentials dict to base64 string for environment variable.
-    
-    Args:
-        creds_dict: Dictionary containing service account JSON data
-    
-    Returns:
-        Base64 encoded string
-    """
-    json_str = json.dumps(creds_dict)
-    return base64.b64encode(json_str.encode('utf-8')).decode('utf-8')
+def initialize_db() -> None:
+    """Initialise the SQLite database (create tables if they don't exist)."""
+    from core.database import initialize_database
+    initialize_database()

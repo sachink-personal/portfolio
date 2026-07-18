@@ -64,7 +64,8 @@ if history.empty or "Date" not in history.columns or "PortfolioValue" not in his
     st.info(
         "No portfolio history yet. The daily scheduler records a snapshot each morning. "
         "Run `python main.py --daily` to record today's snapshot, "
-        "or let the scheduler run for a few days."
+        "or let the scheduler run for a few days.\n\n"
+        "Make sure you have holdings in your database first."
     )
     st.stop()
 

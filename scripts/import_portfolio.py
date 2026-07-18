@@ -1,6 +1,6 @@
 """
 One-time import script: reads portfolio-backup-2026-01-14.json and
-writes all holdings AND transactions to Google Sheets.
+writes all holdings AND transactions to the SQLite database.
 
 Run: python scripts/import_portfolio.py
      python scripts/import_portfolio.py --preview
@@ -170,17 +170,10 @@ def main(preview: bool = False, ledger_only: bool = False, holdings_only: bool =
 
     # Write holdings
     if not holdings_only:
-        print(f"\nWriting {len(rows)} holdings to Holdings tab...")
-        ws = sheets._ws("Holdings")
-        headers = ws.row_values(1)
-        existing = ws.get_all_values()
-        if len(existing) > 1:
-            ws.delete_rows(2, len(existing))
-            print(f"  Cleared {len(existing)-1} existing rows.")
-        
-        batch = [[r.get(h, "") for h in headers] for r in rows]
-        ws.append_rows(batch, value_input_option="USER_ENTERED")
-        print(f"  Written {len(rows)} rows successfully.")
+        print(f"\nWriting {len(rows)} holdings to Holdings table...")
+        for r in rows:
+            sheets.upsert_holding(r)
+        print(f"  Written {len(rows)} holdings successfully.")
 
     # Write transactions
     if not ledger_only:
@@ -214,20 +207,10 @@ def main(preview: bool = False, ledger_only: bool = False, holdings_only: bool =
             return ledger
 
         ledger_rows = parse_transactions(data)
-        print(f"\nWriting {len(ledger_rows)} transactions to Ledger tab...")
-        ws = sheets._ws("Ledger")
-        headers = ws.row_values(1)
-        existing = ws.get_all_values()
-        if len(existing) > 1:
-            ws.delete_rows(2, len(existing))
-        
-        # Write in chunks of 500
-        chunk = 500
-        for i in range(0, len(ledger_rows), chunk):
-            batch = [[r.get(h, "") for h in headers] for r in ledger_rows[i:i+chunk]]
-            ws.append_rows(batch, value_input_option="USER_ENTERED")
-            print(f"  Written {min(i+chunk, len(ledger_rows))}/{len(ledger_rows)}...")
-        print(f"  Done.")
+        print(f"\nWriting {len(ledger_rows)} transactions to Ledger table...")
+        from core.database import bulk_insert_ledger
+        bulk_insert_ledger(ledger_rows)
+        print(f"  Written {len(ledger_rows)} transactions successfully.")
 
     print("\nImport complete. Go to Portfolio page → Refresh Prices to update current values.")
 

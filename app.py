@@ -1,11 +1,21 @@
 """
 Streamlit multi-page portfolio dashboard — root entry point.
 Run: streamlit run app.py
+
+Data is stored in a local SQLite database (portfolio.db).
+No external services required for data persistence.
 """
 import streamlit as st
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Initialise the database on startup (creates tables if they don't exist)
+try:
+    from config import initialize_db
+    initialize_db()
+except Exception:
+    pass  # Database may already be initialised; ignore errors at startup
 
 st.set_page_config(
     page_title="Portfolio Manager",
@@ -34,6 +44,6 @@ with col5:
 
 st.divider()
 st.caption(
-    "First time? Run `python main.py --init` to create the Google Sheet structure, "
+    "First time? Run `python main.py --init` to create the database structure, "
     "then run `python main.py --test` to verify email notifications."
 )

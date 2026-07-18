@@ -8,7 +8,7 @@ Pipeline (runs in ~3-4 minutes):
   3. Compute daily ROC(125) → keep stocks with ROC > 20%   (~50-100 remain)
   4. Compute weekly RSI(14) → keep stocks with RSI 60-75   (~15-40 remain)
   5. Fetch fundamentals for shortlist: ROE, D/E, EPS       (~5-15 remain)
-  6. Write approved candidates to the Signals Google Sheet
+  6. Write approved candidates to the signals database
   7. Return the final approved DataFrame
 
 Usage:
@@ -40,6 +40,7 @@ class AutoScreener:
     """
     Runs the full quantitative screen automatically.
     Accepts an optional progress_callback(message: str) for UI feedback.
+    Writes results to the signals database by default.
     """
 
     def __init__(self, progress_callback: Optional[Callable[[str], None]] = None):
@@ -201,10 +202,10 @@ class AutoScreener:
         Execute the full automated screen.
 
         Args:
-            write_to_sheets: If True, clears the Signals sheet and writes results.
+            write_to_sheets: If True, clears the signals database and writes results.
 
         Returns:
-            DataFrame with columns matching the Signals sheet schema:
+            DataFrame with columns matching the signals database schema:
             [Date, Ticker, Strategy, ROC_6M, RSI_Weekly, ROE, Sector]
         """
         self._log("=" * 55)
@@ -265,19 +266,26 @@ class AutoScreener:
                 f"RSI:{r['RSI_Weekly']:5.1f}  ROE:{r['ROE']:5.1f}%  {r['Sector']}"
             )
 
-        # ── Write to Signals sheet ───────────────────────────────────────────
+        # ── Write to Signals database ────────────────────────────────────────
         if write_to_sheets:
             try:
-                from core.sheets import SheetsClient
-                sheets = SheetsClient()
-                sheets.clear_signals()
-                ws = sheets._ws(config.TAB_SIGNALS)
-                headers = ws.row_values(1)
+                from core.database import clear_signals, bulk_insert_signals
+                clear_signals()
+                signal_rows = []
                 for _, row in result_df.iterrows():
-                    ws.append_row([row.get(h, "") for h in headers])
-                self._log(f"✅ Signals sheet updated with {len(result_df)} candidates.")
+                    signal_rows.append({
+                        "Date": row.get("Date", ""),
+                        "Ticker": row.get("Ticker", ""),
+                        "Strategy": row.get("Strategy", ""),
+                        "ROC_6M": float(row.get("ROC_6M", 0)),
+                        "RSI_Weekly": float(row.get("RSI_Weekly", 0)),
+                        "ROE": float(row.get("ROE", 0)),
+                        "Sector": row.get("Sector", ""),
+                    })
+                bulk_insert_signals(signal_rows)
+                self._log(f"✅ Signals database updated with {len(result_df)} candidates.")
             except Exception as exc:
-                log.error("Failed to write to Signals sheet: %s", exc)
-                self._log(f"⚠️  Signals sheet write failed: {exc}")
+                log.error("Failed to write to Signals database: %s", exc)
+                self._log(f"⚠️  Signals database write failed: {exc}")
 
         return result_df

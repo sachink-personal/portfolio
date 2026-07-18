@@ -101,7 +101,7 @@ with st.container(border=True):
         if current_mode == "tickertape":
             st.caption(
                 "Drop your Tickertape export CSV into the `downloads/` folder, then click Run Screen. "
-                "The tool reads it, checks EPS acceleration, and writes candidates to the Signals sheet automatically."
+                "The tool reads it, checks EPS acceleration, and writes candidates to the signals database automatically."
             )
         else:
             st.caption("Scans all Nifty 500 stocks for ROC, RSI and quality filters. Takes ~3-4 minutes.")
@@ -129,20 +129,27 @@ if run_screen:
                 result_df = AutoScreener(progress_callback=_progress).run(write_to_sheets=True)
 
             if not result_df.empty and current_mode == "tickertape":
-                # Write to Signals sheet
-                from core.sheets import SheetsClient
-                sheets = SheetsClient()
-                sheets.clear_signals()
-                ws = sheets._ws(config.TAB_SIGNALS)
-                headers = ws.row_values(1)
+                # Write to Signals database
+                from core.database import clear_signals, bulk_insert_signals
+                clear_signals()
+                signal_rows = []
                 for _, row in result_df.iterrows():
-                    ws.append_row([row.get(h, "") for h in headers])
-                _progress(f"✅ Signals sheet updated with {len(result_df)} candidates.")
+                    signal_rows.append({
+                        "Date": row.get("Date", ""),
+                        "Ticker": row.get("Ticker", ""),
+                        "Strategy": row.get("Strategy", ""),
+                        "ROC_6M": float(row.get("ROC_6M", 0)),
+                        "RSI_Weekly": float(row.get("RSI_Weekly", 0)),
+                        "ROE": float(row.get("ROE", 0)),
+                        "Sector": row.get("Sector", ""),
+                    })
+                bulk_insert_signals(signal_rows)
+                _progress(f"✅ Signals updated with {len(result_df)} candidates.")
 
             if result_df.empty:
                 st.warning("No candidates passed all filters.")
             else:
-                st.success(f"{len(result_df)} candidates written to Signals sheet.")
+                st.success(f"{len(result_df)} candidates written to signals database.")
             st.cache_data.clear()
             st.rerun()
         except FileNotFoundError:
@@ -151,7 +158,7 @@ if run_screen:
                 "**Steps:**\n"
                 "1. Run your saved Tickertape screen\n"
                 "2. Click Export → Download CSV\n"
-                "3. Move the file to `d:\\delete\\portfolio_g\\downloads\\`\n"
+                "3. Move the file to the `downloads/` folder\n"
                 "4. Click Run Screen again"
             )
         except Exception as exc:
@@ -245,7 +252,7 @@ else:
             with st.spinner("Fetching weekly RSI data… (~30s)"):
                 rsi_map = fetch_rsi_for_holdings(tuple(tickers))
         else:
-            # Use signals sheet RSI if available, else show placeholder
+            # Use signals database RSI if available, else show placeholder
             rsi_map = {}
             if not signals.empty and "Ticker" in signals.columns and "RSI_Weekly" in signals.columns:
                 for _, row in signals.iterrows():
@@ -291,7 +298,7 @@ else:
         if not fetch_rsi and not rsi_map:
             st.caption(
                 "RSI values not shown. Check 'Fetch live RSI' in the sidebar, "
-                "or paste RSI values into the Signals sheet to see them here."
+                "or run the auto-screen above to populate signals with RSI data."
             )
     else:
         st.info("No equity/ETF holdings to analyse.")
@@ -307,7 +314,7 @@ approved = run_signal_filter(signals_key)
 if approved.empty:
     st.info(
         "No candidates passed all filters. "
-        "Paste fresh screener data into the **Signals** tab of your Google Sheet, "
+        "Run the auto-screen above to populate signals, "
         "then click Refresh All."
     )
     st.markdown(
