@@ -16,8 +16,8 @@ COPY pages ./pages
 COPY scripts ./scripts
 COPY downloads ./downloads
 
-# Initialize the SQLite database on container start
-RUN python -c "from config import initialize_db; initialize_db()"
+# Copy the pre-seeded database with portfolio data
+COPY portfolio.db ./portfolio.db
 
 EXPOSE 8080
 

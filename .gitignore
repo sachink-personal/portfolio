@@ -1,7 +1,6 @@
 # Secrets — never commit these
 .env
 credentials.json
-portfolio.db
 
 # Python
 __pycache__/
