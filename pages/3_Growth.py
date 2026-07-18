@@ -93,7 +93,11 @@ portfolio_norm = portfolio_series / portfolio_series.iloc[0] * 100
 # Nifty 50 — align to same date range
 nifty_norm = None
 if not nifty50_raw.empty:
-    nifty50 = nifty50_raw["Close"].copy()
+    # Handle yfinance MultiIndex columns
+    if isinstance(nifty50_raw.columns, pd.MultiIndex):
+        nifty50 = nifty50_raw["Close"].iloc[:, 0].copy()
+    else:
+        nifty50 = nifty50_raw["Close"].copy()
     nifty50.index = pd.to_datetime(nifty50.index)
     nifty50 = nifty50[(nifty50.index >= start_date) & (nifty50.index <= end_date)]
     if not nifty50.empty:
@@ -151,7 +155,15 @@ periods = {"1M": 30, "3M": 90, "6M": 180, "1Y": 365}
 rows = []
 for label, days in periods.items():
     p_ret = calc_return(portfolio_series, days)
-    n_ret = calc_return(nifty50_raw["Close"] if not nifty50_raw.empty else pd.Series(dtype=float), days)
+    # Handle yfinance MultiIndex columns for returns calculation
+    if not nifty50_raw.empty:
+        if isinstance(nifty50_raw.columns, pd.MultiIndex):
+            nifty_close = nifty50_raw["Close"].iloc[:, 0]
+        else:
+            nifty_close = nifty50_raw["Close"]
+    else:
+        nifty_close = pd.Series(dtype=float)
+    n_ret = calc_return(nifty_close, days)
     alpha = (
         round(float(p_ret) - float(n_ret), 2)
         if isinstance(p_ret, (int, float)) and isinstance(n_ret, (int, float))

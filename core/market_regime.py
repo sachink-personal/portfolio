@@ -11,6 +11,8 @@ from __future__ import annotations
 import logging
 from typing import Optional
 
+import pandas as pd
+
 import config
 from data.equity import get_nifty500_history
 from data.nse_indices import get_nifty_pe, classify_pe
@@ -52,8 +54,14 @@ class MarketRegime:
             log.warning("Insufficient Nifty 500 data for 200-DMA calculation.")
             return {"trend": "UNKNOWN", "close": 0.0, "dma_200": 0.0, "distance_pct": 0.0}
 
-        close = float(df["Close"].iloc[-1])
-        dma_200 = float(df["Close"].rolling(config.DMA_WINDOW).mean().iloc[-1])
+        # Handle yfinance MultiIndex columns — extract Close as a Series
+        if isinstance(df.columns, pd.MultiIndex):
+            close_series = df["Close"].iloc[:, 0]
+        else:
+            close_series = df["Close"]
+
+        close = float(close_series.iloc[-1])
+        dma_200 = float(close_series.rolling(config.DMA_WINDOW).mean().iloc[-1])
         distance_pct = ((close - dma_200) / dma_200 * 100) if dma_200 > 0 else 0.0
 
         return {

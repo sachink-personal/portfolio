@@ -104,10 +104,14 @@ class SignalProcessor:
 
                 reasons = []
 
+                # Extract Close series — handle yfinance MultiIndex columns
+                if isinstance(hist.columns, pd.MultiIndex):
+                    close_s = hist["Close"].iloc[:, 0]
+                else:
+                    close_s = hist["Close"]
+
                 # Weekly RSI check
-                weekly_close_raw = hist["Close"]
-                if isinstance(weekly_close_raw, pd.DataFrame):
-                    weekly_close_raw = weekly_close_raw.iloc[:, 0]
+                weekly_close_raw = close_s.copy()
                 weekly_close_raw.index = pd.to_datetime(weekly_close_raw.index)
                 weekly_close = weekly_close_raw.resample("W").last().dropna()
                 rsi_series = RSIIndicator(close=weekly_close, window=14).rsi()
@@ -118,8 +122,8 @@ class SignalProcessor:
 
                 # 200-DMA check (daily data)
                 if len(hist) >= config.DMA_WINDOW:
-                    dma_200 = float(hist["Close"].rolling(config.DMA_WINDOW).mean().iloc[-1])
-                    current_price = float(hist["Close"].iloc[-1])
+                    dma_200 = float(close_s.rolling(config.DMA_WINDOW).mean().iloc[-1])
+                    current_price = float(close_s.iloc[-1])
                     if current_price < dma_200:
                         reasons.append(
                             f"Price {current_price:,.0f} < 200-DMA {dma_200:,.0f}"

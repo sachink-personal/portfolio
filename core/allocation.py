@@ -49,7 +49,12 @@ def compute_inverse_volatility_weights(
             if hist.empty or len(hist) < lookback_days:
                 vol_map[ticker] = np.inf
                 continue
-            returns = hist["Close"].pct_change().dropna().tail(lookback_days)
+            # Handle yfinance MultiIndex columns
+            if isinstance(hist.columns, pd.MultiIndex):
+                close_s = hist["Close"].iloc[:, 0]
+            else:
+                close_s = hist["Close"]
+            returns = close_s.pct_change().dropna().tail(lookback_days)
             vol = float(returns.std())
             vol_map[ticker] = vol if vol > 1e-9 else np.inf
         except Exception as exc:
