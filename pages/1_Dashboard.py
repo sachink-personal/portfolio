@@ -88,13 +88,22 @@ with st.sidebar:
 
 try:
     holdings, market_history, ledger = load_portfolio_data()
-    regime = load_regime(manual_pe, manual_breadth)
 except Exception as exc:
-    st.error(f"Failed to load data: {exc}")
+    import traceback
+    st.error(f"Failed to load portfolio data: {exc}")
+    st.code(traceback.format_exc())
     st.info(
         "Check that the database file exists. "
         "Run `python main.py --init` to create the database structure."
     )
+    st.stop()
+
+try:
+    regime = load_regime(manual_pe, manual_breadth)
+except Exception as exc:
+    import traceback
+    st.error(f"Failed to compute market regime: {exc}")
+    st.code(traceback.format_exc())
     st.stop()
 
 # ── Portfolio metrics ─────────────────────────────────────────────────────────

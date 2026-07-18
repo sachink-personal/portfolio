@@ -168,9 +168,18 @@ if run_screen:
 
 try:
     holdings, signals, market_history = load_data()
+except Exception as exc:
+    st.error(f"Failed to load portfolio data: {exc}")
+    import traceback
+    st.code(traceback.format_exc())
+    st.stop()
+
+try:
     regime = load_regime(manual_pe, manual_breadth)
 except Exception as exc:
-    st.error(f"Data load failed: {exc}")
+    st.error(f"Failed to compute market regime: {exc}")
+    import traceback
+    st.code(traceback.format_exc())
     st.stop()
 
 # ── Regime Summary ────────────────────────────────────────────────────────────
