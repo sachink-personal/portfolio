@@ -92,6 +92,29 @@ TAB_SIGNALS: str = "Signals"
 TAB_MARKET_HISTORY: str = "MarketHistory"
 
 
+GOOGLE_CREDENTIALS_SOURCE: str = "not configured"
+
+
+def _normalize_google_credentials(creds: dict, source: str) -> dict:
+    if not isinstance(creds, dict):
+        raise ValueError(f"{source} must contain a JSON object")
+
+    required = ("client_email", "private_key", "private_key_id", "token_uri")
+    missing = [key for key in required if not creds.get(key)]
+    if missing:
+        raise ValueError(f"{source} is missing required field(s): {', '.join(missing)}")
+
+    creds = dict(creds)
+    creds["private_key"] = creds["private_key"].replace("\\n", "\n").replace("\r\n", "\n").strip()
+    return creds
+
+
+def _parse_credentials_json(raw_value: str, source: str) -> dict:
+    parsed = json.loads(raw_value.strip())
+    if isinstance(parsed, str):
+        parsed = json.loads(parsed)
+    return _normalize_google_credentials(parsed, source)
+
 # ── Google Credentials Helper Functions ───────────────────────────────────────
 def get_google_credentials():
     """
@@ -99,44 +122,37 @@ def get_google_credentials():
     1. Raw service account JSON environment variable (Render.com deployment)
     2. Base64 encoded environment variable
     3. Credentials file (local development)
-    
+
     Returns a credentials dict for use with gspread.
     """
-    # Render-friendly raw JSON environment variable.
+    global GOOGLE_CREDENTIALS_SOURCE
+
     raw_json = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON") or os.getenv("GOOGLE_CREDENTIALS_JSON")
     if raw_json:
         try:
-            creds = json.loads(raw_json)
-            if 'private_key' in creds:
-                creds['private_key'] = creds['private_key'].replace('\\n', '\n')
-            return creds
+            GOOGLE_CREDENTIALS_SOURCE = "GOOGLE_SERVICE_ACCOUNT_JSON"
+            return _parse_credentials_json(raw_json, GOOGLE_CREDENTIALS_SOURCE)
         except Exception as e:
             print(f"Failed to parse GOOGLE_SERVICE_ACCOUNT_JSON: {e}")
 
-    # Try base64 encoded environment variable first (for Render)
     if "GOOGLE_CREDENTIALS_B64" in os.environ:
         try:
-            decoded = base64.b64decode(os.environ["GOOGLE_CREDENTIALS_B64"]).decode('utf-8')
-            creds = json.loads(decoded)
-            
-            # Convert \n escape sequences back to actual newlines in private_key
-            if 'private_key' in creds:
-                creds['private_key'] = creds['private_key'].replace('\\n', '\n')
-            
-            return creds
+            GOOGLE_CREDENTIALS_SOURCE = "GOOGLE_CREDENTIALS_B64"
+            decoded = base64.b64decode(os.environ["GOOGLE_CREDENTIALS_B64"]).decode("utf-8")
+            return _parse_credentials_json(decoded, GOOGLE_CREDENTIALS_SOURCE)
         except Exception as e:
             print(f"Failed to decode GOOGLE_CREDENTIALS_B64: {e}")
-    
-    # Try credentials file
+
     if os.path.exists(CREDENTIALS_PATH):
         try:
-            with open(CREDENTIALS_PATH, 'r') as f:
-                return json.load(f)
+            GOOGLE_CREDENTIALS_SOURCE = CREDENTIALS_PATH
+            with open(CREDENTIALS_PATH, "r", encoding="utf-8") as f:
+                return _normalize_google_credentials(json.load(f), CREDENTIALS_PATH)
         except Exception as e:
             print(f"Failed to read credentials file: {e}")
-    
-    return None
 
+    GOOGLE_CREDENTIALS_SOURCE = "not configured"
+    return None
 
 def encode_credentials_to_b64(creds_dict: dict) -> str:
     """

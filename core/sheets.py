@@ -11,13 +11,11 @@ How to set up:
 from __future__ import annotations
 
 import logging
-import os
-import tempfile
-import json
 from typing import Optional
 
 import gspread
 import pandas as pd
+from google.auth.exceptions import RefreshError
 from google.oauth2.service_account import Credentials
 
 import config
@@ -54,21 +52,27 @@ class SheetsClient:
             if creds_dict is None:
                 raise FileNotFoundError(f"Google credentials not found. Set GOOGLE_SERVICE_ACCOUNT_JSON on Render, or provide GOOGLE_CREDENTIALS_B64 / credentials.json.")
             
-            # Create temp file for credentials - use json.dumps with ensure_ascii=False
-            # This preserves the newlines in the private_key field
-            creds_json = json.dumps(creds_dict, ensure_ascii=False)
-            
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False, encoding='utf-8') as f:
-                f.write(creds_json)
-                temp_path = f.name
-            
+            source = config.GOOGLE_CREDENTIALS_SOURCE
+            email = creds_dict.get("client_email", "unknown")
+            key_id = creds_dict.get("private_key_id", "")
+            log.info(
+                "Using Google credentials from %s for %s (key id suffix: %s)",
+                source,
+                email,
+                key_id[-8:] if key_id else "unknown",
+            )
+
             try:
-                creds = Credentials.from_service_account_file(temp_path, scopes=_SCOPES)
-            finally:
-                os.unlink(temp_path)  # Delete temp file
-            
-            gc = gspread.authorize(creds)
-            self._spreadsheet = gc.open_by_key(self._sheet_id)
+                creds = Credentials.from_service_account_info(creds_dict, scopes=_SCOPES)
+                gc = gspread.authorize(creds)
+                self._spreadsheet = gc.open_by_key(self._sheet_id)
+            except RefreshError as exc:
+                raise RuntimeError(
+                    "Google rejected the service-account key with invalid JWT signature. "
+                    "Create a fresh JSON key, paste the full JSON into GOOGLE_SERVICE_ACCOUNT_JSON, "
+                    "and redeploy Render."
+                ) from exc
+
             log.info("Connected to Google Sheet: %s", self._sheet_id)
         return self._spreadsheet
 
