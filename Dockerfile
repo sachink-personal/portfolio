@@ -8,7 +8,12 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+COPY app.py main.py config.py runtime.txt ./
+COPY core ./core
+COPY data ./data
+COPY notifications ./notifications
+COPY pages ./pages
+COPY downloads ./downloads
 
 EXPOSE 8080
 

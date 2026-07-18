@@ -1,0 +1,9 @@
+.git
+.env
+.env.*
+credentials.json
+*.zip
+*.log
+__pycache__/
+*.pyc
+.streamlit/
