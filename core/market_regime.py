@@ -54,45 +54,42 @@ class MarketRegime:
             log.warning("Insufficient Nifty 500 data for 200-DMA calculation.")
             return {"trend": "UNKNOWN", "close": 0.0, "dma_200": 0.0, "distance_pct": 0.0}
 
-        # Handle yfinance columns — extract Close as a scalar
-        # For single ticker download, df["Close"] returns Series directly
-        # For MultiIndex (multiple tickers), df[("Close", "Close")] is needed
-        if isinstance(df.columns, pd.MultiIndex):
-            # MultiIndex structure - extract the Close column
-            close_series = df["Close"]
-            # close_series is a DataFrame with columns like ["^NSEI"]
-            # Get the first (and only) column as Series
-            close_series = close_series.iloc[:, 0]
-        else:
-            # Single index structure - df["Close"] is already a Series
-            close_series = df["Close"]
+        # Ensure we have the Close column
+        if "Close" not in df.columns:
+            log.warning("Close column not found in Nifty 500 history.")
+            return {"trend": "UNKNOWN", "close": 0.0, "dma_200": 0.0, "distance_pct": 0.0}
 
-        # Ensure we get a scalar value for float conversion
-        close_val = close_series.iloc[-1]
-        if isinstance(close_val, (pd.Series, pd.DataFrame)):
-            # Extract scalar from nested structure
-            last_val = close_series.iloc[-1]
-            if isinstance(last_val, pd.Series):
-                close_val = float(last_val.iloc[0])
+        # Extract Close column as a Series
+        close_series = df["Close"]
+        
+        # Get latest close value
+        try:
+            close_val = close_series.iloc[-1]
+            # Ensure we have a scalar value
+            if isinstance(close_val, (pd.Series, pd.DataFrame)):
+                close_val = float(close_val.values[0]) if hasattr(close_val, 'values') else float(close_val.iloc[0])
             else:
-                close_val = float(last_val.values[0])
-        else:
-            close_val = float(close_val)
+                close_val = float(close_val)
+        except (ValueError, TypeError, IndexError) as e:
+            log.warning(f"Failed to extract close value: {e}")
+            return {"trend": "UNKNOWN", "close": 0.0, "dma_200": 0.0, "distance_pct": 0.0}
+        
         close = close_val
         
-        # Compute rolling mean and extract scalar from result
-        dma_series = close_series.rolling(config.DMA_WINDOW).mean()
-        dma_val = dma_series.iloc[-1]
-        if isinstance(dma_val, (pd.Series, pd.DataFrame)):
-            # Extract scalar from nested structure
-            last_dma = dma_series.iloc[-1]
-            if isinstance(last_dma, pd.Series):
-                dma_val = float(last_dma.iloc[0])
+        # Compute rolling mean
+        try:
+            dma_series = close_series.rolling(config.DMA_WINDOW).mean()
+            dma_val = dma_series.iloc[-1]
+            # Ensure we have a scalar value
+            if isinstance(dma_val, (pd.Series, pd.DataFrame)):
+                dma_val = float(dma_val.values[0]) if hasattr(dma_val, 'values') else float(dma_val.iloc[0])
             else:
-                dma_val = float(last_dma.values[0])
-        else:
-            dma_val = float(dma_val)
+                dma_val = float(dma_val)
+        except (ValueError, TypeError, IndexError) as e:
+            log.warning(f"Failed to extract DMA value: {e}")
+            dma_val = 0.0
         dma_200 = dma_val
+        
         distance_pct = ((close - dma_200) / dma_200 * 100) if dma_200 > 0 else 0.0
 
         return {

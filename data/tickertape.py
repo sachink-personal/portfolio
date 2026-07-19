@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Optional
 
 import pandas as pd
+import io
 
 log = logging.getLogger(__name__)
 
@@ -87,6 +88,123 @@ def _latest_csv(folder: Path) -> Optional[Path]:
     """Return the most recently modified CSV in the downloads folder."""
     csvs = sorted(folder.glob("*.csv"), key=lambda p: p.stat().st_mtime, reverse=True)
     return csvs[0] if csvs else None
+
+
+def parse_tickertape_csv_from_bytes(csv_bytes: bytes) -> pd.DataFrame:
+    """
+    Parse a Tickertape screener CSV export from bytes (e.g., uploaded file).
+    
+    Args:
+        csv_bytes: Raw CSV content bytes from file upload.
+    
+    Returns:
+        DataFrame with columns: [Ticker, Name, ROE, DE, RSI_Weekly, ROC_6M, Sector]
+    """
+    # Read from bytes
+    df = pd.read_csv(io.BytesIO(csv_bytes), thousands=",")
+    
+    if df.empty:
+        raise ValueError("CSV is empty.")
+    
+    df.columns = [c.strip() for c in df.columns]
+    
+    # Map columns (same as parse_tickertape_csv)
+    ticker_col  = _find_col(df, _TICKER_ALIASES)
+    name_col    = _find_col(df, _NAME_ALIASES)
+    roe_col     = _find_col(df, _ROE_ALIASES)
+    de_col      = _find_col(df, _DE_ALIASES)
+    rsi_col     = _find_col(df, _RSI_ALIASES)
+    return_col  = _find_col(df, _RETURN_ALIASES)
+    sector_col  = _find_col(df, _SECTOR_ALIASES)
+    
+    if ticker_col is None:
+        raise ValueError(
+            f"Ticker column not found. Available columns: {df.columns.tolist()}\n"
+            "Expected one of: " + ", ".join(_TICKER_ALIASES)
+        )
+    
+    log.info(
+        "Column mapping — Ticker:%s Name:%s ROE:%s D/E:%s RSI:%s 6MReturn:%s Sector:%s",
+        ticker_col, name_col, roe_col, de_col, rsi_col, return_col, sector_col,
+    )
+    
+    # Build result (same as parse_tickertape_csv)
+    result = pd.DataFrame()
+    result["Ticker"] = df[ticker_col].astype(str).str.strip().str.upper()
+    result["Name"]   = df[name_col].astype(str).str.strip() if name_col else ""
+    result["Sector"] = df[sector_col].astype(str).str.strip() if sector_col else ""
+    
+    def _to_float(series: Optional[pd.Series]) -> pd.Series:
+        if series is None:
+            return pd.Series([None] * len(result))
+        # Strip %, commas, spaces
+        cleaned = series.astype(str).str.replace(r"[%,\s]", "", regex=True)
+        return pd.to_numeric(cleaned, errors="coerce")
+    
+    result["ROE"]        = _to_float(df[roe_col] if roe_col else None)
+    result["DE"]         = _to_float(df[de_col] if de_col else None)
+    result["RSI_Weekly"] = _to_float(df[rsi_col] if rsi_col else None)
+    result["ROC_6M"]     = _to_float(df[return_col] if return_col else None)
+    
+    # Drop rows without a valid ticker
+    result = result[result["Ticker"].str.len() > 0].reset_index(drop=True)
+    
+    log.info(
+        "Tickertape CSV parsed (from upload): %d stocks. "
+        "ROE available: %d, RSI: %d, ROC: %d",
+        len(result),
+        result["ROE"].notna().sum(),
+        result["RSI_Weekly"].notna().sum(),
+        result["ROC_6M"].notna().sum(),
+    )
+    return result
+
+
+def get_tickertape_signals_from_bytes(csv_bytes: bytes) -> pd.DataFrame:
+    """
+    Full pipeline from uploaded bytes:
+      1. Parse Tickertape CSV from bytes
+      2. Check EPS acceleration via yfinance
+      3. Return final approved DataFrame
+    
+    Args:
+        csv_bytes: Raw CSV content bytes from file upload.
+    
+    Returns:
+        DataFrame in Signals sheet format with Date, Ticker, Strategy, ROC_6M, RSI_Weekly, ROE, Sector
+    """
+    from datetime import date
+    from data.fundamentals import get_fundamentals
+    
+    df = parse_tickertape_csv_from_bytes(csv_bytes)
+    if df.empty:
+        return pd.DataFrame()
+    
+    tickers = df["Ticker"].tolist()
+    log.info("Checking EPS acceleration for %d Tickertape candidates (from upload)...", len(tickers))
+    
+    fund_df = get_fundamentals(tickers)[["Ticker", "EPSAccelerating"]]
+    df = df.merge(fund_df, on="Ticker", how="left")
+    
+    # Keep stocks where EPS is accelerating OR data unavailable (benefit of doubt)
+    approved = df[
+        df["EPSAccelerating"].isna() | (df["EPSAccelerating"] == True)
+    ].copy()
+    
+    today = date.today().isoformat()
+    approved.insert(0, "Date", today)
+    approved.insert(2, "Strategy", "TICKERTAPE_UPLOAD")
+    
+    # Final column order matching Signals sheet
+    signal_cols = ["Date", "Ticker", "Strategy", "ROC_6M", "RSI_Weekly", "ROE", "Sector"]
+    approved = approved[[c for c in signal_cols if c in approved.columns]]
+    approved = approved.sort_values("ROC_6M", ascending=False).reset_index(drop=True)
+    
+    log.info(
+        "Tickertape upload pipeline complete: %d -> %d approved after EPS check.",
+        len(df), len(approved),
+    )
+    return approved
 
 
 def parse_tickertape_csv(csv_path: Optional[Path] = None) -> pd.DataFrame:
@@ -175,7 +293,7 @@ def parse_tickertape_csv(csv_path: Optional[Path] = None) -> pd.DataFrame:
     return result
 
 
-def get_tickertape_signals(csv_path: Optional[Path] = None) -> pd.DataFrame:
+def get_tickertape_signals(csv_path: Optional[Path] = None, csv_bytes: Optional[bytes] = None) -> pd.DataFrame:
     """
     Full pipeline:
       1. Parse Tickertape CSV (ROE, D/E, RSI, 6M Return already filtered by screen)
@@ -189,6 +307,11 @@ def get_tickertape_signals(csv_path: Optional[Path] = None) -> pd.DataFrame:
     from datetime import date
     from data.fundamentals import get_fundamentals
 
+    # Handle uploaded file (csv_bytes takes precedence)
+    if csv_bytes is not None:
+        return get_tickertape_signals_from_bytes(csv_bytes)
+    
+    # Legacy: read from file path
     df = parse_tickertape_csv(csv_path)
     if df.empty:
         return pd.DataFrame()

@@ -121,6 +121,16 @@ def get_historical_ohlcv(ticker: str, period: str = "1y") -> pd.DataFrame:
             if col not in df.columns:
                 log.warning("Missing column '%s' for %s", col, ticker)
         
+        # Handle yfinance MultiIndex structure - extract single column DataFrames
+        if isinstance(df.columns, pd.MultiIndex):
+            # For MultiIndex, columns look like [('Open', 'TICKER'), ('Close', 'TICKER'), ...]
+            # We need to extract the actual column value
+            new_df = pd.DataFrame(index=df.index)
+            for col in required_cols:
+                if col in df.columns.get_level_values(0):
+                    new_df[col] = df[col].iloc[:, 0] if col in df else None
+            df = new_df
+        
         return df
     except Exception as exc:
         log.error("Historical fetch failed for %s: %s", ticker, exc)
@@ -129,7 +139,10 @@ def get_historical_ohlcv(ticker: str, period: str = "1y") -> pd.DataFrame:
 
 def get_nifty500_history(period: str = "1y") -> pd.DataFrame:
     """Download Nifty 50 index history (^NSEI) used for 200-DMA regime calculation.
-    Note: ^CNX500 (Nifty 500) is not available on yfinance; Nifty 50 is used as proxy."""
+    Note: ^CNX500 (Nifty 500) is not available on yfinance; Nifty 50 is used as proxy.
+    
+    Returns DataFrame with columns: [Open, High, Low, Close, Volume]
+    """
     import config
     return get_historical_ohlcv(config.NIFTY500_TICKER, period=period)
 

@@ -9,6 +9,7 @@ from datetime import date
 import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
+import io
 
 import config
 
@@ -91,6 +92,51 @@ with st.sidebar:
         st.cache_data.clear()
         st.rerun()
 
+# ── Store uploaded file bytes in session state ────────────────────────────────
+if "tickertape_upload_bytes" not in st.session_state:
+    st.session_state.tickertape_upload_bytes = None
+
+# ── File Upload for Screener CSV ──────────────────────────────────────────────
+if current_mode == "tickertape":
+    st.sidebar.divider()
+    st.sidebar.subheader("📂 Upload Screener CSV")
+    uploaded_file = st.sidebar.file_uploader(
+        "Upload Tickertape Export CSV",
+        type=["csv"],
+        help="Download your Tickertape screen results as CSV and upload here",
+        key="file_uploader"
+    )
+    
+    # Process uploaded file if available
+    if uploaded_file is not None:
+        try:
+            # Read CSV from uploaded file
+            csv_bytes = uploaded_file.getvalue()
+            uploaded_df = pd.read_csv(io.BytesIO(csv_bytes))
+            
+            # Check required columns
+            required_cols = ["Ticker", "ROC_6M", "RSI_Weekly", "ROE"]
+            missing_cols = [col for col in required_cols if col not in uploaded_df.columns]
+            
+            if missing_cols:
+                st.sidebar.error(f"Missing columns: {', '.join(missing_cols)}")
+            else:
+                st.sidebar.success(f"✅ Loaded {len(uploaded_df)} candidates")
+                st.sidebar.caption(f"Columns: {', '.join(uploaded_df.columns.tolist())}")
+                
+                # Store bytes in session state
+                st.session_state.tickertape_upload_bytes = csv_bytes
+                st.sidebar.success("✅ File uploaded successfully!")
+                st.sidebar.info("Click 'Run Screen Now' below to process")
+                
+                # Show a preview
+                with st.sidebar.expander("📊 Preview uploaded file"):
+                    st.dataframe(uploaded_df.head(10), use_container_width=True)
+        except Exception as exc:
+            st.sidebar.error(f"Failed to process file: {exc}")
+            import traceback
+            st.sidebar.code(traceback.format_exc())
+
 # ── Run Screen banner (top of page body) ─────────────────────────────────────
 run_screen = False
 with st.container(border=True):
@@ -100,7 +146,7 @@ with st.container(border=True):
         st.markdown(f"### 🤖 Auto-Screen &nbsp; `{mode_label}`")
         if current_mode == "tickertape":
             st.caption(
-                "Drop your Tickertape export CSV into the `downloads/` folder, then click Run Screen. "
+                "Upload your Tickertape export CSV or drop CSV into the `downloads/` folder, then click Run Screen. "
                 "The tool reads it, checks EPS acceleration, and writes candidates to the signals database automatically."
             )
         else:
@@ -122,8 +168,15 @@ if run_screen:
         try:
             if current_mode == "tickertape":
                 from data.tickertape import get_tickertape_signals
-                result_df = get_tickertape_signals()
-                _progress(f"✅ Tickertape screen complete — {len(result_df)} candidates.")
+                
+                # Check if uploaded file bytes are available in session state
+                if st.session_state.tickertape_upload_bytes is not None:
+                    result_df = get_tickertape_signals(csv_bytes=st.session_state.tickertape_upload_bytes)
+                    _progress(f"✅ Tickertape screen (from upload) complete — {len(result_df)} candidates.")
+                else:
+                    # Fall back to reading from downloads folder
+                    result_df = get_tickertape_signals()
+                    _progress(f"✅ Tickertape screen complete — {len(result_df)} candidates.")
             else:
                 from core.auto_screener import AutoScreener
                 result_df = AutoScreener(progress_callback=_progress).run(write_to_sheets=True)

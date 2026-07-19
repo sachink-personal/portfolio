@@ -5,6 +5,7 @@ Portfolio command centre: total value, P&L, XIRR, market regime, and asset break
 from __future__ import annotations
 
 from datetime import date
+import logging
 
 import plotly.express as px
 import streamlit as st
@@ -34,8 +35,12 @@ def load_regime(manual_pe: float, manual_breadth: float):
     ).get_full_regime()
 
 
-def compute_xirr(ledger, portfolio_value: float):
-    """Compute XIRR from the Ledger using pyxirr."""
+def compute_xirr(ledger, holdings, portfolio_value: float):
+    """Compute XIRR from the Ledger using pyxirr.
+    
+    Uses Holdings data for invested amount if available, otherwise uses Ledger.
+    The Holdings table contains the correct invested value based on AvgBuyPrice * Qty.
+    """
     try:
         from pyxirr import xirr as _xirr
         import pandas as pd
@@ -43,6 +48,35 @@ def compute_xirr(ledger, portfolio_value: float):
         if ledger.empty or "Date" not in ledger.columns:
             return None
 
+        # Calculate invested amount from Holdings if available
+        # This represents the amount that's currently tied up in the portfolio
+        if not holdings.empty and "AvgBuyPrice" in holdings.columns:
+            invested = float((holdings["AvgBuyPrice"] * holdings["Qty"]).sum())
+            if invested > 0:
+                # Use Holdings-based XIRR calculation
+                # Since we can't track each individual buy, we use a simplified approach:
+                # - Invested amount at the average buy date (approximate)
+                # - Current value today
+                
+                # Get the earliest transaction date from Ledger for XIRR calculation
+                earliest_date = ledger["Date"].min()
+                if hasattr(earliest_date, "date"):
+                    earliest_date = earliest_date.date()
+                
+                # Simple XIRR: Invested at beginning, current value at end
+                cash_flows = [(earliest_date, -invested), (date.today(), portfolio_value)]
+                dates = [cf[0] for cf in cash_flows]
+                amounts = [cf[1] for cf in cash_flows]
+                result = _xirr(dates, amounts)
+                
+                # Sanity check: result should be between -100% and 1000%
+                if result is not None and -1.0 < result < 10.0:
+                    return result
+                return None
+            else:
+                return None
+
+        # Fallback to Ledger-based XIRR if Holdings is not available
         cash_flows: list[tuple] = []
         for _, row in ledger.iterrows():
             action = str(row.get("Action", "")).upper()
@@ -64,8 +98,13 @@ def compute_xirr(ledger, portfolio_value: float):
         dates = [cf[0] for cf in cash_flows]
         amounts = [cf[1] for cf in cash_flows]
         result = _xirr(dates, amounts)
-        return result if result is not None and abs(result) < 10 else None  # Sanity cap
-    except Exception:
+        
+        # Sanity check: result should be between -100% and 1000%
+        if result is not None and -1.0 < result < 10.0:
+            return result
+        return None
+    except Exception as exc:
+        log.debug(f"XIRR computation failed: {exc}")
         return None
 
 
@@ -115,7 +154,7 @@ if not market_history.empty and len(market_history) >= 2:
 
 daily_pnl = portfolio_value - prev_value
 daily_pnl_pct = (daily_pnl / prev_value * 100) if prev_value > 0 else 0.0
-xirr_val = compute_xirr(ledger, portfolio_value)
+xirr_val = compute_xirr(ledger, holdings, portfolio_value)
 
 # ── Metric cards ──────────────────────────────────────────────────────────────
 
