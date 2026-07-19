@@ -65,13 +65,18 @@ class MarketRegime:
             close_series = df["Close"]
 
         # Ensure we get a scalar value for float conversion
-        # Use .item() or .values[0] to extract scalar from Series if needed
         close_val = close_series.iloc[-1]
         if isinstance(close_val, (pd.Series, pd.DataFrame)):
             # Extract scalar from nested structure
             close_val = close_series.iloc[-1].iloc[-1] if isinstance(close_series.iloc[-1], pd.Series) else close_series.iloc[-1].values[0]
         close = float(close_val)
-        dma_200 = float(close_series.rolling(config.DMA_WINDOW).mean().iloc[-1])
+        
+        # Compute rolling mean and extract scalar from result
+        dma_series = close_series.rolling(config.DMA_WINDOW).mean()
+        dma_val = dma_series.iloc[-1]
+        if isinstance(dma_val, (pd.Series, pd.DataFrame)):
+            dma_val = dma_series.iloc[-1].iloc[-1] if isinstance(dma_series.iloc[-1], pd.Series) else dma_series.iloc[-1].values[0]
+        dma_200 = float(dma_val)
         distance_pct = ((close - dma_200) / dma_200 * 100) if dma_200 > 0 else 0.0
 
         return {
