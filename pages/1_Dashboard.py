@@ -208,26 +208,41 @@ with rc2:
     v = val_d.get("valuation", "UNKNOWN")
     v_icon = {"OVERVALUED": "🔴", "UNDERVALUED": "🟢", "FAIR": "🟡"}.get(v, "⚪")
     pe = val_d.get("pe")
-    pe_str = f"{pe:.1f}" if pe else "N/A (auto-fetch failed — enter manually)"
-    st.markdown(f"#### {v_icon} {v}")
-    st.caption("Nifty 50 P/E Ratio")
-    st.write(f"PE: **{pe_str}**")
-    st.write(
-        f"Overvalued > {config.PE_OVERVALUED} &nbsp;|&nbsp; "
-        f"Undervalued < {config.PE_UNDERVALUED}"
-    )
+    # Show clear indicator when PE data is unavailable
+    if pe is None:
+        st.markdown(f"#### {v_icon} {v} [⚠️ REFRESH NEEDED]")
+        st.caption("Nifty 50 P/E Ratio - DATA UNAVAILABLE")
+        st.warning("⚠️ Click the REFRESH button to fetch latest Nifty PE from yfinance")
+        st.write(f"Overvalued > {config.PE_OVERVALUED} &nbsp;|&nbsp; Undervalued < {config.PE_UNDERVALUED}")
+    else:
+        st.markdown(f"#### {v_icon} {v}")
+        st.caption("Nifty 50 P/E Ratio")
+        st.write(f"PE: **{pe:.1f}**")
+        st.write(
+            f"Overvalued > {config.PE_OVERVALUED} &nbsp;|&nbsp; "
+            f"Undervalued < {config.PE_UNDERVALUED}"
+        )
 
 with rc3:
     bpct = breadth_d.get("breadth_pct")
     bstatus = breadth_d.get("status", "UNKNOWN")
-    b_icon = "🔴" if breadth_d.get("warning") else ("🟢" if bpct is not None else "⚪")
-    st.markdown(f"#### {b_icon} {bstatus}")
-    st.caption("Market Breadth (paste from Chartink)")
-    bstr = f"{bpct:.1f}%" if bpct is not None else "Not set"
-    st.write(f"**{bstr}** of Nifty 500 stocks above 200-DMA")
-    if breadth_d.get("warning"):
-        st.warning(f"Breadth divergence: below {config.BREADTH_WARNING_THRESHOLD}% threshold")
-    elif bpct is None:
+    # Determine icon based on breadth value and warning status
+    if bpct is None:
+        b_icon = "⚪"
+    else:
+        b_icon = "🔴" if breadth_d.get("warning") else "🟢"
+    # Show clear indicator when breadth data is unavailable
+    if bpct is None:
+        st.markdown(f"#### {b_icon} {bstatus} [⚠️ REFRESH NEEDED]")
+        st.caption("Market Breadth - DATA UNAVAILABLE")
+        st.warning("⚠️ Upload Chartink CSV or enter breadth % in sidebar to enable")
+    else:
+        st.markdown(f"#### {b_icon} {bstatus}")
+        st.caption("Market Breadth (paste from Chartink)")
+        st.write(f"**{bpct:.1f}%** of Nifty 500 stocks above 200-DMA")
+        if breadth_d.get("warning"):
+            st.warning(f"Breadth divergence: below {config.BREADTH_WARNING_THRESHOLD}% threshold")
+    if bpct is None:
         st.caption("Enter breadth % in the sidebar to enable this signal.")
 
 st.divider()

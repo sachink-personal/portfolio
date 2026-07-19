@@ -87,7 +87,7 @@ with st.sidebar:
     st.subheader("⚙️ Manual Overrides")
     manual_pe = st.number_input("Nifty 50 PE (0 = auto)", min_value=0.0, max_value=60.0, value=0.0, step=0.1)
     manual_breadth = st.number_input("Market Breadth %", min_value=0.0, max_value=100.0, value=0.0, step=0.5)
-    fetch_rsi = st.checkbox("Fetch live RSI for holdings (slow, ~30s)", value=False)
+    fetch_rsi = st.checkbox("Fetch live RSI for holdings (slow, ~30s)", value=True)
     if st.button("🔄 Refresh All", width="stretch"):
         st.cache_data.clear()
         st.rerun()

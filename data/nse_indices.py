@@ -159,12 +159,10 @@ def get_nifty_pe() -> Optional[float]:
     except Exception as exc:
         log.warning(f"yfinance PE fetch failed: {exc}")
     
-    # NSE API often returns 403 Forbidden, use historical PE as fallback
-    # Nifty 50 has a long-term average PE of ~21-22
-    # Use a reasonable default when API is unavailable
-    fallback_pe = 22.0
-    log.info(f"Using historical Nifty PE fallback: {fallback_pe} (NSE API unavailable)")
-    return fallback_pe
+    # NSE API often returns 403 Forbidden
+    # When API is unavailable, return None to signal that data needs manual input
+    log.warning("NSE API unavailable for PE ratio - manual input required")
+    return None
 
 
 def get_market_breadth() -> Optional[float]:
@@ -191,11 +189,9 @@ def get_market_breadth() -> Optional[float]:
         if breadth is not None:
             return breadth
     
-    # Use historical average as fallback (Nifty 500 typically spends ~60-70% of time above 200-DMA)
-    # Default to 60% when data unavailable
-    fallback_breadth = 60.0
-    log.info(f"Using historical market breadth fallback: {fallback_breadth}% (Chartink/NSE unavailable)")
-    return fallback_breadth
+    # When Chartink download fails, return None to signal manual input required
+    log.warning("Chartink breadth unavailable - manual input required")
+    return None
 
 
 def classify_pe(pe: Optional[float]) -> str:
