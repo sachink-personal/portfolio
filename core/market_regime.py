@@ -54,12 +54,14 @@ class MarketRegime:
             log.warning("Insufficient Nifty 500 data for 200-DMA calculation.")
             return {"trend": "UNKNOWN", "close": 0.0, "dma_200": 0.0, "distance_pct": 0.0}
 
-        # Handle yfinance MultiIndex columns — extract Close as a scalar
+        # Handle yfinance columns — extract Close as a scalar
+        # For single ticker download, df["Close"] returns Series directly
+        # For MultiIndex (multiple tickers), df[("Close", "Close")] is needed
         if isinstance(df.columns, pd.MultiIndex):
-            # For MultiIndex: df["Close"] returns DataFrame with [Open, High, Low, Close, Volume] columns
-            close_series = df["Close"]["Close"]
+            # MultiIndex structure - extract the Close column
+            close_series = df["Close"]
         else:
-            # For single index: df["Close"] returns Series
+            # Single index structure - df["Close"] is already a Series
             close_series = df["Close"]
 
         # Ensure we get a scalar value for float conversion
