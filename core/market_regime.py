@@ -15,7 +15,7 @@ import pandas as pd
 
 import config
 from data.equity import get_nifty500_history
-from data.nse_indices import get_nifty_pe, classify_pe
+from data.nse_indices import get_nifty_pe, classify_pe, get_market_breadth
 
 log = logging.getLogger(__name__)
 
@@ -60,6 +60,9 @@ class MarketRegime:
         if isinstance(df.columns, pd.MultiIndex):
             # MultiIndex structure - extract the Close column
             close_series = df["Close"]
+            # close_series is a DataFrame with columns like ["^NSEI"]
+            # Get the first (and only) column as Series
+            close_series = close_series.iloc[:, 0]
         else:
             # Single index structure - df["Close"] is already a Series
             close_series = df["Close"]
@@ -68,14 +71,14 @@ class MarketRegime:
         close_val = close_series.iloc[-1]
         if isinstance(close_val, (pd.Series, pd.DataFrame)):
             # Extract scalar from nested structure
-            close_val = close_series.iloc[-1].iloc[-1] if isinstance(close_series.iloc[-1], pd.Series) else close_series.iloc[-1].values[0]
+            close_val = float(close_series.iloc[-1].iloc[-1]) if isinstance(close_series.iloc[-1], pd.Series) else float(close_series.iloc[-1].values[0])
         close = float(close_val)
         
         # Compute rolling mean and extract scalar from result
         dma_series = close_series.rolling(config.DMA_WINDOW).mean()
         dma_val = dma_series.iloc[-1]
         if isinstance(dma_val, (pd.Series, pd.DataFrame)):
-            dma_val = dma_series.iloc[-1].iloc[-1] if isinstance(dma_series.iloc[-1], pd.Series) else dma_series.iloc[-1].values[0]
+            dma_val = float(dma_series.iloc[-1].iloc[-1]) if isinstance(dma_series.iloc[-1], pd.Series) else float(dma_series.iloc[-1].values[0])
         dma_200 = float(dma_val)
         distance_pct = ((close - dma_200) / dma_200 * 100) if dma_200 > 0 else 0.0
 
@@ -109,14 +112,14 @@ class MarketRegime:
         Returns market breadth classification.
 
         Breadth is the % of Nifty 500 stocks trading above their 200-DMA.
-        Source: Chartink scanner (pasted manually via UI sidebar).
+        Source: Chartink scanner CSV export (automated).
 
         Returns dict with keys:
             breadth_pct : float or None
             warning     : True when breadth < BREADTH_WARNING_THRESHOLD while Nifty is rising
             status      : 'HEALTHY' | 'WEAK' | 'UNKNOWN'
         """
-        pct = self._manual_breadth
+        pct = self._manual_breadth if self._manual_breadth is not None else get_market_breadth()
         if pct is None:
             return {"breadth_pct": None, "warning": False, "status": "UNKNOWN"}
 
