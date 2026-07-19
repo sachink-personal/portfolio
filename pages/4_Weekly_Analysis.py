@@ -87,7 +87,7 @@ with st.sidebar:
     manual_pe = st.number_input("Nifty 50 PE (0 = auto)", min_value=0.0, max_value=60.0, value=0.0, step=0.1)
     manual_breadth = st.number_input("Market Breadth %", min_value=0.0, max_value=100.0, value=0.0, step=0.5)
     fetch_rsi = st.checkbox("Fetch live RSI for holdings (slow, ~30s)", value=False)
-    if st.button("🔄 Refresh All", use_container_width=True):
+    if st.button("🔄 Refresh All", width="stretch"):
         st.cache_data.clear()
         st.rerun()
 
@@ -106,7 +106,7 @@ with st.container(border=True):
         else:
             st.caption("Scans all Nifty 500 stocks for ROC, RSI and quality filters. Takes ~3-4 minutes.")
     with bc2:
-        run_screen = st.button("▶ Run Screen Now", use_container_width=True, type="primary", key="run_screen_btn")
+        run_screen = st.button("▶ Run Screen Now", width="stretch", type="primary", key="run_screen_btn")
 
 # ── Auto-screen trigger ───────────────────────────────────────────────────────
 
@@ -237,7 +237,7 @@ if val_d["pe"]:
         },
     ))
     fig_gauge.update_layout(height=250, margin=dict(t=30, b=10))
-    st.plotly_chart(fig_gauge, use_container_width=True)
+    st.plotly_chart(fig_gauge, width="stretch")
 
 st.divider()
 
@@ -339,7 +339,7 @@ else:
     for col in ("ROC_6M", "RSI_Weekly", "ROE"):
         if col in fmt:
             fmt[col] = fmt[col].apply(lambda x: f"{x:.1f}")
-    st.dataframe(fmt, use_container_width=True, hide_index=True)
+    st.dataframe(fmt, width="stretch", hide_index=True)
 
 st.divider()
 
@@ -358,7 +358,7 @@ def load_rrg():
 
 rrg_col, rrg_refresh_col = st.columns([4, 1])
 with rrg_refresh_col:
-    if st.button("🔄 Refresh RRG", use_container_width=True):
+    if st.button("🔄 Refresh RRG", width="stretch"):
         st.cache_data.clear()
         st.rerun()
 
@@ -393,7 +393,7 @@ else:
         display_rrg = rrg_df[["Sector", "Quadrant", "RS_Ratio", "RS_Momentum"]].copy()
         display_rrg["RS_Ratio"] = display_rrg["RS_Ratio"].apply(lambda x: f"{x:.1f}")
         display_rrg["RS_Momentum"] = display_rrg["RS_Momentum"].apply(lambda x: f"{x:.1f}")
-        st.dataframe(display_rrg, use_container_width=True, hide_index=True)
+        st.dataframe(display_rrg, width="stretch", hide_index=True)
 
     # Cross-reference approved candidates with eligible sectors
     if not approved.empty and "Sector" in approved.columns:
@@ -420,5 +420,5 @@ else:
                 "momentum-aligned sectors."
             )
             sc = [c for c in ["Ticker", "Sector", "ROC_6M", "RSI_Weekly", "ROE"] if c in sector_filtered.columns]
-            st.dataframe(sector_filtered[sc], use_container_width=True, hide_index=True)
+            st.dataframe(sector_filtered[sc], width="stretch", hide_index=True)
 

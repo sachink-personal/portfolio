@@ -32,7 +32,7 @@ with st.sidebar:
 
 # ── Run engine button ─────────────────────────────────────────────────────────
 
-run_button = st.button("🚀 Run Rebalance Analysis", type="primary", use_container_width=True)
+run_button = st.button("🚀 Run Rebalance Analysis", type="primary", width="stretch")
 
 if not run_button:
     st.info(
@@ -130,7 +130,7 @@ if sells:
     sell_df = pd.DataFrame(sells)
     sell_df.columns = ["Ticker", "Exit Reason", "Current Value ₹"]
     sell_df["Current Value ₹"] = sell_df["Current Value ₹"].apply(lambda x: f"₹{x:,.0f}")
-    st.dataframe(sell_df, use_container_width=True, hide_index=True)
+    st.dataframe(sell_df, width="stretch", hide_index=True)
     st.caption(
         f"Exit triggers: RSI < {config.RSI_SELL} (weekly) OR price below personal 200-DMA. "
         "Review before executing."
@@ -166,7 +166,7 @@ if buys:
     buy_df["Weight %"] = buy_df["Weight %"].apply(lambda x: f"{x:.1f}%")
     buy_df["Target ₹"] = buy_df["Target ₹"].apply(lambda x: f"₹{x:,.0f}")
     display_cols = [c for c in ["Ticker", "Sector", "ROC 6M %", "RSI (Wkly)", "ROE %", "Weight %", "Target ₹"] if c in buy_df.columns]
-    st.dataframe(buy_df[display_cols], use_container_width=True, hide_index=True)
+    st.dataframe(buy_df[display_cols], width="stretch", hide_index=True)
     st.caption(
         "Weights computed via Inverse Volatility (lower-volatility stocks get larger allocation). "
         "Target ₹ is proportional to deployable capital."
@@ -204,14 +204,14 @@ with col_exp:
             data=csv_data,
             file_name=f"rebalance_plan_{date.today().isoformat()}.csv",
             mime="text/csv",
-            use_container_width=True,
+            width="stretch",
         )
     else:
         st.info("No orders to export.")
 
 with col_email:
     st.subheader("📧 Email This Plan")
-    if st.button("Send Rebalance Email Now", use_container_width=True):
+    if st.button("Send Rebalance Email Now", width="stretch"):
         with st.spinner("Sending email…"):
             try:
                 from core.rebalance import format_plan_as_html

@@ -71,15 +71,28 @@ class MarketRegime:
         close_val = close_series.iloc[-1]
         if isinstance(close_val, (pd.Series, pd.DataFrame)):
             # Extract scalar from nested structure
-            close_val = float(close_series.iloc[-1].iloc[-1]) if isinstance(close_series.iloc[-1], pd.Series) else float(close_series.iloc[-1].values[0])
-        close = float(close_val)
+            last_val = close_series.iloc[-1]
+            if isinstance(last_val, pd.Series):
+                close_val = float(last_val.iloc[0])
+            else:
+                close_val = float(last_val.values[0])
+        else:
+            close_val = float(close_val)
+        close = close_val
         
         # Compute rolling mean and extract scalar from result
         dma_series = close_series.rolling(config.DMA_WINDOW).mean()
         dma_val = dma_series.iloc[-1]
         if isinstance(dma_val, (pd.Series, pd.DataFrame)):
-            dma_val = float(dma_series.iloc[-1].iloc[-1]) if isinstance(dma_series.iloc[-1], pd.Series) else float(dma_series.iloc[-1].values[0])
-        dma_200 = float(dma_val)
+            # Extract scalar from nested structure
+            last_dma = dma_series.iloc[-1]
+            if isinstance(last_dma, pd.Series):
+                dma_val = float(last_dma.iloc[0])
+            else:
+                dma_val = float(last_dma.values[0])
+        else:
+            dma_val = float(dma_val)
+        dma_200 = dma_val
         distance_pct = ((close - dma_200) / dma_200 * 100) if dma_200 > 0 else 0.0
 
         return {

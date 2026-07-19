@@ -80,7 +80,7 @@ with st.sidebar:
     manual_breadth = st.number_input(
         "Market Breadth % (0 = skip)", min_value=0.0, max_value=100.0, value=0.0, step=0.5
     )
-    if st.button("🔄 Refresh", use_container_width=True):
+    if st.button("🔄 Refresh", width="stretch"):
         st.cache_data.clear()
         st.rerun()
 
@@ -195,7 +195,7 @@ st.divider()
 
 # ── Asset class breakdown ─────────────────────────────────────────────────────
 
-st.subheader("🥧 Asset Class Breakdown")
+st.subheader("Pie Asset Class Breakdown")
 if (
     not holdings.empty
     and "AssetClass" in holdings.columns
@@ -221,11 +221,11 @@ if (
         )
         fig.update_traces(textposition="inside", textinfo="percent+label")
         fig.update_layout(margin=dict(t=20, b=20))
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
     with table_col:
         display = breakdown.copy()
         display["Value"] = display["Value"].apply(lambda x: f"₹{x:,.0f}")
-        st.dataframe(display, use_container_width=True, hide_index=True)
+        st.dataframe(display, width="stretch", hide_index=True)
 else:
     st.info(
         "No holdings found. Use the Portfolio page to add your first position, "

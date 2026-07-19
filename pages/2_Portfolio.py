@@ -45,7 +45,7 @@ def refresh_prices(holdings):
 
 with st.sidebar:
     st.subheader("⚙️ Actions")
-    if st.button("🔄 Refresh Prices", use_container_width=True):
+    if st.button("🔄 Refresh Prices", width="stretch"):
         with st.spinner("Fetching latest prices…"):
             try:
                 h = load_holdings()
@@ -55,7 +55,7 @@ with st.sidebar:
             except Exception as exc:
                 st.error(f"Failed: {exc}")
 
-    if st.button("🔃 Reload Data", use_container_width=True):
+    if st.button("🔃 Reload Data", width="stretch"):
         st.cache_data.clear()
         st.rerun()
 
@@ -127,7 +127,7 @@ else:
 
     st.dataframe(
         h[display_cols],
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         column_config=col_cfg,
     )
@@ -158,7 +158,7 @@ else:
             legend=dict(orientation="h", yanchor="bottom", y=1.02),
             margin=dict(t=20),
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
     else:
         st.info("Add TargetWeight values for your holdings to see this chart.")
 
@@ -180,7 +180,7 @@ with st.expander("Open form", expanded=False):
             avg_buy_price = st.number_input("Avg Buy Price ₹ *", min_value=0.0, step=0.01)
             target_weight = st.number_input("Target Weight %", min_value=0.0, max_value=100.0, step=0.1)
 
-        submitted = st.form_submit_button("Save Holding", use_container_width=True)
+        submitted = st.form_submit_button("Save Holding", width="stretch")
         if submitted:
             if not ticker or qty == 0 or avg_buy_price == 0:
                 st.error("Ticker, Quantity, and Avg Buy Price are required.")

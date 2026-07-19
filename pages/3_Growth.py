@@ -38,7 +38,7 @@ with st.sidebar:
         ["1 Month", "3 Months", "6 Months", "1 Year", "All Time"],
         index=3,
     )
-    if st.button("🔄 Refresh", use_container_width=True):
+    if st.button("🔄 Refresh", width="stretch"):
         st.cache_data.clear()
         st.rerun()
 
@@ -135,7 +135,7 @@ fig.update_layout(
     legend=dict(orientation="h", yanchor="bottom", y=1.02),
     margin=dict(t=50, b=20),
 )
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 
 # ── Returns table ─────────────────────────────────────────────────────────────
 
@@ -177,7 +177,7 @@ for label, days in periods.items():
     })
 
 returns_df = pd.DataFrame(rows)
-st.dataframe(returns_df, use_container_width=True, hide_index=True)
+st.dataframe(returns_df, width="stretch", hide_index=True)
 
 # ── Portfolio value over time (absolute) ──────────────────────────────────────
 
@@ -197,4 +197,4 @@ fig2.update_layout(
     yaxis_tickformat=",.0f",
     margin=dict(t=10, b=20),
 )
-st.plotly_chart(fig2, use_container_width=True)
+st.plotly_chart(fig2, width="stretch")

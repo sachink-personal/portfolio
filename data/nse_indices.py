@@ -200,7 +200,7 @@ def get_market_breadth() -> Optional[float]:
 
     Uses cached Chartink CSV data when available.
     Falls back to NSE API if cache is stale/missing.
-    If both fail, returns a default value (50%).
+    If both fail, returns None (unknown market breadth).
 
     Returns:
         Percentage of stocks above 200-DMA, or None if fetch fails.
@@ -259,14 +259,14 @@ def get_market_breadth() -> Optional[float]:
                     except (ValueError, TypeError):
                         pass
         
-        # Final fallback: return a default value
-        log.warning("Nifty 500 advances/declines not found, using default 50%")
-        return 50.0
+        # Final fallback: return None to indicate unknown market breadth
+        log.warning("Nifty 500 advances/declines not found")
+        return None
         
     except Exception as exc:
         log.error(f"Market breadth fetch failed: {exc}")
-        # Final fallback: return a default value
-        return 50.0
+        # Final fallback: return None to indicate unknown market breadth
+        return None
 
 
 def classify_pe(pe: Optional[float]) -> str:
