@@ -21,6 +21,8 @@ import logging
 from datetime import date
 from typing import Callable, Optional
 
+import time
+
 import numpy as np
 import pandas as pd
 import yfinance as yf
@@ -34,6 +36,9 @@ log = logging.getLogger(__name__)
 
 # Batch size for yfinance downloads (avoids timeout on very large lists)
 _DOWNLOAD_BATCH = 100
+# Retry settings for rate limiting
+_MAX_RETRIES = 3
+_RETRY_DELAY_SECONDS = 10
 
 
 class AutoScreener:
@@ -79,18 +84,50 @@ class AutoScreener:
             total_batches = (len(nse_tickers) + _DOWNLOAD_BATCH - 1) // _DOWNLOAD_BATCH
             self._log(f"  Batch {batch_num}/{total_batches} ({len(batch)} stocks)…")
 
-            try:
-                raw = yf.download(
-                    batch,
-                    period="1y",
-                    auto_adjust=True,
-                    progress=False,
-                    threads=True,
-                    timeout=60,
-                )
-                if raw.empty:
-                    continue
+            retry_count = 0
+            raw = None
+            while retry_count <= _MAX_RETRIES:
+                try:
+                    raw = yf.download(
+                        batch,
+                        period="1y",
+                        auto_adjust=True,
+                        progress=False,
+                        threads=True,
+                        timeout=60,
+                    )
+                    if raw.empty:
+                        continue
+                    break  # Success, exit retry loop
+                    
+                except Exception as exc:
+                    err_str = str(exc).lower()
+                    # Check for rate limiting errors
+                    is_rate_limit = any(
+                        keyword in err_str 
+                        for keyword in [
+                            "rate limit", "too many requests", 
+                            "429", "throttle"
+                        ]
+                    )
+                    
+                    if is_rate_limit and retry_count < _MAX_RETRIES:
+                        retry_count += 1
+                        wait_time = _RETRY_DELAY_SECONDS * retry_count
+                        self._log(
+                            f"  Rate limited! Waiting {wait_time}s before retry "
+                            f"(attempt {retry_count}/{_MAX_RETRIES})..."
+                        )
+                        time.sleep(wait_time)
+                    else:
+                        # Non-rate-limit error, or max retries reached
+                        log.error("Batch %d download failed: %s", batch_num, exc)
+                        break
 
+            if raw is None or raw.empty:
+                continue
+
+            try:
                 if isinstance(raw.columns, pd.MultiIndex):
                     close = raw["Close"]
                 else:
@@ -102,7 +139,7 @@ class AutoScreener:
                 all_close = pd.concat([all_close, close], axis=1)
 
             except Exception as exc:
-                log.error("Batch %d download failed: %s", batch_num, exc)
+                log.error("Batch %d processing failed: %s", batch_num, exc)
 
         self._log(f"  Downloaded data for {all_close.shape[1]} stocks.")
         return all_close

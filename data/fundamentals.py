@@ -6,6 +6,7 @@ Only called for the technical shortlist (~20-50 stocks) not the full 500.
 from __future__ import annotations
 
 import logging
+import time
 from typing import Optional
 
 import pandas as pd
@@ -14,6 +15,10 @@ import yfinance as yf
 import config
 
 log = logging.getLogger(__name__)
+
+# Retry settings for rate limiting
+_MAX_RETRIES = 3
+_RETRY_DELAY_SECONDS = 5
 
 
 def _nse(ticker: str) -> str:
@@ -29,6 +34,8 @@ def get_fundamentals(tickers: list[str]) -> pd.DataFrame:
         Ticker, ROE, DE, EPSAccelerating
     Rows where data is completely unavailable are still included
     (with NaN values) so the caller can decide how to handle them.
+    
+    Implements retry logic for rate limiting errors from yfinance/NSE APIs.
     """
     rows = []
     for ticker in tickers:
@@ -38,8 +45,39 @@ def get_fundamentals(tickers: list[str]) -> pd.DataFrame:
             "DE": None,
             "EPSAccelerating": None,
         }
+        t = None
         try:
-            t = yf.Ticker(_nse(ticker))
+            # Create ticker object with retry for rate limiting
+            retry_count = 0
+            while retry_count <= _MAX_RETRIES:
+                try:
+                    t = yf.Ticker(_nse(ticker))
+                    info = t.info or {}
+                    break  # Success, exit retry loop
+                except Exception as exc:
+                    err_str = str(exc).lower()
+                    is_rate_limit = any(
+                        keyword in err_str 
+                        for keyword in ["rate limit", "too many requests", "429", "throttle"]
+                    )
+                    
+                    if is_rate_limit and retry_count < _MAX_RETRIES:
+                        retry_count += 1
+                        wait_time = _RETRY_DELAY_SECONDS * retry_count
+                        log.warning(
+                            "Rate limit hit fetching fundamentals for %s. "
+                            "Waiting %ds before retry (attempt %d/%d)",
+                            ticker, wait_time, retry_count, _MAX_RETRIES
+                        )
+                        time.sleep(wait_time)
+                    else:
+                        log.warning("Fundamentals fetch failed for %s: %s", ticker, exc)
+                        break
+            else:
+                # Max retries exceeded
+                log.warning("Max retries exceeded fetching fundamentals for %s", ticker)
+                continue  # Skip to next ticker
+            
             info = t.info or {}
 
             # ── ROE ──────────────────────────────────────────────────────────

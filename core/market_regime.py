@@ -54,13 +54,21 @@ class MarketRegime:
             log.warning("Insufficient Nifty 500 data for 200-DMA calculation.")
             return {"trend": "UNKNOWN", "close": 0.0, "dma_200": 0.0, "distance_pct": 0.0}
 
-        # Handle yfinance MultiIndex columns — extract Close as a Series
+        # Handle yfinance MultiIndex columns — extract Close as a scalar
         if isinstance(df.columns, pd.MultiIndex):
-            close_series = df["Close"].iloc[:, 0]
+            # For MultiIndex: df["Close"] returns DataFrame with [Open, High, Low, Close, Volume] columns
+            close_series = df["Close"]["Close"]
         else:
+            # For single index: df["Close"] returns Series
             close_series = df["Close"]
 
-        close = float(close_series.iloc[-1])
+        # Ensure we get a scalar value for float conversion
+        # Use .item() or .values[0] to extract scalar from Series if needed
+        close_val = close_series.iloc[-1]
+        if isinstance(close_val, (pd.Series, pd.DataFrame)):
+            # Extract scalar from nested structure
+            close_val = close_series.iloc[-1].iloc[-1] if isinstance(close_series.iloc[-1], pd.Series) else close_series.iloc[-1].values[0]
+        close = float(close_val)
         dma_200 = float(close_series.rolling(config.DMA_WINDOW).mean().iloc[-1])
         distance_pct = ((close - dma_200) / dma_200 * 100) if dma_200 > 0 else 0.0
 

@@ -5,12 +5,17 @@ NSE stocks use the .NS suffix (e.g. RELIANCE → RELIANCE.NS).
 from __future__ import annotations
 
 import logging
+import time
 from typing import Optional
 
 import pandas as pd
 import yfinance as yf
 
 log = logging.getLogger(__name__)
+
+# Retry settings for rate limiting
+_MAX_RETRIES = 3
+_RETRY_DELAY_SECONDS = 10
 
 
 def _nse_ticker(ticker: str) -> str:
@@ -25,6 +30,8 @@ def get_current_prices(tickers: list[str]) -> dict[str, float]:
     """
     Fetch the latest close price for a list of NSE tickers.
     Returns {original_ticker: price}. Missing tickers map to 0.0.
+    
+    Implements retry logic for rate limiting errors from yfinance/NSE APIs.
     """
     if not tickers:
         return {}
@@ -32,14 +39,45 @@ def get_current_prices(tickers: list[str]) -> dict[str, float]:
     nse_map: dict[str, str] = {_nse_ticker(t): t for t in tickers}
     nse_tickers = list(nse_map.keys())
 
+    retry_count = 0
+    raw = None
+    
+    while retry_count <= _MAX_RETRIES:
+        try:
+            raw = yf.download(
+                nse_tickers,
+                period="2d",
+                auto_adjust=True,
+                progress=False,
+                threads=True,
+            )
+            break  # Success, exit retry loop
+            
+        except Exception as exc:
+            err_str = str(exc).lower()
+            is_rate_limit = any(
+                keyword in err_str 
+                for keyword in ["rate limit", "too many requests", "429", "throttle"]
+            )
+            
+            if is_rate_limit and retry_count < _MAX_RETRIES:
+                retry_count += 1
+                wait_time = _RETRY_DELAY_SECONDS * retry_count
+                log.warning(
+                    "Rate limit hit fetching prices for %d tickers. "
+                    "Waiting %ds before retry (attempt %d/%d)",
+                    len(nse_tickers), wait_time, retry_count, _MAX_RETRIES
+                )
+                time.sleep(wait_time)
+            else:
+                log.error("yfinance batch download failed: %s", exc)
+                return {t: 0.0 for t in tickers}
+
+    if raw is None or (isinstance(raw, pd.DataFrame) and raw.empty):
+        log.error("No price data downloaded")
+        return {t: 0.0 for t in tickers}
+
     try:
-        raw = yf.download(
-            nse_tickers,
-            period="2d",
-            auto_adjust=True,
-            progress=False,
-            threads=True,
-        )
         # Normalise multi/single-ticker structure
         if isinstance(raw.columns, pd.MultiIndex):
             close = raw["Close"]
@@ -76,6 +114,13 @@ def get_historical_ohlcv(ticker: str, period: str = "1y") -> pd.DataFrame:
     try:
         df = yf.download(t, period=period, auto_adjust=True, progress=False)
         df.index = pd.to_datetime(df.index)
+        
+        # Validate that we have the expected columns
+        required_cols = ['Open', 'High', 'Low', 'Close', 'Volume']
+        for col in required_cols:
+            if col not in df.columns:
+                log.warning("Missing column '%s' for %s", col, ticker)
+        
         return df
     except Exception as exc:
         log.error("Historical fetch failed for %s: %s", ticker, exc)
