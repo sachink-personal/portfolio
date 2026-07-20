@@ -240,6 +240,11 @@ trend_d = regime["trend"]
 val_d = regime["valuation"]
 breadth_d = regime["breadth"]
 
+# Check if PE data is available
+pe_available = val_d.get("pe") is not None and val_d.get("pe") > 0
+# Check if Breadth data is available
+breadth_available = breadth_d.get("breadth_pct") is not None
+
 col1, col2, col3, col4 = st.columns(4)
 with col1:
     t = trend_d["trend"]
@@ -248,11 +253,17 @@ with col2:
     v = val_d["valuation"]
     pe_str = f"PE {val_d['pe']:.1f}" if val_d["pe"] else "PE N/A"
     st.metric("Valuation", v, pe_str)
+    # Show warning when PE data is unavailable
+    if not pe_available:
+        st.warning("⚠️ Nifty PE data unavailable - Upload Excel or enter manually", icon="⚠️")
 with col3:
     b = breadth_d["status"]
     bpct = breadth_d["breadth_pct"]
     bstr = f"{bpct:.1f}%" if bpct else "Not set"
     st.metric("Market Breadth", b, bstr)
+    # Show warning when Breadth data is unavailable
+    if not breadth_available:
+        st.warning("⚠️ Market Breadth unavailable - Upload Excel or enter manually", icon="⚠️")
 with col4:
     st.metric("Equity Allocation Cap", f"{regime['equity_cap']*100:.0f}%")
 
