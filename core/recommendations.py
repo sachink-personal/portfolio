@@ -15,13 +15,119 @@ from __future__ import annotations
 
 import io
 import logging
+import time
 import pandas as pd
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
+import re
 
 import config
+from data.nifty500 import get_nifty500_universe
 
 log = logging.getLogger(__name__)
+
+
+# ── Ticker Name Mapping ───────────────────────────────────────────────────────
+# Hardcoded mapping of company name variations to ticker symbols for Indian stocks
+# This is needed because Screener.in Excel has company names, not ticker symbols
+_INDIAN_STOCK_MAPPING = {
+    # Major Nifty 50 stocks
+    "RELIANCE INDUSTRIES": "RELIANCE",
+    "TCS": "TCS",
+    "HDFC BANK": "HDFCBANK",
+    "BHARTI AIRTEL": "BHARTIARTL",
+    "ICICI BANK": "ICICIBANK",
+    "INFOSYS": "INFOSYS",
+    "SBIN": "SBIN",
+    "HINDUNILVR": "HINDUNILVR",
+    "ITC": "ITC",
+    "LTI": "LT",
+    "KOTAK MAHINDRA BANK": "KOTAKBANK",
+    "AXIS BANK": "AXISBANK",
+    "BAJAJ FINANCE": "BAJFINANCE",
+    "MARUTI SUZUKI": "MARUTI",
+    "TITAN": "TITAN",
+    "SUN PHARMA": "SUNPHARMA",
+    "WIPRO": "WIPRO",
+    "ULTRATECH CEMENT": "ULTRACEMCO",
+    "NESTLE INDIA": "NESTLEIND",
+    "POWER GRID": "POWERGRID",
+    "NTPC": "NTPC",
+    "ADANI ENTERPRISES": "ADANIENT",
+    "ADANI PORTS": "ADANIPORTS",
+    "HCL TECH": "HCLTECH",
+    "TECH MAHINDRA": "TECHM",
+    "ASIAN PAINTS": "ASIANPAINT",
+    "BAJAJ FINSERV": "BAJAJFINSV",
+    "BRITANNIA": "BRITANNIA",
+    "CIPLA": "CIPLA",
+    "DR. REDDY'S": "DRREDDY",
+    "EICHER MOTORS": "EICHERMOT",
+    "GRASIM": "GRASIM",
+    "HERO MOTO Corp": "HEROMOTOCO",
+    "HINDALCO": "HINDALCO",
+    "INDUSIND BANK": "INDUSINDBK",
+    "JSW STEEL": "JSWSTEEL",
+    "M&M": "M&M",
+    "ONGC": "ONGC",
+    "SBILIFE": "SBILIFE",
+    "SHREE CEMENT": "SHREECEM",
+    "TATA CONSULTANCY SERVICES": "TCS",
+    "TATA MOTORS": "TATAMOTORS",
+    "TATA STEEL": "TATASTEEL",
+    "TRENT": "TRENT",
+    "VEDL": "VEDL",
+    "TATA CONSUMER": "TATACONSUM",
+    "LT TIMEL": "LT",
+    "LARSEN & TOUBRO": "LT",
+    # Add more mappings as needed
+}
+
+# Module-level cache for ticker name mapping to avoid repeated downloads
+_TICKER_NAME_MAPPING_CACHE = None
+_TICKER_NAME_MAPPING_TIMESTAMP = 0
+_TICKER_NAME_MAPPING_TTL = 86400  # 24 hours in seconds
+
+
+def _get_ticker_name_mapping() -> Dict[str, str]:
+    """
+    Get mapping from company name to ticker symbol.
+    Returns {lowercase_company_name: ticker_symbol}
+    Uses caching to avoid repeated downloads from Nifty 500.
+    """
+    global _TICKER_NAME_MAPPING_CACHE, _TICKER_NAME_MAPPING_TIMESTAMP
+    
+    # Return cached result if within TTL
+    current_time = time.time()
+    if _TICKER_NAME_MAPPING_CACHE is not None and (current_time - _TICKER_NAME_MAPPING_TIMESTAMP) < _TICKER_NAME_MAPPING_TTL:
+        log.debug("Ticker name mapping loaded from cache")
+        return _TICKER_NAME_MAPPING_CACHE
+    
+    # Build new mapping
+    mapping = {}
+    
+    # First, add the hardcoded Indian stock mapping
+    for company_name, ticker in _INDIAN_STOCK_MAPPING.items():
+        mapping[company_name.lower()] = ticker
+    
+    # Then, try to load from Nifty 500 (for sector data)
+    try:
+        nifty_data = get_nifty500_universe()
+        for item in nifty_data:
+            ticker = item.get('ticker', '')
+            sector = item.get('sector', '')
+            # Only add if not already mapped
+            if ticker and ticker not in [v for v in mapping.values()]:
+                mapping[ticker.lower()] = ticker
+        log.info("Ticker name mapping loaded from Nifty 500 data")
+    except Exception as exc:
+        log.warning(f"Failed to load ticker name mapping from Nifty 500: {exc}")
+    
+    # Cache the result
+    _TICKER_NAME_MAPPING_CACHE = mapping
+    _TICKER_NAME_MAPPING_TIMESTAMP = current_time
+    
+    return mapping
 
 
 class BuySellRecommendation:
@@ -85,7 +191,7 @@ class BuySellRecommendation:
         return None
     
     def _get_screener_row(self, ticker: str) -> Optional[Dict]:
-        """Get Screener row for a ticker"""
+        """Get Screener row for a ticker by symbol or company name"""
         if self.screener_data is None:
             return None
         
@@ -99,13 +205,43 @@ class BuySellRecommendation:
                     return col
             return None
         
-        # Check for symbol column (various formats)
+        # First, try to match by ticker/symbol
         symbol_col = get_column(['Symbol', 'Symbol Name', 'symbol', 'SYMBOL', 'symbol_name'])
         if symbol_col:
             df[symbol_col] = df[symbol_col].astype(str).str.upper()
             row = df[df[symbol_col] == ticker_upper]
             if not row.empty:
-                return row.iloc[0].to_dict()
+                result = row.iloc[0].to_dict()
+                # Ensure Symbol column exists
+                if 'Symbol' not in result and 'Symbol' not in df.columns:
+                    result['Symbol'] = ticker_upper
+                return result
+        
+        # If no symbol match, try to find by company name
+        # The Screener Excel has company names, not ticker symbols
+        company_col = get_column(['Company', 'Company Name', 'Company_Name', 'company', 'company_name', 'Name', 'name', 'Firma', 'Firmenname'])
+        if company_col:
+            # Get the ticker name mapping (company name -> ticker)
+            ticker_name_map = _get_ticker_name_mapping()
+            
+            # Normalize the ticker we're looking for
+            target_ticker = ticker_upper
+            
+            # Iterate through Screener rows and try to find matching ticker
+            for _, row in df.iterrows():
+                row_company_name = str(row.get(company_col, '')).upper().strip()
+                
+                # Check if this company name maps to our target ticker
+                for company_name, company_ticker in ticker_name_map.items():
+                    if company_ticker == target_ticker:
+                        # Check if Screener row company name matches the company name for this ticker
+                        norm_company = company_name.upper().strip()
+                        if norm_company in row_company_name or row_company_name in norm_company:
+                            result = row.to_dict()
+                            # Ensure Symbol column exists with the matched ticker
+                            if 'Symbol' not in result and 'Symbol' not in df.columns:
+                                result['Symbol'] = ticker_upper
+                            return result
         
         return None
     
