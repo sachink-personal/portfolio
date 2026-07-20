@@ -168,7 +168,8 @@ class BuySellRecommendation:
         reasons = []
         
         # ROC Filter (> 20%)
-        roc = chartink_row.get('ROC', chartink_row.get('roc', chartink_row.get('ROC_6M', 0)))
+        # Check for ROC_6M (normalized from Chartink data), then raw ROC/roc
+        roc = chartink_row.get('ROC_6M', chartink_row.get('ROC', chartink_row.get('roc', 0)))
         if roc is not None and roc > 0:
             roc_pct = float(roc)
             if roc_pct >= config.ROC_MIN:
@@ -191,7 +192,7 @@ class BuySellRecommendation:
         
         # ROE Filter (> 15%)
         if screener_row:
-            roe = screener_row.get('ROE', screener_row.get('roe', screener_row.get('ROE %', 0)))
+            roe = screener_row.get('ROE %', screener_row.get('ROE', screener_row.get('ROE', 0)))
             if roe is not None:
                 roe_val = float(roe)
                 if roe_val >= config.ROE_MIN:
@@ -203,7 +204,7 @@ class BuySellRecommendation:
         
         # Debt/Equity Filter (< 0.5)
         if screener_row:
-            de = screener_row.get('Debt / Eq', screener_row.get('debt_to_equity', screener_row.get('D/E', 10)))
+            de = screener_row.get('Debt / Eq', screener_row.get('Debt / Eq', screener_row.get('D/E', 10)))
             if de is not None:
                 de_val = float(de)
                 if de_val <= config.DE_MAX:
@@ -320,9 +321,9 @@ class BuySellRecommendation:
                         'holdings_data': holdings_row
                     })
         
-        # Sort buy suggestions by ROC (best first)
+        # Sort buy suggestions by ROC_6M (best first)
         recommendations['buy_suggestions'].sort(
-            key=lambda x: x.get('chartink_data', {}).get('ROC', 0),
+            key=lambda x: x.get('chartink_data', {}).get('ROC_6M', x.get('chartink_data', {}).get('ROC', 0)),
             reverse=True
         )
         
@@ -355,7 +356,8 @@ class BuySellRecommendation:
             ticker = item['ticker']
             price = item.get('price', 'N/A')
             reasons = item.get('reasons', [])
-            roc = item.get('chartink_data', {}).get('ROC', item.get('chartink_data', {}).get('roc', 'N/A'))
+            # Use ROC_6M (normalized), then fallback to ROC/roc
+            roc = item.get('chartink_data', {}).get('ROC_6M', item.get('chartink_data', {}).get('ROC', item.get('chartink_data', {}).get('roc', 'N/A')))
             rsi = item.get('chartink_data', {}).get('rsi', item.get('chartink_data', {}).get('RSI', 'N/A'))
             roe = item.get('screener_data', {}).get('ROE', item.get('screener_data', {}).get('ROE %', 'N/A'))
             de = item.get('screener_data', {}).get('Debt / Eq', item.get('screener_data', {}).get('D/E', 'N/A'))
