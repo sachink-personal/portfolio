@@ -413,8 +413,8 @@ def load_chartink_data(file_path: str = None, excel_bytes: bytes = None) -> pd.D
     # Handle file path
     if file_path is None:
         downloads_dir = Path(config.TICKERTAPE_DOWNLOADS_DIR)
-        csv_files = list(downloads_dir.glob("*.csv"))
-        excel_files = list(downloads_dir.glob("*.xlsx"))
+        csv_files = [f for f in downloads_dir.glob("*.csv") if not f.name.startswith("~$")]
+        excel_files = [f for f in downloads_dir.glob("*.xlsx") if not f.name.startswith("~$")]
         
         # Prefer Excel files over CSV
         if excel_files:
@@ -486,7 +486,7 @@ def load_screener_data(file_path: str = None, excel_bytes: bytes = None) -> pd.D
     # Handle file path
     if file_path is None:
         downloads_dir = Path(config.TICKERTAPE_DOWNLOADS_DIR)
-        excel_files = list(downloads_dir.glob("*.xlsx"))
+        excel_files = [f for f in downloads_dir.glob("*.xlsx") if not f.name.startswith("~$")]
         
         if excel_files:
             file_path = str(excel_files[0])
@@ -547,7 +547,7 @@ def load_tickertape_data(file_path: str = None, excel_bytes: bytes = None) -> pd
     
     if file_path is None:
         downloads_dir = Path(config.TICKERTAPE_DOWNLOADS_DIR)
-        excel_files = list(downloads_dir.glob("*.xlsx"))
+        excel_files = [f for f in downloads_dir.glob("*.xlsx") if not f.name.startswith("~$")]
         if excel_files:
             file_path = str(excel_files[0])
     
