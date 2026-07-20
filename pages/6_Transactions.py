@@ -144,9 +144,9 @@ def render_transaction_form(df, editing_idx=None):
 
 # ── Add Transaction ───────────────────────────────────────────────────────────
 
-def add_transaction(data):
+def add_transaction(data, df):
     """Add a new transaction to the ledger."""
-    from core.database import append_ledger, upsert_holding
+    from core.database import append_ledger, upsert_holding, get_holdings
     
     if not data['Ticker']:
         st.error("Ticker/Symbol is required!")
@@ -172,6 +172,9 @@ def add_transaction(data):
             'TotalValue': data['TotalValue'],
             'Charges': data['Charges']
         })
+        
+        # Get fresh holdings data after adding transaction
+        holdings_df = get_holdings()
         
         # Update holdings
         current_price = data['ExecPrice']  # Use execution price as current price for new entries
@@ -403,7 +406,7 @@ if st.session_state.show_add_form:
     col1, col2 = st.columns(2)
     with col1:
         if form_data['submitted']:
-            add_transaction(form_data)
+            add_transaction(form_data, ledger_df)
     with col2:
         if st.button("❌ Cancel", use_container_width=True):
             st.session_state.show_add_form = False
