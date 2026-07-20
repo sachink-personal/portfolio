@@ -37,11 +37,15 @@ def load_holdings():
 if 'show_add_form' not in st.session_state:
     st.session_state.show_add_form = False
 
-if 'editing_row' not in st.session_state:
-    st.session_state.editing_row = None
+if 'show_edit_form' not in st.session_state:
+    st.session_state.show_edit_form = False
 
 if 'editing_idx' not in st.session_state:
     st.session_state.editing_idx = None
+
+# Clear form state after action
+if 'action_performed' not in st.session_state:
+    st.session_state.action_performed = False
 
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
@@ -50,7 +54,6 @@ with st.sidebar:
     st.subheader("⚙️ Actions")
     if st.button("➕ Add Transaction", use_container_width=True):
         st.session_state.show_add_form = True
-        st.session_state.editing_row = None
         st.session_state.editing_idx = None
     if st.button("🔄 Refresh Data", use_container_width=True):
         st.cache_data.clear()
@@ -67,84 +70,40 @@ except Exception as exc:
     st.stop()
 
 
-# ── Transaction forms ─────────────────────────────────────────────────────────
+# ── Transaction form functions ─────────────────────────────────────────────────
 
-def render_transaction_form(df, editing_idx=None):
-    """Render form to add or edit a transaction."""
+def get_form_data_from_row(row):
+    """Extract form data from a ledger row."""
+    if row is None:
+        return {
+            'Date': date.today(),
+            'Ticker': '',
+            'AssetClass': 'Stock',
+            'Action': 'BUY',
+            'Qty': 0.0,
+            'ExecPrice': 0.0,
+            'TotalValue': 0.0,
+            'Charges': 0.0
+        }
     
-    if editing_idx is not None and editing_idx >= 0 and editing_idx < len(df):
-        row = df.iloc[editing_idx]
-        default_date = row.get('Date', date.today())
-        default_date = pd.to_datetime(default_date).date() if pd.notna(default_date) else date.today()
-        default_ticker = str(row.get('Ticker', ''))
-        default_asset = str(row.get('AssetClass', 'Stock'))
-        default_action = str(row.get('Action', 'BUY'))
-        default_qty = float(row.get('Qty', 0))
-        default_price = float(row.get('ExecPrice', 0))
-        default_value = float(row.get('TotalValue', 0))
-        default_charges = float(row.get('Charges', 0))
-    else:
-        default_date = date.today()
-        default_ticker = ''
-        default_asset = 'Stock'
-        default_action = 'BUY'
-        default_qty = 0.0
-        default_price = 0.0
-        default_value = 0.0
-        default_charges = 0.0
-    
-    with st.form("transaction_form"):
-        c1, c2 = st.columns(2)
-        with c1:
-            trans_date = st.date_input("Transaction Date", value=default_date)
-            ticker = st.text_input("Ticker/Symbol", value=default_ticker, placeholder="e.g., TCS, HDFCFD_01, PPAS")
-        
-        with c2:
-            asset_class = st.selectbox(
-                "Asset Class",
-                options=["Stock", "Mutual Fund", "FD", "ETF"],
-                index=["Stock", "Mutual Fund", "FD", "ETF"].index(default_asset) if default_asset in ["Stock", "Mutual Fund", "FD", "ETF"] else 0
-            )
-            action = st.selectbox(
-                "Action",
-                options=["BUY", "SELL"],
-                index=0 if default_action == "BUY" else 1
-            )
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            qty = st.number_input("Quantity", min_value=0.0, value=default_qty, step=0.01)
-            exec_price = st.number_input("Execution Price", min_value=0.0, value=default_price, step=0.01)
-        
-        with col2:
-            total_value = st.number_input("Total Value", min_value=0.0, value=default_value, step=1.0)
-            charges = st.number_input("Charges & Taxes", min_value=0.0, value=default_charges, step=1.0)
-        
-        # Auto-calculate total value if not provided
-        if total_value == 0.0 and qty > 0 and exec_price > 0:
-            total_value = round(qty * exec_price, 2)
-        
-        st.caption(f"Total Value = Qty × Price: **₹{total_value:,.2f}**")
-        
-        submitted = st.form_submit_button("Save Transaction", use_container_width=True)
+    default_date = row.get('Date', date.today())
+    default_date = pd.to_datetime(default_date).date() if pd.notna(default_date) else date.today()
     
     return {
-        'submitted': submitted,
-        'Date': trans_date,
-        'Ticker': ticker.upper() if ticker else '',
-        'AssetClass': asset_class,
-        'Action': action,
-        'Qty': qty,
-        'ExecPrice': exec_price,
-        'TotalValue': total_value,
-        'Charges': charges,
-        'editing_idx': editing_idx
+        'Date': default_date,
+        'Ticker': str(row.get('Ticker', '')),
+        'AssetClass': str(row.get('AssetClass', 'Stock')),
+        'Action': str(row.get('Action', 'BUY')),
+        'Qty': float(row.get('Qty', 0)),
+        'ExecPrice': float(row.get('ExecPrice', 0)),
+        'TotalValue': float(row.get('TotalValue', 0)),
+        'Charges': float(row.get('Charges', 0))
     }
 
 
 # ── Add Transaction ───────────────────────────────────────────────────────────
 
-def add_transaction(data, df):
+def add_transaction(data):
     """Add a new transaction to the ledger."""
     from core.database import append_ledger, upsert_holding, get_holdings
     
@@ -177,25 +136,22 @@ def add_transaction(data, df):
         holdings_df = get_holdings()
         
         # Update holdings
-        current_price = data['ExecPrice']  # Use execution price as current price for new entries
+        current_price = data['ExecPrice']
         
         if data['Action'] == 'BUY':
-            # For BUY: Add quantity and update average price
             existing = holdings_df[holdings_df['Ticker'] == data['Ticker']]
             
             if len(existing) > 0:
-                # Update existing holding
                 old_qty = float(existing.iloc[0].get('Qty', 0))
                 old_avg_price = float(existing.iloc[0].get('AvgBuyPrice', 0))
                 new_qty = old_qty + data['Qty']
-                # Calculate new average price
                 old_total = old_qty * old_avg_price
                 new_total = old_total + (data['Qty'] * data['ExecPrice'])
                 new_avg_price = new_total / new_qty if new_qty > 0 else data['ExecPrice']
                 
                 upsert_holding({
                     'Ticker': data['Ticker'],
-                    'Name': data['Ticker'],  # Will be updated from Screener later
+                    'Name': data['Ticker'],
                     'AssetClass': data['AssetClass'],
                     'Qty': new_qty,
                     'AvgBuyPrice': round(new_avg_price, 2),
@@ -205,7 +161,6 @@ def add_transaction(data, df):
                     'CurrentWeight': 0.0
                 })
             else:
-                # New holding
                 upsert_holding({
                     'Ticker': data['Ticker'],
                     'Name': data['Ticker'],
@@ -218,7 +173,6 @@ def add_transaction(data, df):
                     'CurrentWeight': 0.0
                 })
         else:
-            # For SELL: Deduct quantity
             existing = holdings_df[holdings_df['Ticker'] == data['Ticker']]
             
             if len(existing) > 0:
@@ -226,7 +180,6 @@ def add_transaction(data, df):
                 new_qty = old_qty - data['Qty']
                 
                 if new_qty > 0:
-                    # Update quantity
                     upsert_holding({
                         'Ticker': data['Ticker'],
                         'Name': str(existing.iloc[0].get('Name', data['Ticker'])),
@@ -239,13 +192,9 @@ def add_transaction(data, df):
                         'CurrentWeight': 0.0
                     })
                 else:
-                    # Remove holding
                     from core.database import delete_holding
                     delete_holding(data['Ticker'])
         
-        st.success(f"Transaction added successfully!")
-        st.cache_data.clear()
-        st.rerun()
         return True
         
     except Exception as exc:
@@ -290,21 +239,16 @@ def edit_transaction(data, idx):
             old_holding_qty = float(holding.iloc[0].get('Qty', 0))
             old_holding_avg = float(holding.iloc[0].get('AvgBuyPrice', 0))
             
-            # Calculate the difference
             qty_diff = data['Qty'] - old_qty
             price_diff = data['ExecPrice'] - float(old_row.get('ExecPrice', 0))
             
-            # Adjust holdings based on the difference
             new_qty = old_holding_qty + qty_diff
             current_price = data['ExecPrice']
             
             if new_qty > 0:
-                # Recalculate average price
-                # This is a simplified recalculation - in production you might want to track each transaction
                 old_total_value = old_holding_qty * old_holding_avg
-                # Adjust by the difference in value
                 new_avg_price = (old_total_value + (qty_diff * old_row.get('ExecPrice', 0))) / new_qty
-                new_avg_price = data['ExecPrice']  # Use new price as average for simplicity
+                new_avg_price = data['ExecPrice']
                 
                 from core.database import upsert_holding
                 upsert_holding({
@@ -331,9 +275,6 @@ def edit_transaction(data, idx):
             'Charges': data['Charges']
         })
         
-        st.success(f"Transaction edited successfully!")
-        st.cache_data.clear()
-        st.rerun()
         return True
         
     except Exception as exc:
@@ -367,11 +308,9 @@ def delete_transaction(idx):
             new_qty = old_qty - qty if action == 'BUY' else old_qty + qty
             
             if new_qty <= 0:
-                # Remove holding
                 from core.database import delete_holding
                 delete_holding(ticker)
             else:
-                # Update quantity
                 from core.database import upsert_holding
                 upsert_holding({
                     'Ticker': ticker,
@@ -385,9 +324,6 @@ def delete_transaction(idx):
                     'CurrentWeight': 0.0
                 })
         
-        st.success(f"Transaction deleted successfully!")
-        st.cache_data.clear()
-        st.rerun()
         return True
         
     except Exception as exc:
@@ -397,45 +333,6 @@ def delete_transaction(idx):
 
 # ── Main UI ───────────────────────────────────────────────────────────────────
 
-# Add Transaction Modal
-if st.session_state.show_add_form:
-    st.divider()
-    st.subheader("➕ Add New Transaction")
-    form_data = render_transaction_form(ledger_df)
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        if form_data['submitted']:
-            add_transaction(form_data, ledger_df)
-    with col2:
-        if st.button("❌ Cancel", use_container_width=True):
-            st.session_state.show_add_form = False
-            st.session_state.editing_row = None
-            st.session_state.editing_idx = None
-            st.rerun()
-    
-    st.divider()
-
-# Edit Transaction Modal
-if st.session_state.editing_idx is not None:
-    st.divider()
-    st.subheader("✏️ Edit Transaction")
-    form_data = render_transaction_form(ledger_df, st.session_state.editing_idx)
-    
-    col1, col2 = st.columns(2)
-    with col1:
-        if form_data['submitted']:
-            edit_transaction(form_data, st.session_state.editing_idx)
-    with col2:
-        if st.button("❌ Cancel", use_container_width=True):
-            st.session_state.show_add_form = False
-            st.session_state.editing_row = None
-            st.session_state.editing_idx = None
-            st.rerun()
-    
-    st.divider()
-
-# Transaction List
 st.subheader("📋 Transaction History")
 
 if ledger_df.empty:
@@ -460,7 +357,6 @@ else:
     
     # Show as table with edit/delete buttons
     for idx in display_df.index:
-        # Get original row from ledger_df
         original_row = ledger_df.iloc[idx]
         
         col1, col2, col3, col4, col5, col6, col7 = st.columns([1.5, 1.5, 1, 1, 1.5, 1.5, 0.5])
@@ -482,14 +378,153 @@ else:
             col7a, col7b = st.columns(2)
             with col7a:
                 if st.button("✏️", key=f"edit_{idx}", help="Edit"):
+                    st.session_state.show_edit_form = True
                     st.session_state.editing_idx = idx
-                    st.rerun()
+                    st.session_state.edit_form_data = get_form_data_from_row(ledger_df.iloc[idx])
             with col7b:
                 if st.button("🗑️", key=f"delete_{idx}", help="Delete"):
-                    delete_transaction(idx)
+                    if delete_transaction(idx):
+                        st.cache_data.clear()
+                        st.rerun()
         
         st.caption(f"Value: {display_df.loc[idx, 'TotalValue']} | Charges: {display_df.loc[idx, 'Charges']}")
         st.divider()
+
+# Add Transaction Modal
+if st.session_state.show_add_form:
+    st.divider()
+    st.subheader("➕ Add New Transaction")
+    
+    with st.form("add_transaction_form"):
+        c1, c2 = st.columns(2)
+        with c1:
+            trans_date = st.date_input("Transaction Date", value=date.today())
+            ticker = st.text_input("Ticker/Symbol", placeholder="e.g., TCS, HDFCFD_01, PPAS")
+        
+        with c2:
+            asset_class = st.selectbox(
+                "Asset Class",
+                options=["Stock", "Mutual Fund", "FD", "ETF"],
+                index=0
+            )
+            action = st.selectbox(
+                "Action",
+                options=["BUY", "SELL"],
+                index=0
+            )
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            qty = st.number_input("Quantity", min_value=0.0, value=0.0, step=0.01)
+            exec_price = st.number_input("Execution Price", min_value=0.0, value=0.0, step=0.01)
+        
+        with col2:
+            total_value = st.number_input("Total Value", min_value=0.0, value=0.0, step=1.0)
+            charges = st.number_input("Charges & Taxes", min_value=0.0, value=0.0, step=1.0)
+        
+        # Auto-calculate total value if not provided
+        if total_value == 0.0 and qty > 0 and exec_price > 0:
+            total_value = round(qty * exec_price, 2)
+        
+        st.caption(f"Total Value = Qty × Price: **₹{total_value:,.2f}**")
+        
+        submitted = st.form_submit_button("Save Transaction", use_container_width=True)
+        cancel = st.form_submit_button("❌ Cancel", use_container_width=True)
+    
+    if submitted:
+        form_data = {
+            'Date': trans_date,
+            'Ticker': ticker.upper() if ticker else '',
+            'AssetClass': asset_class,
+            'Action': action,
+            'Qty': qty,
+            'ExecPrice': exec_price,
+            'TotalValue': total_value,
+            'Charges': charges
+        }
+        
+        if add_transaction(form_data):
+            st.session_state.show_add_form = False
+            st.session_state.action_performed = True
+            st.cache_data.clear()
+            st.rerun()
+        else:
+            st.error("Transaction failed to save.")
+    
+    if cancel:
+        st.session_state.show_add_form = False
+        st.rerun()
+    
+    st.divider()
+
+# Edit Transaction Modal
+if st.session_state.show_edit_form and 'edit_form_data' in st.session_state:
+    st.divider()
+    st.subheader("✏️ Edit Transaction")
+    
+    form_data = st.session_state.edit_form_data.copy()
+    
+    with st.form("edit_transaction_form"):
+        c1, c2 = st.columns(2)
+        with c1:
+            trans_date = st.date_input("Transaction Date", value=form_data['Date'])
+            ticker = st.text_input("Ticker/Symbol", value=form_data['Ticker'], disabled=True)
+        
+        with c2:
+            asset_class = st.selectbox(
+                "Asset Class",
+                options=["Stock", "Mutual Fund", "FD", "ETF"],
+                index=["Stock", "Mutual Fund", "FD", "ETF"].index(form_data['AssetClass'])
+            )
+            action = st.selectbox(
+                "Action",
+                options=["BUY", "SELL"],
+                index=0 if form_data['Action'] == "BUY" else 1
+            )
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            qty = st.number_input("Quantity", min_value=0.0, value=form_data['Qty'], step=0.01)
+            exec_price = st.number_input("Execution Price", min_value=0.0, value=form_data['ExecPrice'], step=0.01)
+        
+        with col2:
+            total_value = st.number_input("Total Value", min_value=0.0, value=form_data['TotalValue'], step=1.0)
+            charges = st.number_input("Charges & Taxes", min_value=0.0, value=form_data['Charges'], step=1.0)
+        
+        # Auto-calculate total value if not provided
+        if total_value == 0.0 and qty > 0 and exec_price > 0:
+            total_value = round(qty * exec_price, 2)
+        
+        st.caption(f"Total Value = Qty × Price: **₹{total_value:,.2f}**")
+        
+        submitted = st.form_submit_button("Save Changes", use_container_width=True)
+        cancel = st.form_submit_button("❌ Cancel", use_container_width=True)
+    
+    if submitted:
+        edit_data = {
+            'Date': trans_date,
+            'Ticker': ticker,
+            'AssetClass': asset_class,
+            'Action': action,
+            'Qty': qty,
+            'ExecPrice': exec_price,
+            'TotalValue': total_value,
+            'Charges': charges
+        }
+        
+        if edit_transaction(edit_data, st.session_state.editing_idx):
+            st.session_state.show_edit_form = False
+            st.session_state.action_performed = True
+            st.cache_data.clear()
+            st.rerun()
+        else:
+            st.error("Transaction failed to save.")
+    
+    if cancel:
+        st.session_state.show_edit_form = False
+        st.rerun()
+    
+    st.divider()
 
 # Summary
 if not ledger_df.empty:
