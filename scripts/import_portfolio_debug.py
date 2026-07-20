@@ -2,7 +2,7 @@
 One-time import script: reads portfolio-backup-2026-01-14.json and
 writes all holdings AND transactions to the SQLite database.
 
-Run: python scripts/import_portfolio_fixed.py
+Run: python scripts/import_portfolio_debug.py
 """
 import json
 import re
@@ -54,17 +54,12 @@ def parse_assets(data: dict) -> list[dict]:
         curr  = float(a.get("currentPrice", 0) or 0)
         value = float(a.get("value", 0) or 0)
 
-        # Always include assets in id_to_asset for transaction lookup,
-        # even if they have 0 units (sold holdings). The skip check below
-        # is only for display purposes in the Holdings table.
-        is_watchlist = units == 0 and value == 0
+        # Skip zero-unit watchlist / placeholder entries
+        if units == 0 and value == 0:
+            continue
 
         if atype == "STOCK":
-            raw_symbol = a.get("symbol")
-            if raw_symbol is None:
-                symbol = ""
-            else:
-                symbol = str(raw_symbol).replace(".NS", "").strip().upper()
+            symbol = a.get("symbol", "").replace(".NS", "").strip().upper()
             rows.append({
                 "id":           a.get("id"),
                 "Ticker":       symbol,
@@ -91,7 +86,6 @@ def parse_assets(data: dict) -> list[dict]:
                 "Value":        round(value, 2),
                 "TargetWeight": 0,
                 "CurrentWeight": 0,
-                "is_watchlist": is_watchlist,
             })
 
         elif atype == "FD":
@@ -106,70 +100,29 @@ def parse_assets(data: dict) -> list[dict]:
                 "Value":        round(value, 2),
                 "TargetWeight": 0,
                 "CurrentWeight": 0,
-                "is_watchlist": is_watchlist,
-            })
-
-        elif atype == "SAVINGS":
-            # Savings accounts use name as Ticker (e.g., "ICICI", "HDFC")
-            ticker = a.get("name", "").strip().upper() or f"Savings-{a.get('id', '')}"
-            rows.append({
-                "id":           a.get("id"),
-                "Ticker":       ticker,
-                "Name":         a.get("name", ""),
-                "AssetClass":   "SAVINGS",
-                "Qty":          round(units, 2),
-                "AvgBuyPrice":  round(avg, 2),
-                "CurrentPrice": round(curr, 2),
-                "Value":        round(value, 2),
-                "TargetWeight": 0,
-                "CurrentWeight": 0,
-                "is_watchlist": is_watchlist,
-            })
-
-        elif atype == "CASH":
-            # Cash accounts use "Cash" as Ticker
-            ticker = "CASH"
-            rows.append({
-                "id":           a.get("id"),
-                "Ticker":       ticker,
-                "Name":         a.get("name", ""),
-                "AssetClass":   "CASH",
-                "Qty":          round(units, 2),
-                "AvgBuyPrice":  round(avg, 2),
-                "CurrentPrice": round(curr, 2),
-                "Value":        round(value, 2),
-                "TargetWeight": 0,
-                "CurrentWeight": 0,
-                "is_watchlist": is_watchlist,
             })
 
     return rows
 
 
 def parse_transactions(data: dict, id_to_asset: dict) -> list[dict]:
-    """Map transactions to Ledger schema.
-    
-    Note: id_to_asset should be created from parse_assets() output.
-    The lookup dict has keys: id, Ticker, Name, AssetClass, Qty, AvgBuyPrice, 
-    CurrentPrice, Value, TargetWeight, CurrentWeight
-    """
+    """Map transactions to Ledger schema."""
     ledger = []
     for tx in data.get("transactions", []):
         asset_id = tx.get("assetId")
         asset_data = id_to_asset.get(asset_id)
         if asset_data:
-            # asset_data has 'Ticker' (already cleaned), not 'symbol'
-            ticker = asset_data.get("Ticker", "")
-            if ticker and ticker.strip():
-                # For stocks, re-classify based on ticker
-                aclass = classify_stock(ticker)
+            symbol = asset_data.get("symbol", "")
+            if symbol and symbol.strip():
+                ticker = symbol.replace(".NS", "").strip().upper()
             else:
-                # For MF/FD, use the AssetClass from parse_assets
-                aclass = asset_data.get("AssetClass", "")
+                ticker = str(asset_data.get("schemeCode", "")).strip()
+            aclass = asset_data.get("type", "")
+            if aclass == "STOCK":
+                aclass = classify_stock(ticker)
         else:
             ticker = f"ASSET-{asset_id}"
             aclass = ""
-        
         units    = float(tx.get("units", 0) or 0)
         price    = float(tx.get("price", 0) or 0)
         total    = round(units * price, 2)
