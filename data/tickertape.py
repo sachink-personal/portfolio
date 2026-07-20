@@ -207,6 +207,125 @@ def get_tickertape_signals_from_bytes(csv_bytes: bytes) -> pd.DataFrame:
     return approved
 
 
+def parse_tickertape_excel_from_bytes(excel_bytes: bytes) -> pd.DataFrame:
+    """
+    Parse Tickertape Excel file from bytes (uploaded file).
+    
+    Args:
+        excel_bytes: Raw Excel content bytes from file upload.
+    
+    Returns:
+        DataFrame with columns: [Ticker, Name, ROE, DE, RSI_Weekly, ROC_6M, Sector]
+    """
+    try:
+        df = pd.read_excel(io.BytesIO(excel_bytes), engine='openpyxl')
+    except Exception as exc:
+        raise ValueError(f"Could not read Excel: {exc}") from exc
+    
+    if df.empty:
+        raise ValueError("Excel file is empty.")
+    
+    df.columns = [c.strip() for c in df.columns]
+    
+    # Map columns (same as CSV parsing)
+    ticker_col = _find_col(df, _TICKER_ALIASES)
+    name_col = _find_col(df, _NAME_ALIASES)
+    roe_col = _find_col(df, _ROE_ALIASES)
+    de_col = _find_col(df, _DE_ALIASES)
+    rsi_col = _find_col(df, _RSI_ALIASES)
+    return_col = _find_col(df, _RETURN_ALIASES)
+    sector_col = _find_col(df, _SECTOR_ALIASES)
+    
+    if ticker_col is None:
+        raise ValueError(
+            f"Ticker column not found. Available columns: {df.columns.tolist()}\n"
+            "Expected one of: " + ", ".join(_TICKER_ALIASES)
+        )
+    
+    log.info(
+        "Tickertape Excel column mapping — Ticker:%s Name:%s ROE:%s D/E:%s RSI:%s 6MReturn:%s Sector:%s",
+        ticker_col, name_col, roe_col, de_col, rsi_col, return_col, sector_col,
+    )
+    
+    # Build result
+    result = pd.DataFrame()
+    result["Ticker"] = df[ticker_col].astype(str).str.strip().str.upper()
+    result["Name"] = df[name_col].astype(str).str.strip() if name_col else ""
+    result["Sector"] = df[sector_col].astype(str).str.strip() if sector_col else ""
+    
+    def _to_float(series):
+        if series is None:
+            return pd.Series([None] * len(result))
+        # Strip %, commas, spaces
+        cleaned = series.astype(str).str.replace(r"[%,\s]", "", regex=True)
+        return pd.to_numeric(cleaned, errors="coerce")
+    
+    result["ROE"] = _to_float(df[roe_col] if roe_col else None)
+    result["DE"] = _to_float(df[de_col] if de_col else None)
+    result["RSI_Weekly"] = _to_float(df[rsi_col] if rsi_col else None)
+    result["ROC_6M"] = _to_float(df[return_col] if return_col else None)
+    
+    # Drop rows without a valid ticker
+    result = result[result["Ticker"].str.len() > 0].reset_index(drop=True)
+    
+    log.info(
+        "Tickertape Excel parsed: %d stocks. "
+        "ROE available: %d, RSI: %d, ROC: %d",
+        len(result),
+        result["ROE"].notna().sum(),
+        result["RSI_Weekly"].notna().sum(),
+        result["ROC_6M"].notna().sum(),
+    )
+    return result
+
+
+def get_tickertape_signals_from_excel(excel_bytes: bytes) -> pd.DataFrame:
+    """
+    Full pipeline from uploaded Excel bytes:
+      1. Parse Tickertape Excel from bytes
+      2. Check EPS acceleration via yfinance
+      3. Return final approved DataFrame
+    
+    Args:
+        excel_bytes: Raw Excel content bytes from file upload.
+    
+    Returns:
+        DataFrame in Signals sheet format with Date, Ticker, Strategy, ROC_6M, RSI_Weekly, ROE, Sector
+    """
+    from datetime import date
+    from data.fundamentals import get_fundamentals
+    
+    df = parse_tickertape_excel_from_bytes(excel_bytes)
+    if df.empty:
+        return pd.DataFrame()
+    
+    tickers = df["Ticker"].tolist()
+    log.info("Checking EPS acceleration for %d Tickertape Excel candidates...", len(tickers))
+    
+    fund_df = get_fundamentals(tickers)[["Ticker", "EPSAccelerating"]]
+    df = df.merge(fund_df, on="Ticker", how="left")
+    
+    # Keep stocks where EPS is accelerating OR data unavailable (benefit of doubt)
+    approved = df[
+        df["EPSAccelerating"].isna() | (df["EPSAccelerating"] == True)
+    ].copy()
+    
+    today = date.today().isoformat()
+    approved.insert(0, "Date", today)
+    approved.insert(2, "Strategy", "TICKERTAPE_UPLOAD")
+    
+    # Final column order matching Signals sheet
+    signal_cols = ["Date", "Ticker", "Strategy", "ROC_6M", "RSI_Weekly", "ROE", "Sector"]
+    approved = approved[[c for c in signal_cols if c in approved.columns]]
+    approved = approved.sort_values("ROC_6M", ascending=False).reset_index(drop=True)
+    
+    log.info(
+        "Tickertape Excel upload pipeline complete: %d -> %d approved after EPS check.",
+        len(df), len(approved),
+    )
+    return approved
+
+
 def parse_tickertape_csv(csv_path: Optional[Path] = None) -> pd.DataFrame:
     """
     Parse a Tickertape screener CSV export.

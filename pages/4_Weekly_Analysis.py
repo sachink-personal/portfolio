@@ -12,6 +12,7 @@ import streamlit as st
 import io
 
 import config
+from core.recommendations import BuySellRecommendation
 
 st.set_page_config(page_title="Weekly Analysis", page_icon="📅", layout="wide")
 st.title("📅 Weekly Analysis")
@@ -92,130 +93,126 @@ with st.sidebar:
         st.cache_data.clear()
         st.rerun()
 
-# ── Store uploaded file bytes in session state ────────────────────────────────
-if "tickertape_upload_bytes" not in st.session_state:
-    st.session_state.tickertape_upload_bytes = None
+# ── File Uploads for Chartink and Screener Excel ─────────────────
+st.sidebar.divider()
+st.sidebar.subheader("📂 Upload Chartink Excel")
+chartink_file = st.sidebar.file_uploader(
+    "Upload Chartink Excel (.xlsx)",
+    type=["xlsx"],
+    help="Download Chartink export as Excel and upload for technical indicators (ROC, RSI)",
+    key="chartink_uploader"
+)
 
-# ── File Upload for Screener CSV ──────────────────────────────────────────────
-if current_mode == "tickertape":
-    st.sidebar.divider()
-    st.sidebar.subheader("📂 Upload Screener CSV")
-    uploaded_file = st.sidebar.file_uploader(
-        "Upload Tickertape Export CSV",
-        type=["csv"],
-        help="Download your Tickertape screen results as CSV and upload here",
-        key="file_uploader"
-    )
-    
-    # Process uploaded file if available
-    if uploaded_file is not None:
-        try:
-            # Read CSV from uploaded file
-            csv_bytes = uploaded_file.getvalue()
-            uploaded_df = pd.read_csv(io.BytesIO(csv_bytes))
-            
-            # Check required columns
-            required_cols = ["Ticker", "ROC_6M", "RSI_Weekly", "ROE"]
-            missing_cols = [col for col in required_cols if col not in uploaded_df.columns]
-            
-            if missing_cols:
-                st.sidebar.error(f"Missing columns: {', '.join(missing_cols)}")
-            else:
-                st.sidebar.success(f"✅ Loaded {len(uploaded_df)} candidates")
-                st.sidebar.caption(f"Columns: {', '.join(uploaded_df.columns.tolist())}")
-                
-                # Store bytes in session state
-                st.session_state.tickertape_upload_bytes = csv_bytes
-                st.sidebar.success("✅ File uploaded successfully!")
-                st.sidebar.info("Click 'Run Screen Now' below to process")
-                
-                # Show a preview
-                with st.sidebar.expander("📊 Preview uploaded file"):
-                    st.dataframe(uploaded_df.head(10), use_container_width=True)
-        except Exception as exc:
-            st.sidebar.error(f"Failed to process file: {exc}")
-            import traceback
-            st.sidebar.code(traceback.format_exc())
+# Store Chartink file bytes in session state
+if "chartink_upload_bytes" not in st.session_state:
+    st.session_state.chartink_upload_bytes = None
+
+if chartink_file is not None:
+    try:
+        chartink_bytes = chartink_file.getvalue()
+        chartink_df_upload = pd.read_excel(io.BytesIO(chartink_bytes), engine='openpyxl')
+        st.session_state.chartink_upload_bytes = chartink_bytes
+        
+        # Check required columns with flexible matching
+        chartink_col_map = {
+            "Symbol": ["Symbol", "SYMBOL", "symbol", "Ticker", "ticker", "scrip", " Scrip"],
+            "ROC_6M": ["ROC_6M", "ROC 6M", "ROC", "roc_6m", "roc", "6M ROC", "6m ROC"],
+            "RSI_Weekly": ["RSI_Weekly", "rsi_weekly", "RSI", "rsi", "RSI (W)", "rsi_w"]
+        }
+        
+        chartink_cols_found = {}
+        for col_key, possible_names in chartink_col_map.items():
+            for col_name in chartink_df_upload.columns:
+                for possible in possible_names:
+                    if col_name.strip().lower() == possible.strip().lower():
+                        chartink_cols_found[col_key] = col_name
+                        break
+                if col_key in chartink_cols_found:
+                    break
+        
+        chartink_cols_present = list(chartink_cols_found.keys())
+        
+        if len(chartink_cols_present) >= 2:  # At least Symbol + one other column
+            st.sidebar.success(f"✅ Loaded {len(chartink_df_upload)} Chartink records")
+            st.sidebar.caption(f"Columns found: {', '.join(chartink_cols_present)}")
+        else:
+            expected = list(chartink_col_map.keys())
+            st.sidebar.warning(f"Chartink file missing expected columns: {', '.join(expected)}")
+            st.sidebar.caption(f"Available columns: {', '.join(chartink_df_upload.columns.tolist())}")
+    except Exception as exc:
+        st.sidebar.error(f"Failed to process Chartink file: {exc}")
+        import traceback
+        st.sidebar.code(traceback.format_exc())
+
+st.sidebar.divider()
+st.sidebar.subheader("📂 Upload Screener Excel")
+screener_file = st.sidebar.file_uploader(
+    "Upload Screener Excel (.xlsx)",
+    type=["xlsx"],
+    help="Download Screener.in export as Excel and upload for fundamentals (ROE, D/E)",
+    key="screener_uploader"
+)
+
+# Store Screener file bytes in session state
+if "screener_upload_bytes" not in st.session_state:
+    st.session_state.screener_upload_bytes = None
+
+if screener_file is not None:
+    try:
+        screener_bytes = screener_file.getvalue()
+        screener_df_upload = pd.read_excel(io.BytesIO(screener_bytes), engine='openpyxl')
+        st.session_state.screener_upload_bytes = screener_bytes
+        
+        # Check required columns with flexible matching
+        screener_col_map = {
+            "Symbol": ["Symbol", "SYMBOL", "symbol", "Ticker", "ticker", "scrip", " Scrip", "Name", "name"],
+            "ROE %": ["ROE %", "ROE %", "RoE", "roe", "ROE", "Return on Equity", "RoE %"],
+            "Debt / Eq": ["Debt / Eq", "D/E", "Debt-Eq", "Debt to Eq", "Debt/Equity", "Debt / Equity"]
+        }
+        
+        screener_cols_found = {}
+        for col_key, possible_names in screener_col_map.items():
+            for col_name in screener_df_upload.columns:
+                for possible in possible_names:
+                    if col_name.strip().lower() == possible.strip().lower():
+                        screener_cols_found[col_key] = col_name
+                        break
+                if col_key in screener_cols_found:
+                    break
+        
+        screener_cols_present = list(screener_cols_found.keys())
+        
+        if len(screener_cols_present) >= 2:  # At least Symbol + one other column
+            st.sidebar.success(f"✅ Loaded {len(screener_df_upload)} Screener records")
+            st.sidebar.caption(f"Columns found: {', '.join(screener_cols_present)}")
+        else:
+            expected = list(screener_col_map.keys())
+            st.sidebar.warning(f"Screener file missing expected columns: {', '.join(expected)}")
+            st.sidebar.caption(f"Available columns: {', '.join(screener_df_upload.columns.tolist())}")
+    except Exception as exc:
+        st.sidebar.error(f"Failed to process Screener file: {exc}")
+        import traceback
+        st.sidebar.code(traceback.format_exc())
 
 # ── Run Screen banner (top of page body) ─────────────────────────────────────
 run_screen = False
 with st.container(border=True):
     bc1, bc2 = st.columns([3, 1])
     with bc1:
-        mode_label = "Tickertape CSV" if current_mode == "tickertape" else "Nifty 500 yfinance"
+        mode_label = "Nifty 500 yfinance"
         st.markdown(f"### 🤖 Auto-Screen &nbsp; `{mode_label}`")
-        if current_mode == "tickertape":
-            st.caption(
-                "Upload your Tickertape export CSV or drop CSV into the `downloads/` folder, then click Run Screen. "
-                "The tool reads it, checks EPS acceleration, and writes candidates to the signals database automatically."
-            )
-        else:
-            st.caption("Scans all Nifty 500 stocks for ROC, RSI and quality filters. Takes ~3-4 minutes.")
+    st.caption(
+        "Scans all Nifty 500 stocks for ROC, RSI and quality filters. "
+        "For manual screening:\n"
+        "1. Run saved screeners on Screener.in and Chartink.com\n"
+        "2. Export results as Excel files\n"
+        "3. Upload below\n"
+        "4. Click Refresh All to process"
+    )
     with bc2:
-        run_screen = st.button("▶ Run Screen Now", width="stretch", type="primary", key="run_screen_btn")
-
-# ── Auto-screen trigger ───────────────────────────────────────────────────────
-
-if run_screen:
-    log_lines = []
-    status_box = st.empty()
-
-    def _progress(msg: str):
-        log_lines.append(msg)
-        status_box.code("\n".join(log_lines[-20:]))  # Show last 20 lines
-
-    with st.spinner("Running screen…"):
-        try:
-            if current_mode == "tickertape":
-                from data.tickertape import get_tickertape_signals
-                
-                # Check if uploaded file bytes are available in session state
-                if st.session_state.tickertape_upload_bytes is not None:
-                    result_df = get_tickertape_signals(csv_bytes=st.session_state.tickertape_upload_bytes)
-                    _progress(f"✅ Tickertape screen (from upload) complete — {len(result_df)} candidates.")
-                else:
-                    # Fall back to reading from downloads folder
-                    result_df = get_tickertape_signals()
-                    _progress(f"✅ Tickertape screen complete — {len(result_df)} candidates.")
-            else:
-                from core.auto_screener import AutoScreener
-                result_df = AutoScreener(progress_callback=_progress).run(write_to_sheets=True)
-
-            if not result_df.empty and current_mode == "tickertape":
-                # Write to Signals database
-                from core.database import clear_signals, bulk_insert_signals
-                clear_signals()
-                signal_rows = []
-                for _, row in result_df.iterrows():
-                    signal_rows.append({
-                        "Date": row.get("Date", ""),
-                        "Ticker": row.get("Ticker", ""),
-                        "Strategy": row.get("Strategy", ""),
-                        "ROC_6M": float(row.get("ROC_6M", 0)),
-                        "RSI_Weekly": float(row.get("RSI_Weekly", 0)),
-                        "ROE": float(row.get("ROE", 0)),
-                        "Sector": row.get("Sector", ""),
-                    })
-                bulk_insert_signals(signal_rows)
-                _progress(f"✅ Signals updated with {len(result_df)} candidates.")
-
-            if result_df.empty:
-                st.warning("No candidates passed all filters.")
-            else:
-                st.success(f"{len(result_df)} candidates written to signals database.")
+        if st.button("🔄 Refresh All", width="stretch"):
             st.cache_data.clear()
             st.rerun()
-        except FileNotFoundError:
-            st.error(
-                "No Tickertape CSV found in `downloads/` folder.\n\n"
-                "**Steps:**\n"
-                "1. Run your saved Tickertape screen\n"
-                "2. Click Export → Download CSV\n"
-                "3. Move the file to the `downloads/` folder\n"
-                "4. Click Run Screen again"
-            )
-        except Exception as exc:
-            st.error(f"Screen failed: {exc}")
 
 # ── Load ──────────────────────────────────────────────────────────────────────
 
@@ -396,8 +393,195 @@ else:
 
 st.divider()
 
-# ── Sector Rotation (Auto-computed RRG) ──────────────────────────────────────
+# ── Buy/Sell Recommendations Engine ───────────────────────────────────────────
+st.subheader("⚖️ Buy/Sell Recommendations")
 
+# Load all required data for recommendations
+@st.cache_data(ttl=300)
+def get_recommendations_data():
+    from core.sheets import SheetsClient
+    from core.recommendations import BuySellRecommendation, load_chartink_data, load_screener_data, load_holdings_data
+    
+    sheets = SheetsClient()
+    holdings = sheets.get_holdings()
+    signals = sheets.get_signals()
+    market_history = sheets.get_market_history()
+    
+    # Load Chartink data from upload or downloads
+    chartink_df = load_chartink_data()
+    if st.session_state.chartink_upload_bytes is not None:
+        chartink_df = load_chartink_data(excel_bytes=st.session_state.chartink_upload_bytes)
+    
+    # Load Screener data from upload
+    screener_df = load_screener_data()
+    if st.session_state.screener_upload_bytes is not None:
+        screener_df = load_screener_data(excel_bytes=st.session_state.screener_upload_bytes)
+    
+    return holdings, chartink_df, screener_df
+
+holdings, chartink_df, screener_df = get_recommendations_data()
+
+# Generate recommendations
+def generate_recommendations(regime_data, chartink_df, screener_df, holdings_df):
+    """Generate buy/sell recommendations"""
+    if chartink_df is None or chartink_df.empty:
+        return None
+    
+    recommender = BuySellRecommendation()
+    recommender.set_regime(regime_data)
+    
+    if chartink_df is not None and not chartink_df.empty:
+        recommender.set_chartink_data(chartink_df)
+    
+    if screener_df is not None and not screener_df.empty:
+        recommender.set_screener_data(screener_df)
+    
+    if holdings_df is not None and not holdings_df.empty:
+        recommender.set_holdings(holdings_df)
+    
+    return recommender.generate_recommendations()
+
+recs = None
+if chartink_df is not None and not chartink_df.empty:
+    with st.spinner("Generating Buy/Sell Recommendations..."):
+        recs = generate_recommendations(regime, chartink_df, screener_df, holdings)
+
+if recs:
+    # Display summary
+    shield_col1, shield_col2 = st.columns(2)
+    with shield_col1:
+        shield_status = recs.get('defensive_shield_status', 'UNKNOWN')
+        shield_color = '#d4edda' if shield_status == 'CLEAR' else '#f8d7da'
+        st.markdown(
+            f'<div style="background:{shield_color};padding:12px;border-radius:8px;'
+            f'text-align:center;">'
+            f'<strong>🛡️ DEFENSIVE SHIELD</strong><br>'
+            f'{shield_status}'
+            f'</div>',
+            unsafe_allow_html=True
+        )
+    with shield_col2:
+        st.caption(recs.get('defensive_shield_reason', ''))
+    
+    if recs['defensive_shield_status'] == 'TRIGGERED':
+        st.warning("⚠️ Market Regime is Defensive - No new buyings recommended")
+        st.info("Recommendations shown below are for informational purposes only.")
+    
+    st.markdown("---")
+    
+    # Buy Suggestions
+    if recs.get('buy_suggestions'):
+        st.success(f"➡️ BUY SUGGESTIONS: {len(recs['buy_suggestions'])} candidates")
+        
+        for i, item in enumerate(recs['buy_suggestions'][:10], 1):
+            ticker = item.get('ticker', 'N/A')
+            price = item.get('price', 'N/A')
+            reasons = item.get('reasons', [])
+            chartink_data = item.get('chartink_data', {})
+            screener_data = item.get('screener_data', {})
+            
+            with st.expander(f"#{i} {ticker} @ ₹{price}", expanded=False):
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.subheader("Technical Factors")
+                    roc = chartink_data.get('ROC', chartink_data.get('roc', chartink_data.get('ROC_6M', 'N/A')))
+                    rsi = chartink_data.get('rsi', chartink_data.get('RSI', chartink_data.get('RSI_Weekly', 'N/A')))
+                    st.write(f"**ROC:** {roc}")
+                    st.write(f"**RSI:** {rsi}")
+                
+                with col2:
+                    st.subheader("Fundamental Factors")
+                    if screener_data:
+                        roe = screener_data.get('ROE', screener_data.get('ROE %', 'N/A'))
+                        de = screener_data.get('Debt / Eq', screener_data.get('D/E', 'N/A'))
+                    else:
+                        roe = 'N/A'
+                        de = 'N/A'
+                    st.write(f"**ROE:** {roe}")
+                    st.write(f"**D/E:** {de}")
+                
+                st.subheader("Reasons")
+                for reason in reasons:
+                    st.write(f"- {reason}")
+                
+                st.markdown("---")
+    else:
+        st.info("No BUY suggestions at this time.")
+    
+    st.markdown("---")
+    
+    # Sell Recommendations
+    if recs.get('sell_recommendations'):
+        st.error(f"⬇️ SELL RECOMMENDATIONS: {len(recs['sell_recommendations'])} holdings")
+        
+        for i, item in enumerate(recs['sell_recommendations'][:10], 1):
+            ticker = item.get('ticker', 'N/A')
+            price = item.get('price', 'N/A')
+            reasons = item.get('reasons', [])
+            chartink_data = item.get('chartink_data', {})
+            screener_data = item.get('screener_data', {})
+            holdings_data = item.get('holdings_data', {})
+            
+            with st.expander(f"#{i} {ticker} @ ₹{price}", expanded=False):
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.subheader("Current Holdings")
+                    qty = holdings_data.get('Quantity', 'N/A')
+                    avg_price = holdings_data.get('Avg Buy Price', 'N/A')
+                    st.write(f"**Quantity:** {qty}")
+                    st.write(f"**Avg Buy:** ₹{avg_price}")
+                
+                with col2:
+                    st.subheader("Sell Reasons")
+                    for reason in reasons:
+                        st.write(f"- {reason}")
+                
+                st.subheader("Technical Factors")
+                rsi = chartink_data.get('rsi', chartink_data.get('RSI', chartink_data.get('RSI_Weekly', 'N/A')))
+                st.write(f"**RSI:** {rsi}")
+                
+                st.markdown("---")
+    else:
+        st.info("No immediate SELL recommendations.")
+    
+    st.markdown("---")
+    
+    # Hold Recommendations
+    if recs.get('hold_recommendations'):
+        st.info(f"➡️ HOLD RECOMMENDATIONS: {len(recs['hold_recommendations'])} holdings")
+        
+        for i, item in enumerate(recs['hold_recommendations'][:10], 1):
+            ticker = item.get('ticker', 'N/A')
+            price = item.get('price', 'N/A')
+            reasons = item.get('reasons', [])
+            holdings_data = item.get('holdings_data', {})
+            
+            with st.expander(f"#{i} {ticker} @ ₹{price}", expanded=False):
+                col1, col2 = st.columns(2)
+                
+                with col1:
+                    st.subheader("Current Holdings")
+                    qty = holdings_data.get('Quantity', 'N/A')
+                    avg_price = holdings_data.get('Avg Buy Price', 'N/A')
+                    st.write(f"**Quantity:** {qty}")
+                    st.write(f"**Avg Buy:** ₹{avg_price}")
+                
+                with col2:
+                    st.subheader("Recommendation")
+                    for reason in reasons:
+                        st.write(f"- {reason}")
+                
+                st.markdown("---")
+    else:
+        st.info("All holdings are in good standing.")
+else:
+    st.warning("⚠️ Please upload Chartink Excel to generate recommendations")
+
+st.markdown("---")
+
+# ── Sector Rotation (Auto-computed RRG) ──────────────────────────────────────
 st.subheader("🔄 Sector Rotation (Auto-computed RRG)")
 st.caption(
     "Relative Rotation computed from NSE sectoral indices vs Nifty 500. "
