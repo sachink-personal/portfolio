@@ -459,21 +459,25 @@ else:
     display_df['Action'] = display_df['Action'].apply(format_action)
     
     # Show as table with edit/delete buttons
-    for idx, row in display_df.iterrows():
+    for idx in display_df.index:
+        # Get original row from ledger_df
+        original_row = ledger_df.iloc[idx]
+        
         col1, col2, col3, col4, col5, col6, col7 = st.columns([1.5, 1.5, 1, 1, 1.5, 1.5, 0.5])
         
         with col1:
-            st.write(f"**{row['Date']}**")
+            st.write(f"**{display_df.loc[idx, 'Date']}**")
         with col2:
-            st.write(f"**{row['Ticker']}**")
+            st.write(f"**{display_df.loc[idx, 'Ticker']}**")
         with col3:
-            st.write(f"{row['Action']}")
+            st.write(f"{display_df.loc[idx, 'Action']}")
         with col4:
-            st.write(f"{row['AssetClass']}")
+            st.write(f"{display_df.loc[idx, 'AssetClass']}")
         with col5:
-            st.write(f"₹{row['Qty']:,.2f}")
+            qty = original_row['Qty']
+            st.write(f"₹{qty:,.2f}")
         with col6:
-            st.write(f"{row['ExecPrice']}")
+            st.write(f"{display_df.loc[idx, 'ExecPrice']}")
         with col7:
             col7a, col7b = st.columns(2)
             with col7a:
@@ -484,7 +488,7 @@ else:
                 if st.button("🗑️", key=f"delete_{idx}", help="Delete"):
                     delete_transaction(idx)
         
-        st.caption(f"Value: {row['TotalValue']} | Charges: {row['Charges']}")
+        st.caption(f"Value: {display_df.loc[idx, 'TotalValue']} | Charges: {display_df.loc[idx, 'Charges']}")
         st.divider()
 
 # Summary
