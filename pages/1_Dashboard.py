@@ -214,12 +214,16 @@ with rc2:
         st.caption("Nifty 50 P/E Ratio - DATA UNAVAILABLE")
         st.warning("⚠️ Click REFRESH button or use sidebar manual input to fetch latest Nifty PE from yfinance")
         st.write(f"Overvalued > {config.PE_OVERVALUED} &nbsp;|&nbsp; Undervalued < {config.PE_UNDERVALUED}")
-        # Add manual PE input button
-        manual_pe_val = st.number_input("Enter Nifty 50 PE", min_value=0.0, max_value=60.0, value=0.0, step=0.1, key="manual_pe_input")
-        if manual_pe_val > 0 and st.button("🔄 Refresh PE", key="refresh_pe_button"):
-            st.session_state.manual_pe_override = manual_pe_val
-            st.cache_data.clear()
-            st.rerun()
+        
+        # Add manual PE input with refresh
+        col1, col2 = st.columns([2, 1])
+        with col1:
+            manual_pe_val = st.number_input("Enter Nifty 50 PE", min_value=0.0, max_value=60.0, value=0.0, step=0.1, key="manual_pe_input")
+        with col2:
+            if st.button("🔄 Refresh PE", key="refresh_pe_button"):
+                st.session_state.manual_pe_override = manual_pe_val
+                st.cache_data.clear()
+                st.rerun()
     else:
         st.markdown(f"#### {v_icon} {v}")
         st.caption("Nifty 50 P/E Ratio")
@@ -246,12 +250,16 @@ with rc3:
         st.markdown(f"#### {b_icon} {bstatus} [⚠️ REFRESH NEEDED]")
         st.caption("Market Breadth - DATA UNAVAILABLE")
         st.warning("⚠️ Upload Chartink CSV or enter breadth % in sidebar to enable")
-        # Add manual breadth input button
-        manual_breadth_val = st.number_input("Enter Market Breadth %", min_value=0.0, max_value=100.0, value=0.0, step=0.1, key="manual_breadth_input")
-        if manual_breadth_val > 0 and st.button("🔄 Refresh Breadth", key="refresh_breadth_button"):
-            st.session_state.manual_breadth_override = manual_breadth_val
-            st.cache_data.clear()
-            st.rerun()
+        
+        # Add manual breadth input with refresh
+        col1, col2 = st.columns([2, 1])
+        with col1:
+            manual_breadth_val = st.number_input("Enter Market Breadth %", min_value=0.0, max_value=100.0, value=0.0, step=0.1, key="manual_breadth_input")
+        with col2:
+            if st.button("🔄 Refresh Breadth", key="refresh_breadth_button"):
+                st.session_state.manual_breadth_override = manual_breadth_val
+                st.cache_data.clear()
+                st.rerun()
     else:
         st.markdown(f"#### {b_icon} {bstatus}")
         st.caption("Market Breadth (paste from Chartink)")
