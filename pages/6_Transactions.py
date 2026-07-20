@@ -366,14 +366,14 @@ else:
         with col2:
             st.write(f"**{display_df.loc[idx, 'Ticker']}**")
         with col3:
-            st.write(f"{display_df.loc[idx, 'Action']}")
+            st.markdown(display_df.loc[idx, 'Action'], unsafe_allow_html=True)
         with col4:
-            st.write(f"{display_df.loc[idx, 'AssetClass']}")
+            st.write(display_df.loc[idx, 'AssetClass'])
         with col5:
             qty = original_row['Qty']
             st.write(f"₹{qty:,.2f}")
         with col6:
-            st.write(f"{display_df.loc[idx, 'ExecPrice']}")
+            st.write(display_df.loc[idx, 'ExecPrice'])
         with col7:
             col7a, col7b = st.columns(2)
             with col7a:
