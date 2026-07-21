@@ -2,6 +2,10 @@
 .env
 credentials.json
 
+# Database
+*.db
+portfolio.db
+
 # Python
 __pycache__/
 *.pyc
