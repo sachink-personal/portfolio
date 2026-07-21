@@ -20,16 +20,18 @@ st.caption(f"Week ending {date.today().strftime('%d %B %Y')}")
 
 
 # ── Data loaders ──────────────────────────────────────────────────────────────
+# NOTE: Caching removed to comply with "ALL LIVE values" requirement
+# All data loaded fresh on each page load
 
-@st.cache_data(ttl=300)
 def load_data():
+    """Load portfolio data directly from database (LIVE — no caching)."""
     from core.sheets import SheetsClient
     sheets = SheetsClient()
     return sheets.get_holdings(), sheets.get_signals(), sheets.get_market_history()
 
 
-@st.cache_data(ttl=300)
 def load_regime(manual_pe: float, manual_breadth: float):
+    """Load market regime directly from live market data (no caching)."""
     from core.market_regime import MarketRegime
     return MarketRegime(
         manual_pe=manual_pe if manual_pe > 0 else None,
@@ -37,18 +39,16 @@ def load_regime(manual_pe: float, manual_breadth: float):
     ).get_full_regime()
 
 
-@st.cache_data(ttl=600)
 def run_signal_filter(signals_key: str):
-    """Cache the filtered signals. signals_key is used to bust cache when data changes."""
+    """Process signals and filter candidates (LIVE — no caching)."""
     from core.sheets import SheetsClient
     from core.signal_processor import SignalProcessor
     signals_df = SheetsClient().get_signals()
     return SignalProcessor(signals_df).filter_candidates()
 
 
-@st.cache_data(ttl=1800)
 def fetch_rsi_for_holdings(tickers_tuple: tuple):
-    """Fetch current weekly RSI for each holding (slow — cached 30 min)."""
+    """Fetch current weekly RSI for each holding (LIVE — no caching)."""
     from ta.momentum import RSIIndicator
     from data.equity import get_historical_ohlcv
     import pandas as pd
@@ -408,8 +408,8 @@ st.divider()
 st.subheader("⚖️ Buy/Sell Recommendations")
 
 # Load all required data for recommendations
-@st.cache_data(ttl=300)
 def get_recommendations_data():
+    """Load all data for recommendations (LIVE — no caching)."""
     from core.sheets import SheetsClient
     from core.recommendations import BuySellRecommendation, load_chartink_data, load_screener_data, load_holdings_data
     
@@ -599,16 +599,15 @@ st.caption(
     "**Leading** and **Improving** sectors are eligible for new buys."
 )
 
-@st.cache_data(ttl=3600)  # Cache 1 hour
 def load_rrg():
+    """Load sector rotation data (LIVE — no caching)."""
     from data.sector_rrg import compute_sector_rrg
     return compute_sector_rrg(period="1y")
 
 rrg_col, rrg_refresh_col = st.columns([4, 1])
 with rrg_refresh_col:
     if st.button("🔄 Refresh RRG", width="stretch"):
-        st.cache_data.clear()
-        st.rerun()
+        st.rerun()  # Rerun will load fresh RRG data
 
 with st.spinner("Computing sector rotation…"):
     rrg_df = load_rrg()

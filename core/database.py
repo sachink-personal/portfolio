@@ -48,55 +48,64 @@ def initialize_database(db_path: Optional[str] = None) -> None:
 def create_tables(session):
     """Execute CREATE TABLE IF NOT EXISTS for all four tables."""
     statements = [
-        # Holdings
+        # Holdings: NO DEFAULT 0 — all values must be explicitly provided
         text("""
             CREATE TABLE IF NOT EXISTS Holdings (
                 Ticker TEXT PRIMARY KEY,
-                Name TEXT,
-                AssetClass TEXT,
-                Qty REAL DEFAULT 0,
-                AvgBuyPrice REAL DEFAULT 0,
-                CurrentPrice REAL DEFAULT 0,
-                Value REAL DEFAULT 0,
-                TargetWeight REAL DEFAULT 0,
-                CurrentWeight REAL DEFAULT 0
+                Name TEXT NOT NULL,
+                AssetClass TEXT NOT NULL,
+                Qty REAL NOT NULL,
+                AvgBuyPrice REAL NOT NULL,
+                CurrentPrice REAL NOT NULL,
+                Value REAL NOT NULL,
+                TargetWeight REAL,
+                CurrentWeight REAL
             )
         """),
-        # Ledger
+        # Ledger: NO DEFAULT 0 for transaction data
         text("""
             CREATE TABLE IF NOT EXISTS Ledger (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                Date TEXT,
-                Ticker TEXT,
-                AssetClass TEXT,
-                Action TEXT,
-                Qty REAL DEFAULT 0,
-                ExecPrice REAL DEFAULT 0,
-                TotalValue REAL DEFAULT 0,
-                Charges REAL DEFAULT 0
+                Date TEXT NOT NULL,
+                Ticker TEXT NOT NULL,
+                AssetClass TEXT NOT NULL,
+                Action TEXT NOT NULL,
+                Qty REAL NOT NULL,
+                ExecPrice REAL NOT NULL,
+                TotalValue REAL NOT NULL,
+                Charges REAL
             )
         """),
-        # Signals
+        # Signals: Comprehensive signal data from Screener/Chartink imports
         text("""
             CREATE TABLE IF NOT EXISTS Signals (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                Date TEXT,
-                Ticker TEXT,
+                Date TEXT NOT NULL,
+                Ticker TEXT NOT NULL,
                 Strategy TEXT,
-                ROC_6M REAL DEFAULT 0,
-                RSI_Weekly REAL DEFAULT 0,
-                ROE REAL DEFAULT 0,
-                Sector TEXT
+                AssetClass TEXT,
+                Action TEXT,
+                Source TEXT,
+                CompanyName TEXT,
+                ROC_6M REAL,
+                RSI_14D REAL,
+                RSI_Weekly REAL,
+                ROE REAL,
+                MarketCap REAL,
+                DebtToEquity REAL,
+                Sector TEXT,
+                SubSector TEXT,
+                Metadata TEXT
             )
         """),
-        # MarketHistory
+        # MarketHistory: Allow NULL for optional market data
         text("""
             CREATE TABLE IF NOT EXISTS MarketHistory (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                Date TEXT,
-                PortfolioValue REAL DEFAULT 0,
-                Nifty500Close REAL DEFAULT 0,
-                Nifty500_200DMA REAL DEFAULT 0,
+                Date TEXT NOT NULL,
+                PortfolioValue REAL,
+                Nifty500Close REAL,
+                Nifty500_200DMA REAL,
                 PE_Ratio REAL,
                 BreadthPct REAL
             )
@@ -105,6 +114,46 @@ def create_tables(session):
     for stmt in statements:
         session.execute(stmt)
     session.commit()
+    
+    # ── Column Migration for existing databases ──
+    # Add missing columns to Signals table if they don't exist
+    migrate_signals_columns(session)
+    session.commit()
+
+def migrate_signals_columns(session):
+    """Add missing columns to the Signals table for existing databases.
+    The CREATE TABLE creates 16 columns but older databases may have fewer.
+    """
+    from sqlalchemy import text
+    
+    # Check existing table columns
+    existing = session.execute(
+        text("PRAGMA table_info(Signals)")
+    ).fetchall()
+    existing_cols = {row[1] for row in existing}  # row[1] = column name
+    
+    missing_cols = {
+        'Strategy': 'TEXT',
+        'ROC_6M': 'REAL',
+        'RSI_14D': 'REAL',
+        'RSI_Weekly': 'REAL',
+        'ROE': 'REAL',
+        'MarketCap': 'REAL',
+        'DebtToEquity': 'REAL',
+        'Sector': 'TEXT',
+        'SubSector': 'TEXT',
+        'Metadata': 'TEXT',
+    }
+    
+    for col_name, col_type in missing_cols.items():
+        if col_name not in existing_cols:
+            try:
+                session.execute(
+                    text(f"ALTER TABLE Signals ADD COLUMN {col_name} {col_type}")
+                )
+                log.info(f"Added missing column: {col_name} to Signals table")
+            except Exception as e:
+                log.warning(f"Failed to add column {col_name}: {e}")
 
 # ── Holdings ───────────────────────────────────────────────────────────────────
 
@@ -289,20 +338,33 @@ def clear_signals(db_path: Optional[str] = None) -> None:
         session.close()
 
 def append_signal(row: dict, db_path: Optional[str] = None) -> None:
-    """Append a single signal row."""
+    """Append a single signal row — stores ALL columns matching the Signals table schema."""
     session = get_session(db_path)
     try:
         session.execute(
-            text("""INSERT INTO Signals (Date, Ticker, Strategy, ROC_6M, RSI_Weekly, ROE, Sector)
-                    VALUES (:Date, :Ticker, :Strategy, :ROC_6M, :RSI_Weekly, :ROE, :Sector)"""),
+            text("""INSERT INTO Signals (Date, Ticker, Strategy, AssetClass, Action, Source,
+                                          CompanyName, ROC_6M, RSI_14D, RSI_Weekly, ROE, MarketCap,
+                                          DebtToEquity, Sector, SubSector, Metadata)
+                    VALUES (:Date, :Ticker, :Strategy, :AssetClass, :Action, :Source,
+                            :CompanyName, :ROC_6M, :RSI_14D, :RSI_Weekly, :ROE, :MarketCap,
+                            :DebtToEquity, :Sector, :SubSector, :Metadata)"""),
             {
                 "Date": row.get("Date", ""),
                 "Ticker": row.get("Ticker", ""),
                 "Strategy": row.get("Strategy", ""),
-                "ROC_6M": float(row.get("ROC_6M", 0)),
-                "RSI_Weekly": float(row.get("RSI_Weekly", 0)),
-                "ROE": float(row.get("ROE", 0)),
+                "AssetClass": row.get("AssetClass", ""),
+                "Action": row.get("Action", ""),
+                "Source": row.get("Source", ""),
+                "CompanyName": row.get("CompanyName", ""),
+                "ROC_6M": float(row.get("ROC_6M", 0)) if row.get("ROC_6M") is not None else None,
+                "RSI_14D": float(row.get("RSI_14D", 0)) if row.get("RSI_14D") is not None else None,
+                "RSI_Weekly": float(row.get("RSI_Weekly", 0)) if row.get("RSI_Weekly") is not None else None,
+                "ROE": float(row.get("ROE", 0)) if row.get("ROE") is not None else None,
+                "MarketCap": float(row.get("MarketCap", 0)) if row.get("MarketCap") is not None else None,
+                "DebtToEquity": float(row.get("DebtToEquity", 0)) if row.get("DebtToEquity") is not None else None,
                 "Sector": row.get("Sector", ""),
+                "SubSector": row.get("SubSector", ""),
+                "Metadata": row.get("Metadata"),
             },
         )
         session.commit()
@@ -310,25 +372,40 @@ def append_signal(row: dict, db_path: Optional[str] = None) -> None:
         session.close()
 
 def bulk_insert_signals(rows: list[dict], db_path: Optional[str] = None) -> None:
-    """Bulk-insert multiple signal rows efficiently."""
+    """Bulk-insert multiple signal rows — stores ALL columns matching the Signals table schema."""
     if not rows:
         return
     session = get_session(db_path)
     try:
-        for row in rows:
-            session.execute(
-                text("""INSERT INTO Signals (Date, Ticker, Strategy, ROC_6M, RSI_Weekly, ROE, Sector)
-                        VALUES (:Date, :Ticker, :Strategy, :ROC_6M, :RSI_Weekly, :ROE, :Sector)"""),
+        session.execute(
+            text("""INSERT INTO Signals (Date, Ticker, Strategy, AssetClass, Action, Source,
+                                          CompanyName, ROC_6M, RSI_14D, RSI_Weekly, ROE, MarketCap,
+                                          DebtToEquity, Sector, SubSector, Metadata)
+                    VALUES (:Date, :Ticker, :Strategy, :AssetClass, :Action, :Source,
+                            :CompanyName, :ROC_6M, :RSI_14D, :RSI_Weekly, :ROE, :MarketCap,
+                            :DebtToEquity, :Sector, :SubSector, :Metadata)"""),
+            [
                 {
                     "Date": row.get("Date", ""),
                     "Ticker": row.get("Ticker", ""),
                     "Strategy": row.get("Strategy", ""),
-                    "ROC_6M": float(row.get("ROC_6M", 0)),
-                    "RSI_Weekly": float(row.get("RSI_Weekly", 0)),
-                    "ROE": float(row.get("ROE", 0)),
+                    "AssetClass": row.get("AssetClass", ""),
+                    "Action": row.get("Action", ""),
+                    "Source": row.get("Source", ""),
+                    "CompanyName": row.get("CompanyName", ""),
+                    "ROC_6M": float(row.get("ROC_6M", 0)) if row.get("ROC_6M") is not None else None,
+                    "RSI_14D": float(row.get("RSI_14D", 0)) if row.get("RSI_14D") is not None else None,
+                    "RSI_Weekly": float(row.get("RSI_Weekly", 0)) if row.get("RSI_Weekly") is not None else None,
+                    "ROE": float(row.get("ROE", 0)) if row.get("ROE") is not None else None,
+                    "MarketCap": float(row.get("MarketCap", 0)) if row.get("MarketCap") is not None else None,
+                    "DebtToEquity": float(row.get("DebtToEquity", 0)) if row.get("DebtToEquity") is not None else None,
                     "Sector": row.get("Sector", ""),
-                },
-            )
+                    "SubSector": row.get("SubSector", ""),
+                    "Metadata": row.get("Metadata"),
+                }
+                for row in rows
+            ],
+        )
         session.commit()
     finally:
         session.close()
@@ -414,6 +491,14 @@ class SheetsClient:
 
     def clear_signals(self) -> None:
         clear_signals(self._db_path)
+
+    def append_signal(self, row: dict) -> None:
+        """Append a single signal row — delegates to module-level function."""
+        append_signal(row, self._db_path)
+
+    def bulk_insert_signals(self, rows: list[dict]) -> None:
+        """Bulk-insert multiple signal rows — delegates to module-level function."""
+        bulk_insert_signals(rows, self._db_path)
 
     # ── Market History ────────────────────────────────────────────────────────
 

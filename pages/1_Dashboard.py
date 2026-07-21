@@ -18,16 +18,18 @@ st.caption(f"Data as of {date.today().strftime('%d %B %Y')}")
 
 
 # ── Data loaders ──────────────────────────────────────────────────────────────
+# NOTE: All caching removed to comply with "ALL LIVE values" requirement
+# Database queries are fast enough for real-time use (SQLite is instant)
 
-@st.cache_data(ttl=300)
 def load_portfolio_data():
+    """Load portfolio data directly from database (LIVE — no caching)."""
     from core.sheets import SheetsClient
     sheets = SheetsClient()
     return sheets.get_holdings(), sheets.get_market_history(), sheets.get_ledger()
 
 
-@st.cache_data(ttl=300)
 def load_regime(manual_pe: float, manual_breadth: float):
+    """Load market regime directly from live market data (no caching)."""
     from core.market_regime import MarketRegime
     return MarketRegime(
         manual_pe=manual_pe if manual_pe > 0 else None,

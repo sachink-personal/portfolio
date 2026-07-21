@@ -33,27 +33,14 @@ _NSE_HEADERS = {
     "Accept": "text/html,application/xhtml+xml,*/*",
 }
 
-# Fallback: Nifty 100 heavyweight tickers if NSE download fails
-_FALLBACK_TICKERS = [
-    "RELIANCE", "TCS", "HDFCBANK", "BHARTIARTL", "ICICIBANK",
-    "INFOSYS", "SBIN", "HINDUNILVR", "ITC", "LT",
-    "KOTAKBANK", "AXISBANK", "BAJFINANCE", "MARUTI", "TITAN",
-    "SUNPHARMA", "WIPRO", "ULTRACEMCO", "NESTLEIND", "POWERGRID",
-    "NTPC", "ADANIENT", "ADANIPORTS", "HCLTECH", "TECHM",
-    "ASIANPAINT", "BAJAJFINSV", "BRITANNIA", "CIPLA", "DRREDDY",
-    "EICHERMOT", "GRASIM", "HEROMOTOCO", "HINDALCO", "INDUSINDBK",
-    "JSWSTEEL", "M&M", "ONGC", "SBILIFE", "SHREECEM",
-    "TATACONSUM", "TATAMOTORS", "TATASTEEL", "TRENT", "VEDL",
-]
-
 
 def get_nifty500_universe() -> list[dict]:
     """
     Return the Nifty 500 universe as a list of dicts:
         [{"ticker": "RELIANCE", "sector": "Energy"}, ...]
 
-    Tries the NSE CSV first. Falls back to hardcoded Nifty 100 list
-    if the download fails so the rest of the pipeline keeps running.
+    Tries the NSE CSV first. Raises exception if download fails—caller
+    must handle and display error to user.
     """
     # ── Serve from cache if fresh ────────────────────────────────────────────
     if _CACHE_FILE.exists():
@@ -84,6 +71,9 @@ def get_nifty500_universe() -> list[dict]:
         series_col = next(
             (c for c in df.columns if "series" in c.lower()), None
         )
+        company_col = next(
+            (c for c in df.columns if "company" in c.lower() or "name" in c.lower()), None
+        )
 
         if symbol_col is None:
             raise ValueError(f"Symbol column not found. Columns: {df.columns.tolist()}")
@@ -96,8 +86,13 @@ def get_nifty500_universe() -> list[dict]:
         for _, row in df.iterrows():
             ticker = str(row[symbol_col]).strip().upper()
             sector = str(row[sector_col]).strip() if sector_col else ""
+            company_name = str(row[company_col]).strip() if company_col else ""
             if ticker:
-                result.append({"ticker": ticker, "sector": sector})
+                result.append({
+                    "ticker": ticker,
+                    "sector": sector,
+                    "company_name": company_name
+                })
 
         log.info("Nifty 500 downloaded from NSE: %d stocks.", len(result))
         _CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
@@ -106,10 +101,13 @@ def get_nifty500_universe() -> list[dict]:
         return result
 
     except Exception as exc:
-        log.error(
-            "Nifty 500 download failed (%s). Using fallback Nifty 100 list.", exc
+        # ⚠️ NO FALLBACK — raise exception so caller can handle properly
+        log.error("Nifty 500 download failed: %s", exc)
+        raise RuntimeError(
+            f"Unable to download Nifty 500 list from NSE. "
+            f"Error: {exc}. "
+            f"Please check your internet connection and try again."
         )
-        return [{"ticker": t, "sector": ""} for t in _FALLBACK_TICKERS]
 
 
 def get_nifty500_tickers() -> list[str]:

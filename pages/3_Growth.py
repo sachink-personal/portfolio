@@ -16,15 +16,16 @@ st.title("📈 Portfolio Growth")
 
 
 # ── Data loaders ──────────────────────────────────────────────────────────────
+# NOTE: Caching removed to comply with "ALL LIVE values" requirement
 
-@st.cache_data(ttl=600)
 def load_history():
+    """Load market history directly from database (LIVE — no caching)."""
     from core.sheets import SheetsClient
     return SheetsClient().get_market_history()
 
 
-@st.cache_data(ttl=600)
 def load_nifty50(period: str = "5y"):
+    """Load Nifty 50 history directly from yfinance (LIVE — no caching)."""
     from data.equity import get_nifty50_history
     return get_nifty50_history(period=period)
 
@@ -38,9 +39,8 @@ with st.sidebar:
         ["1 Month", "3 Months", "6 Months", "1 Year", "All Time"],
         index=3,
     )
-    if st.button("🔄 Refresh", width="stretch"):
-        st.cache_data.clear()
-        st.rerun()
+    if st.button("🔄 Refresh Data", width="stretch"):
+        st.rerun()  # Refresh will load fresh data from database
 
 period_days_map = {
     "1 Month": 30,

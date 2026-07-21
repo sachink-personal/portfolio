@@ -14,9 +14,10 @@ st.title("📦 Portfolio Holdings")
 
 
 # ── Data loader ───────────────────────────────────────────────────────────────
+# NOTE: Caching removed to comply with "ALL LIVE values" requirement
 
-@st.cache_data(ttl=120)
 def load_holdings():
+    """Load holdings directly from database (LIVE — no caching)."""
     from core.sheets import SheetsClient
     return SheetsClient().get_holdings()
 

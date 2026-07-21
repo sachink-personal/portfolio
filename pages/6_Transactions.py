@@ -9,6 +9,7 @@ import logging
 
 import pandas as pd
 import streamlit as st
+from sqlalchemy import text
 
 import config
 from core.database import get_engine, get_session
@@ -17,17 +18,16 @@ st.set_page_config(page_title="Transactions", page_icon="📝", layout="wide")
 st.title("📝 Transactions Ledger")
 
 # ── Data loaders ──────────────────────────────────────────────────────────────
+# NOTE: Caching removed to comply with "ALL LIVE values" requirement
 
-@st.cache_data(ttl=300)
 def load_ledger():
-    """Load ledger data."""
+    """Load ledger data directly from database (LIVE — no caching)."""
     from core.database import get_ledger
     return get_ledger()
 
 
-@st.cache_data(ttl=300)
 def load_holdings():
-    """Load holdings data."""
+    """Load holdings data directly from database (LIVE — no caching)."""
     from core.database import get_holdings
     return get_holdings()
 
@@ -286,7 +286,7 @@ def edit_transaction(data, idx):
 
 def delete_transaction(idx):
     """Delete a transaction."""
-    from core.database import get_engine, text
+    from core.database import get_engine
     
     try:
         row = ledger_df.iloc[idx]
@@ -297,7 +297,10 @@ def delete_transaction(idx):
         # Delete from ledger
         engine = get_engine()
         with engine.connect() as conn:
-            conn.execute(text(f"DELETE FROM Ledger WHERE id = {row.name + 1}"))
+            conn.execute(
+                text("DELETE FROM Ledger WHERE id = :ledger_id"),
+                {"ledger_id": int(row["id"])},
+            )
             conn.commit()
         
         # Update holdings
@@ -338,58 +341,70 @@ st.subheader("📋 Transaction History")
 if ledger_df.empty:
     st.info("No transactions found. Click '➕ Add Transaction' to begin.")
 else:
-    # Create display dataframe
+    def format_currency(value):
+        return f"₹{float(value):,.2f}"
+
+    def format_number(value):
+        return f"{float(value):,.2f}"
+
+    def format_action(action):
+        action = str(action).upper()
+        return f":green[**{action}**]" if action == "BUY" else f":red[**{action}**]"
+
+    # Create display dataframe while preserving the original ledger position.
     display_df = ledger_df.copy()
+    display_df["_ledger_pos"] = range(len(display_df))
     display_df = display_df.sort_values('Date', ascending=False).reset_index(drop=True)
     
     # Format columns
     display_df['Date'] = pd.to_datetime(display_df['Date']).dt.strftime('%d %b %Y')
-    display_df['ExecPrice'] = display_df['ExecPrice'].apply(lambda x: f"₹{x:,.2f}")
-    display_df['TotalValue'] = display_df['TotalValue'].apply(lambda x: f"₹{x:,.2f}")
-    display_df['Charges'] = display_df['Charges'].apply(lambda x: f"₹{x:,.2f}")
-    
-    # Add action badges
-    def format_action(val):
-        color = "#4CAF50" if val == "BUY" else "#F44336"
-        return f'<span style="background-color:{color};color:white;padding:2px 8px;border-radius:3px;font-weight:bold;">{val}</span>'
-    
-    display_df['Action'] = display_df['Action'].apply(format_action)
+    display_df['Qty'] = display_df['Qty'].apply(format_number)
+    display_df['ExecPrice'] = display_df['ExecPrice'].apply(format_currency)
+    display_df['TotalValue'] = display_df['TotalValue'].apply(format_currency)
+    display_df['Charges'] = display_df['Charges'].apply(format_currency)
     
     # Show as table with edit/delete buttons
+    header_cols = st.columns([1.2, 1.4, 0.8, 1.1, 1, 1.2, 1.3, 1, 0.8])
+    headers = ["Date", "Ticker", "Action", "Asset", "Qty", "Price", "Value", "Charges", ""]
+    for header_col, header in zip(header_cols, headers):
+        header_col.markdown(f"**{header}**")
+
     for idx in display_df.index:
-        original_row = ledger_df.iloc[idx]
+        row_pos = int(display_df.loc[idx, "_ledger_pos"])
+        original_row = ledger_df.iloc[row_pos]
         
-        col1, col2, col3, col4, col5, col6, col7 = st.columns([1.5, 1.5, 1, 1, 1.5, 1.5, 0.5])
+        col1, col2, col3, col4, col5, col6, col7, col8, col9 = st.columns([1.2, 1.4, 0.8, 1.1, 1, 1.2, 1.3, 1, 0.8])
         
         with col1:
-            st.write(f"**{display_df.loc[idx, 'Date']}**")
+            st.write(display_df.loc[idx, 'Date'])
         with col2:
             st.write(f"**{display_df.loc[idx, 'Ticker']}**")
         with col3:
-            st.markdown(display_df.loc[idx, 'Action'], unsafe_allow_html=True)
+            st.markdown(format_action(display_df.loc[idx, 'Action']))
         with col4:
             st.write(display_df.loc[idx, 'AssetClass'])
         with col5:
-            qty = original_row['Qty']
-            st.write(f"₹{qty:,.2f}")
+            st.write(display_df.loc[idx, 'Qty'])
         with col6:
             st.write(display_df.loc[idx, 'ExecPrice'])
         with col7:
-            col7a, col7b = st.columns(2)
-            with col7a:
+            st.write(display_df.loc[idx, 'TotalValue'])
+        with col8:
+            st.write(display_df.loc[idx, 'Charges'])
+        with col9:
+            action_cols = st.columns(2)
+            with action_cols[0]:
                 if st.button("✏️", key=f"edit_{idx}", help="Edit"):
                     st.session_state.show_edit_form = True
-                    st.session_state.editing_idx = idx
-                    st.session_state.edit_form_data = get_form_data_from_row(ledger_df.iloc[idx])
-            with col7b:
+                    st.session_state.editing_idx = row_pos
+                    st.session_state.edit_form_data = get_form_data_from_row(original_row)
+            with action_cols[1]:
                 if st.button("🗑️", key=f"delete_{idx}", help="Delete"):
-                    if delete_transaction(idx):
+                    if delete_transaction(row_pos):
                         st.cache_data.clear()
                         st.rerun()
         
-        st.caption(f"Value: {display_df.loc[idx, 'TotalValue']} | Charges: {display_df.loc[idx, 'Charges']}")
         st.divider()
-
 # Add Transaction Modal
 if st.session_state.show_add_form:
     st.divider()
