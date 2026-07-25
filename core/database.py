@@ -158,7 +158,8 @@ def migrate_signals_columns(session):
 # ── Holdings ───────────────────────────────────────────────────────────────────
 
 def get_holdings(db_path: Optional[str] = None) -> pd.DataFrame:
-    """Return the Holdings table as a DataFrame."""
+    """Return the Holdings table as a DataFrame. Creates tables if they don't exist."""
+    _ensure_tables(db_path)
     session = get_session(db_path)
     try:
         df = pd.read_sql_table("Holdings", session.bind)
@@ -166,6 +167,14 @@ def get_holdings(db_path: Optional[str] = None) -> pd.DataFrame:
             "Ticker", "Name", "AssetClass", "Qty", "AvgBuyPrice",
             "CurrentPrice", "Value", "TargetWeight", "CurrentWeight"
         ])
+    finally:
+        session.close()
+
+def _ensure_tables(db_path: Optional[str] = None) -> None:
+    """Ensure all required tables exist, creating them if necessary."""
+    session = get_session(db_path)
+    try:
+        create_tables(session)
     finally:
         session.close()
 
@@ -260,7 +269,8 @@ def delete_holding(ticker: str, db_path: Optional[str] = None) -> None:
 # ── Ledger ─────────────────────────────────────────────────────────────────────
 
 def get_ledger(db_path: Optional[str] = None) -> pd.DataFrame:
-    """Return the Ledger table as a DataFrame with Date parsed."""
+    """Return the Ledger table as a DataFrame with Date parsed. Creates tables if they don't exist."""
+    _ensure_tables(db_path)
     session = get_session(db_path)
     try:
         df = pd.read_sql_table("Ledger", session.bind)
@@ -320,7 +330,8 @@ def bulk_insert_ledger(rows: list[dict], db_path: Optional[str] = None) -> None:
 # ── Signals ────────────────────────────────────────────────────────────────────
 
 def get_signals(db_path: Optional[str] = None) -> pd.DataFrame:
-    """Return the Signals table as a DataFrame."""
+    """Return the Signals table as a DataFrame. Creates tables if they don't exist."""
+    _ensure_tables(db_path)
     session = get_session(db_path)
     try:
         df = pd.read_sql_table("Signals", session.bind)
@@ -413,7 +424,8 @@ def bulk_insert_signals(rows: list[dict], db_path: Optional[str] = None) -> None
 # ── Market History ─────────────────────────────────────────────────────────────
 
 def get_market_history(db_path: Optional[str] = None) -> pd.DataFrame:
-    """Return the MarketHistory table sorted by date ascending."""
+    """Return the MarketHistory table sorted by date ascending. Creates tables if they don't exist."""
+    _ensure_tables(db_path)
     session = get_session(db_path)
     try:
         df = pd.read_sql_table("MarketHistory", session.bind)
