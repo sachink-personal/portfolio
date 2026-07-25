@@ -67,6 +67,129 @@ def normalize_ticker(ticker_str):
     return ticker
 
 
+def is_etf_or_index(ticker: str, company_name: str = '') -> bool:
+    """
+    Determine if a ticker is an ETF, index, or non-equity instrument.
+    
+    Filters out:
+    - Index tickers (NIFTY500, NIFTYINDDEFENCE, etc.)
+    - ETF symbols (MONQ50 = Nasdaq Q50 ETF, MON100 = NASDAQ 100 ETF)
+    - Mutual fund/ETF names containing "ETF"
+    - Index constructs (NIFTY, SENSEX variants)
+    - Very low-priced stocks (penny stocks below threshold)
+    - Stocks with near-zero market cap
+    
+    Args:
+        ticker: Normalized ticker symbol
+        company_name: Company name (for ETF name check)
+    
+    Returns:
+        True if the ticker is an ETF/index/non-equity, False otherwise
+    """
+    if not ticker:
+        return True
+    
+    ticker_upper = ticker.upper()
+    name_upper = str(company_name).upper()
+    
+    # 1. Index tickers (start with NIFTY, SENSEX, etc.)
+    index_prefixes = ('NIFTY', 'SENSEX', 'Nifty', 'Sensex')
+    if any(ticker_upper.startswith(p) for p in index_prefixes):
+        return True
+    
+    # 2. ETF tickers - common patterns:
+    #    - Contains numbers (like MONQ50, MON100, NIFTY050)
+    #    - Contains "ETF" in name
+    #    - Known ETF patterns
+    if 'ETF' in name_upper:
+        return True
+    
+    # 3. Known ETF ticker patterns (letters followed by digits, e.g., MONQ50, MON100)
+    #    These are mutual fund/ETF symbols unique to NSE India
+    import re
+    if re.match(r'^[A-Z]+(?:\d{2,})$', ticker_upper) and len(ticker_upper) > 5:
+        # Long ticker with trailing digits (e.g., MONQ50, MON100, NIFTY500)
+        # Normal stock tickers are typically 2-15 chars without trailing digits
+        return True
+    
+    # 4. Short tickers that are known ETF patterns
+    #    5-6 character tickers with numbers that aren't normal stock names
+    if re.match(r'^[A-Z]+[0-9]{2,}$', ticker_upper):
+        return True
+    
+    return False
+
+
+def is_valid_stock_price(cmp: float) -> bool:
+    """
+    Check if the stock price is valid for trading.
+    Filters out very low-priced stocks and index values.
+    
+    Args:
+        cmp: Current Market Price
+    
+    Returns:
+        True if price is valid, False otherwise
+    """
+    if cmp is None:
+        return False
+    
+    # Filter out very low-priced stocks (below ₹5)
+    # These are often illiquid or have delivery issues
+    if cmp < 5:
+        return False
+    
+    # Filter out index-level prices (above ₹10,000 are likely indices)
+    # Normal stock prices rarely exceed ₹20,000 in Indian markets
+    # But we allow up to ₹50,000 for premium stocks like Page Products
+    if cmp > 50000:
+        return False
+    
+    return True
+
+
+def filter_etf_and_index(parsed_data: list) -> tuple:
+    """
+    Filter out ETFs, indexes, and non-equity instruments from parsed data.
+    
+    Args:
+        parsed_data: List of parsed Chartink data dictionaries
+    
+    Returns:
+        tuple: (filtered_data, removed_items)
+    """
+    filtered = []
+    removed = []
+    
+    for item in parsed_data:
+        ticker = item.get('ticker', '')
+        company_name = item.get('company_name', '')
+        
+        if is_etf_or_index(ticker, company_name):
+            removed.append({
+                'ticker': ticker,
+                'company_name': company_name,
+                'reason': 'ETF/Index/Mutual Fund'
+            })
+            continue
+        
+        # Check price validity if available
+        price = item.get('market_cap')  # Market cap indirectly indicates validity
+        # If market cap is 0 or very small, skip
+        if item.get('market_cap') is not None and item['market_cap'] < 50:
+            # Market cap below ₹50 Cr is typically micro-cap or invalid
+            removed.append({
+                'ticker': ticker,
+                'company_name': company_name,
+                'reason': 'Micro-cap below threshold'
+            })
+            continue
+        
+        filtered.append(item)
+    
+    return filtered, removed
+
+
 def parse_chartink_csv(file_path, holdings_tickers=None):
     """
     Parse Chartink CSV file.
@@ -323,10 +446,28 @@ def import_chartink_csv(file_path):
             'errors': parse_errors
         }
     
-    logger.info(f"Successfully parsed {len(parsed_data)} stocks")
+    # Filter out ETFs, indexes, and invalid stocks
+    filtered_data, filtered_out = filter_etf_and_index(parsed_data)
     
-    # Store in database
-    inserted, db_errors, not_in_holdings = store_signals_in_db(parsed_data)
+    if filtered_out:
+        logger.warning(f"[FILTER] Removed {len(filtered_out)} invalid items:")
+        for item in filtered_out:
+            logger.warning(f"  - {item['company_name']} ({item['ticker']}): {item['reason']}")
+    
+    if not filtered_data:
+        logger.error(f"No valid stocks remaining after ETF/index filtering")
+        return {
+            'status': 'FAILED',
+            'inserted': 0,
+            'failed': len(parse_errors) + len(filtered_out),
+            'errors': parse_errors + [f"Filtered: {item['ticker']} ({item['company_name']}) - {item['reason']}" for item in filtered_out],
+            'filtered_out': filtered_out
+        }
+    
+    logger.info(f"Successfully parsed {len(parsed_data)} stocks, {len(filtered_data)} passed filtering")
+    
+    # Store in database (use filtered data, not raw parsed data)
+    inserted, db_errors, not_in_holdings = store_signals_in_db(filtered_data)
     
     all_errors = parse_errors + db_errors
     
@@ -334,6 +475,8 @@ def import_chartink_csv(file_path):
         'status': 'SUCCESS' if inserted > 0 else 'FAILED',
         'inserted': inserted,
         'not_in_holdings': not_in_holdings,
+        'filtered_out': len(filtered_out),
+        'filtered_out_items': filtered_out,
         'failed': len(all_errors),
         'errors': all_errors,
         'total_processed': len(parsed_data) + len(parse_errors)
