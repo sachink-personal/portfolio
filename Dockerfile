@@ -16,9 +16,6 @@ COPY pages ./pages
 COPY scripts ./scripts
 COPY downloads ./downloads
 
-# Copy the pre-seeded database with portfolio data
-COPY portfolio.db ./portfolio.db
-
 EXPOSE 8080
 
 CMD ["sh", "-c", "streamlit run app.py --server.port ${PORT:-8080} --server.address 0.0.0.0 --server.enableCORS false"]
