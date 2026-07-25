@@ -16,6 +16,9 @@ COPY pages ./pages
 COPY scripts ./scripts
 COPY downloads ./downloads
 
+# Initialize database with all tables during build
+RUN python -c "from core.database import initialize_database; initialize_database()"
+
 EXPOSE 8080
 
 CMD ["sh", "-c", "streamlit run app.py --server.port ${PORT:-8080} --server.address 0.0.0.0 --server.enableCORS false"]
